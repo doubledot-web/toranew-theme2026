@@ -1,0 +1,158 @@
+#header .logo {
+
+  height: auto;
+
+}
+
+
+
+#header .opap-logo {
+
+	top: auto;
+
+}
+
+
+
+.top-bar-left > .menu {
+
+	padding-top: 15px;
+
+	padding-bottom: 15px;
+
+}
+
+
+
+.top-bar-left > .menu,
+
+.top-bar,
+
+.top-bar-right {
+
+	display: flex;
+
+	align-items: center;
+
+}
+
+
+
+.top-bar-right {
+
+	margin-left: auto;
+
+}
+
+
+
+#map-loader, #map-no-content {
+
+  position: absolute;
+
+  top: calc(50% - 50px);
+
+  text-align: center;
+
+  display: none;
+
+}
+
+
+
+#map-no-content img {
+
+  width: 60px;
+
+}
+
+
+
+.map-loading {
+
+  cursor: not-allowed;
+
+}
+
+
+
+
+
+.map-loading * {
+
+  pointer-events: none;
+
+}
+
+
+
+.map-no-locations #map-markers, .map-loading #map-markers {
+
+  opacity: 0.4;
+
+}
+
+
+
+.map-loading #map-loader, .map-no-locations #map-no-content {
+
+  display: inline-block;
+
+}
+
+
+
+@media screen and (max-width: 40em) {
+
+  #map-loader, #map-no-content {
+
+    top: 525px;
+
+  }
+
+
+
+  #map-markers {
+
+    height: 500px;
+
+    display: block !important;
+
+  }
+
+
+
+  .page-id-25 #content .post {
+
+    display: none;
+
+  }
+
+}
+
+.filters-search .input-group-button .fa-search {
+
+  cursor: auto !important;
+
+}
+
+
+.section-template-bills {
+  padding: 1rem 0 !important;
+}
+#faq-section {
+  background-position: center !important;
+  min-height: auto !important;
+  padding: 3rem 0 !important;
+}
+
+.offcanvas-menu .menu a:active,
+.offcanvas-menu .menu a:focus {
+  color: #fff !important;
+  outline: none !important;
+}
+
+body.page-id-31 .background-container > div,
+body.postid-33 .background-container > div {
+  background-position: 66% center !important;
+}

@@ -1,0 +1,235 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Tora B2C\n"
+"POT-Creation-Date: 2018-07-02 17:05+0300\n"
+"PO-Revision-Date: 2019-05-24 11:56+0300\n"
+"Last-Translator: \n"
+"Language-Team: OPAP\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: functions/functions.php:166
+msgid "Events Today"
+msgstr "Εκδηλώσεις ημέρας"
+
+#: functions/functions.php:172
+msgid "Get directions"
+msgstr "Βρείτε τις οδηγίες πλοήγησης"
+
+#: functions/functions.php:173
+msgid "Tel"
+msgstr "Τηλ"
+
+#: functions/functions.php:212
+msgid "Main Menu"
+msgstr "Κύριο Μενού"
+
+#: functions/functions.php:213
+msgid "Footer Menu"
+msgstr "Υποσέλιδο Μενού"
+
+#: functions/functions.php:214
+msgid "Mobile Menu"
+msgstr "Κινητό Μενού"
+
+#: functions/functions.php:225
+msgid "Locations"
+msgstr "Τοποθεσίες"
+
+#: functions/functions.php:226
+msgid "Terms & Conditions"
+msgstr "Όροι και Προϋποθέσεις"
+
+#: functions/functions.php:227
+msgid "FAQ"
+msgstr "Συχνές Ερωτήσεις"
+
+#: functions/functions.php:228
+msgid "Contact"
+msgstr "Επικοινωνία"
+
+#: functions/functions.php:235
+msgid "Bills"
+msgstr "Λογαριασμοί"
+
+#: functions/functions.php:236
+msgid "Prepaid"
+msgstr "Προπληρωμένες Κάρτες"
+
+#: functions/functions.php:237
+msgid "Tickets"
+msgstr "Εισιτήρια"
+
+#: functions/functions.php:238
+msgid "Airtime"
+msgstr "Ανανέωση Χρόνου"
+
+#: includes/Components.php:58
+msgid "Hotline"
+msgstr "Hotline"
+
+#: includes/Components.php:60
+msgid "Social Media"
+msgstr "Social Media"
+
+#: includes/Components.php:113
+msgid "Event Calendar"
+msgstr "Ημερολόγιο Εκδηλώσεων"
+
+#: includes/Components.php:128 includes/Elements.php:142
+#: includes/Elements.php:201
+msgid "More"
+msgstr "Περισσότερα"
+
+#: includes/Components.php:145
+msgid "Total TORA points in Greece"
+msgstr "Σημεία εξυπηρέτησης"
+
+#: includes/Components.php:148
+msgid "Find your location"
+msgstr "Αναζήτησε το δικό σου σημείο"
+
+#: includes/Components.php:172
+msgid "Find the closest tora spot"
+msgstr "Αναζήτησε το δικό σου σημείο"
+
+#: includes/Components.php:173
+msgid "Filter results"
+msgstr "Φίλτρα αναζήτησης"
+
+#: includes/Components.php:175
+msgid "Select province"
+msgstr "Επιλέξτε νομό"
+
+#: includes/Components.php:176
+msgid "All provinces"
+msgstr "Όλοι οι νομοί"
+
+#: includes/Components.php:177
+msgid "Select service"
+msgstr "Επιλέξτε υπηρεσία"
+
+#: includes/Components.php:261
+msgid "Sorry, no results match your criteria."
+msgstr "Λυπούμαστε, δεν βρέθηκαν άρθρα με τα κριτήρια αναζήτησης."
+
+#: includes/Components.php:278
+msgid "That page could not be found"
+msgstr "Η σελίδα δεν βρέθηκε"
+
+#: includes/Components.php:279
+msgid "Sorry, the page you are looking for for does not exist."
+msgstr "Λυπούμαστε, η σελίδα που ψάχνετε δεν βρέθηκε."
+
+#: includes/Elements.php:108
+msgid "Submit search query"
+msgstr "Αναζήτηση"
+
+#: includes/Elements.php:120
+msgid "Maybe try a new search"
+msgstr "Δοκιμάστε νέα αναζήτηση"
+
+#: includes/Elements.php:241
+msgid "Frequent Questions"
+msgstr "Συχνές Ερωτήσεις"
+
+#: includes/Elements.php:254
+msgid "Where you can find this service"
+msgstr "Βρείτε ένα σημείο tora γι αυτή την υπηρεσία"
+
+#: includes/Elements.php:256
+msgid "Locations in Greece"
+msgstr "Τοποθεσίες στην Ελλάδα"
+
+#: includes/Elements.php:266
+msgid "Find your spot"
+msgstr "Βρείτε ένα κοντινό σας σημείο"
+
+#: includes/Elements.php:320
+msgid "Additional Services"
+msgstr "Επιπλέον Υπηρεσίες"
+
+#: includes/Elements.php:386
+msgid "Tora Customer Service"
+msgstr "Tora Customer Service"
+
+#: includes/Elements.php:388
+msgid "email"
+msgstr "email"
+
+#: includes/Elements.php:393
+msgid "Phone Support"
+msgstr "Τηλεφωνική Εξυπηρέτηση"
+
+#: includes/Elements.php:394
+msgid "Phone"
+msgstr "Τηλέφωνο"
+
+#: includes/Elements.php:396
+msgid "Business Hours"
+msgstr "Ωράριο Λειτουργίας"
+
+#~ msgid "Map"
+#~ msgstr "Χάρτης"
+
+#~ msgid "Have questions?"
+#~ msgstr "Έχετε ερωτήσεις;"
+
+#~ msgid "Primary"
+#~ msgstr "Βασικό"
+
+#~ msgid "Primary sidebar. This is the default sidebar for all pages."
+#~ msgstr "Βασική πλαϊνή στήλη. Είναι προεπιλεγμένη για όλες τις σελίδες."
+
+#~ msgid "Footer widgets. This is the default footer widget area."
+#~ msgstr "Αντικείμενα υποσέλιδου. Εμφανίζονται σε όλες τις σελίδες."
+
+#~ msgid "Home"
+#~ msgstr "Αρχική σελίδα"
+
+#~ msgid "Home sidebar. If left empty the primary sidebar will be used."
+#~ msgstr "Πλαϊνή στήλη αρχικής σελίδας. Αν είναι κενή θα χρησιμοποιηθεί η βασική στήλη."
+
+#~ msgid "Post"
+#~ msgstr "Άρθρο"
+
+#~ msgid "Post sidebar. If left empty the primary sidebar will be used."
+#~ msgstr "Πλαϊνή στήλη άρθρου. Αν είναι κενή θα χρησιμοποιηθεί η βασική στήλη."
+
+#~ msgid "Leave your comment"
+#~ msgstr "Αφήστε το σχόλιό σας"
+
+#~ msgid "Related posts"
+#~ msgstr "Σχετικά άρθρα"
+
+#~ msgid "Read more"
+#~ msgstr "Περισσότερα"
+
+#~ msgid "at"
+#~ msgstr "στις"
+
+#~ msgid "Previous"
+#~ msgstr "Προηγούμενο"
+
+#~ msgid "Next"
+#~ msgstr "Επόμενο"
+
+#~ msgid "Latest news"
+#~ msgstr "Τελευταίες δημοσιεύσεις"
+
+#~ msgid "Popular news"
+#~ msgstr "Δημοφιλή άρθρα"
+
+#~ msgid "Login"
+#~ msgstr "Σύνδεση"
+
+#~ msgid "Register"
+#~ msgstr "Εγγραφή"

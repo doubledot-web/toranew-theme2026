@@ -1,0 +1,77 @@
+.grid-row {
+	@include grid-container;
+}
+
+.grid-collapse {
+	@include grid-collapse;
+}
+
+.col-12 {
+	@include grid-column(12);
+}
+
+.col-6 {
+    @include grid-column(6);
+}
+
+/* Mobile Grid Styles */
+@media (max-width: 767px) {
+	.col-m-12 {
+	    @include grid-column(12);
+	}
+
+	.col-m-6 {
+	    @include grid-column(6);
+	}
+}
+
+/* Portrait tablet to landscape */
+@media (min-width: 768px) and (max-width: 1029px) {
+	.col-t-12 {
+		@include grid-column(12);
+	}
+	.col-t-4 {
+		@include grid-column(4);
+	}
+	.col-t-6 {
+		@include grid-column(6);
+	}
+	.col-t-7 {
+		@include grid-column(7);
+	}
+	.col-t-8 {
+		@include grid-column(8);
+	}
+
+	// Offsets
+	.col-t-push-1 {
+		@include grid-push(1);
+	}
+}
+
+/* Landscape to small desktop */
+@media (min-width: 1030px) {
+	.col-d-12 {
+		@include grid-column(12);
+	}
+	.col-d-4 {
+		@include grid-column(4);
+	}
+	.col-d-6 {
+		@include grid-column(6);
+	}
+	.col-d-7 {
+		@include grid-column(7);
+	}
+	.col-d-8 {
+		@include grid-column(8);
+	}
+	.col-d-2 {
+		@include grid-column(2);
+	}
+
+	// Offsets
+	.col-d-push-1 {
+		@include grid-push(1);
+	}
+}

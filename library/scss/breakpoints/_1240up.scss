@@ -1,0 +1,24 @@
+.wrap {
+	width: 1400px;
+}
+
+
+/*********************
+ ***** STRUCTURE *****
+ *********************/
+
+ // Layout Elements
+.text-editor-content,
+.heading-section,
+.icon-boxes-content,
+.accordion-section {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.service-header,
+.page-header {
+	.p-1 {
+		padding: 5rem;
+	}
+}
