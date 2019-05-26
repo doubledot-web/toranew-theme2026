@@ -163,7 +163,7 @@ class Theme
 		// wp_enqueue_style( 'tora-b2c-theme-additional', TORA_B2C_URL . 'additional.css', null, null, 'screen' );
 
 		wp_enqueue_script( 'foundation', TORA_B2CJS_URL . 'foundation.js', array( 'jquery' ), null, true );
-		wp_enqueue_script( 'tora-b2c-theme', TORA_B2CJS_URL . 'theme.js', array( 'foundation' ), null, true );
+		wp_enqueue_script( 'tora-b2c-theme', TORA_B2CJS_URL . 'theme_modified.js', array( 'foundation' ), null, true );
 
 		// wp_deregister_script( 'jquery-core' );
 		// wp_register_script( 'jquery-core', 'https://code.jquery.com/jquery-3.3.1.min.js', array(), '3.3.1' );

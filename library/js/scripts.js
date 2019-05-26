@@ -24,12 +24,12 @@ jQuery(document).ready(function($) {
 		}
 
 		var counterOffset = $('.counter').offset().top - window.innerHeight;
-		
+
 		if ( $('.complete').length == 0 && $(window).scrollTop() > counterOffset ) {
 			$('.counter span').each(function() {
 				var $this   = $(this),
 					countTo = $this.attr('data-count');
-				
+
 				$({
 					countNum: $this.text()
 				}).animate(
@@ -51,18 +51,18 @@ jQuery(document).ready(function($) {
 	// END ACTIVATE COUNTER EFFECT ON SCROLL TO ELEMENT
 
 
-	
+
 	// SOCIAL MENU DROPDOWN
 	var socialNav = $('.social-nav');
 	var socialNavHeight = $(socialNav).height();
-	
+
 	var subMenuEl = $('.social-nav .sub-menu');
 	var subMenuHeight = $(subMenuEl).height();
 
 	$('.menu-item-has-children').prepend('<div class="arrow-down"></div>')
 
 	var totalHeight = socialNavHeight + subMenuHeight;
-	
+
 	subMenuEl.css({
 		'top': -totalHeight + 'px',
 	});
@@ -95,9 +95,9 @@ jQuery(document).ready(function($) {
 
 		$(this).parent().addClass('expanded');
 		$(this).parent().next().css( 'max-height', totalHeight + 50 );
-		
+
 		// $('.carousel-list > ul').slick('setPosition');
-		
+
 		return false;
 	});
 
@@ -116,7 +116,7 @@ jQuery(document).ready(function($) {
 		$(window.location.hash).trigger('click');
 	}
 	// END ACCORDION
-	
+
 
 
 	// INITIALIZE SLICK CAROUSEL
@@ -155,7 +155,7 @@ jQuery(document).ready(function($) {
 		if ( $(this).hasClass( 'show-map' ) ) {
 			$('.show-list').removeClass('active');
 			$('.list-section').hide();
-			
+
 			$('.show-map').removeClass('active').addClass('active');
 			$('.map-section').show();
 		} else {
@@ -171,7 +171,7 @@ jQuery(document).ready(function($) {
 	$(window).on('resize load', function() {
 
 		winWidth = $(window).width(); // Get the current window width
-		
+
 		var mapHeaderHeight = $('#map-filters').outerHeight() + $('#map-list-toggler').outerHeight();
 
 		locationsCountSelectorPosition();
@@ -199,15 +199,16 @@ jQuery(document).ready(function($) {
 	// LIST PAGINATION
 	var locations;
 
-	navigator.geolocation.watchPosition(
-		function(position) {
-			console.log('position');
-		},
-		function(error) {
-			console.log(error);
-	  	}
-	);
-	
+	// navigator.geolocation.watchPosition(
+	// 	function(position) {
+	// 		console.log('position');
+	// 		console.log(position)
+	// 	},
+	// 	function(error) {
+	// 		console.log(error);
+	//   	}
+	// );
+
 
 	$('body').on('update-markers', '#map-markers', function() {
 		fitBounds(); // Center map to display all active markers
@@ -225,7 +226,7 @@ jQuery(document).ready(function($) {
 		$('.map-mobile-filters').removeClass('hidden');
 	});
 
-	
+
 	// Show list tab actions
 	$('body').on('click', '#map-list-toggler .show-list', function(e) {
 		preventActiveClick(e); // Prevent click if active tab
@@ -282,12 +283,12 @@ jQuery(document).ready(function($) {
 	// Center map to display all active markers
 	function fitBounds() {
 		var bounds = new google.maps.LatLngBounds();
-		
+
 		if ( markers.length > 0 ) {
 			for (var i = 0; i < markers.length; i++) {
 				bounds.extend(markers[i].getPosition());
 			}
-			map.fitBounds(bounds);
+			// map.fitBounds(bounds);
 
 		} else {
 			var center = new google.maps.LatLng(37.9747815, 23.732726); // Athens coordinates
@@ -328,7 +329,7 @@ jQuery(document).ready(function($) {
 
 				fromResults = (activePage * visibleLocations) - (visibleLocations - 1);
 				toResults   = activePage * visibleLocations;
-				
+
 				if ( toResults > totalLocations ) {
 					toResults = toResults - (toResults - totalLocations);
 				}
@@ -358,13 +359,13 @@ jQuery(document).ready(function($) {
 				g = a[2],
 				b = a[3];
 		}
-	  
+
 		var hsp = Math.sqrt(
 			0.299 * (r * r) +
 			0.587 * (g * g) +
 			0.114 * (b * b)
 		);
-	  
+
 		if (hsp > 127.5) {
 			$(selector).find('.column').addClass('light-color');
 		} else {
