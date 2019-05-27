@@ -3,7 +3,115 @@
   var $, calendar_template, events_template, locations_template;
   var map_form_update = false;
   var map_loaded = false;
+  var settingbounds = false
+  var all_locations = [];
+  var fitbounds = false;
+  var georesults = false;
+  var geosuccess = false;
   $ = jQuery;
+
+  const load_map_data = function() {
+    if( !map_loaded || all_locations.length === 0 ) {
+      if (all_locations.length === 0) {
+        console.log('waiting for data')
+        georesults = true
+        return setTimeout( function() {return load_map_data()} , 1000)
+      }
+      console.log('data loaded')
+      // var filters, province, value
+      // filters = $('#map-filters');
+      // province = filters.find('select:first');
+      // value = province.find('option:not([value=""]):first').attr('value');
+      // province.val(value);
+      if (georesults && !geosuccess) {
+        window.newbounds = {
+          south: 37.285106060522345,
+          west: 22.422991953125006,
+          north: 38.60197072314411,
+          east: 25.037738046875006
+        }
+      }
+      if (georesults) {
+        $(document).trigger('geolocated');
+      } else {
+        setTimeout( function() {return load_map_data()} , 100 )
+      }
+
+
+      // $('.map-container').removeClass('map-loading')
+
+    }
+  }
+
+  var findOne = function (haystack, arr) {
+      return arr.some(function (v) {
+          return haystack.indexOf(v) >= 0;
+      });
+  };
+
+  const filter_locations = function(options) {
+    var return_locations, bounds
+
+    // console.log('options')
+    // console.log(options)
+    if (options.bounds) {
+      if (! options.bounds.south ) {
+        bounds = JSON.parse(options.bounds)
+      } else  {
+        bounds = options.bounds
+      }
+      // console.log(bounds)
+      return_locations = all_locations.filter( function(l) {
+        return (
+          ((l.latitude  <= bounds.north && l.latitude  >= bounds.south) ||
+          (l.latitude  >= bounds.north && l.latitude  <= bounds.south)) &&
+          ((l.longitude >= bounds.east  && l.longitude <= bounds.west) ||
+          (l.longitude <= bounds.east  && l.longitude >= bounds.west))
+        )
+      })
+    } else if (options.province) {
+      return_locations = all_locations.filter( function(l) {
+        return (l.province == options.province)
+      })
+    } else {
+      return_locations = all_locations
+    }
+
+    const categories = options.categories ? options.categories.map( function(c) {
+      return parseInt( c, 10 );
+    }) : []
+    if (categories.length === 0) {
+      $('.filters').find('input:checked').each(function() {
+        categories.push( parseInt( $(this).val(), 10 ) );
+      });
+    }
+    return_locations = return_locations.filter( function(l) {
+      return findOne( l.categories, categories )
+    })
+
+    localize.locations_data = []
+
+    return return_locations
+  }
+
+  window.filter_locations = filter_locations
+  setTimeout( function() {return load_map_data()} , 500)
+
+  function get_initial_data() {
+    const options = {
+      get_all: true
+    }
+    $('.map-container').addClass('map-loading')
+    $.get(localize.locations_url, options).done(function(data) {
+      all_locations = data.map( function(i){
+        i.categories = i.category.split(',').map(function(j) { return parseInt(j,10)});
+        i.latitude   = parseFloat(i.latitude)
+        i.longitude  = parseFloat(i.longitude)
+        return i;
+      })
+      window.temp_locations = data;
+    })
+  }
 
   calendar_template = '<div class="events-calendar"> <div class="controls"> <span class="clndr-previous-button fa fa-chevron-left"></span> <span class="month">{{ month }} {{ year }}</span> <span class="clndr-next-button fa fa-chevron-right"></span> </div> <div class="days-container"> <div class="headers"> {{#daysOfTheWeek}} <div class="day-header">{{ . }}</div> {{/daysOfTheWeek}} </div> <div class="days"> {{#days}} <div class="{{ classes }}" id="{{ id }}"> <span>{{ day }}</span> </div> {{/days}} </div> </div> </div>';
 
@@ -143,10 +251,10 @@
 
     element.on('update-markers-data', function(event, fitBounds) {
 
-      if (!map_form_update && map_loaded ) {
-        return;
-      }
-      map_form_update = false
+      // if (!map_form_update && map_loaded ) {
+      //   return;
+      // }
+      // map_form_update = false
       var categories, options, province, searchterm;
       categories = [];
       searchterm = search.find('input').val();
@@ -163,6 +271,7 @@
         localize.locations_data = [];
         return element.trigger('update-markers', fitBounds);
       } else {
+        localize.locations_data = [];
         var form_bounds = window.newbounds ? JSON.stringify(window.newbounds) : undefined
         options = {
           get_all: get_all,
@@ -171,26 +280,33 @@
           province: province
         };
         $('.map-container').addClass('map-loading')
-        return $.get(localize.locations_url, options).done(function(data) {
-          localize.locations_data = data;
-          $('.map-container').removeClass('map-loading')
-          if (data && data.length > 0) {
+
+        //
+        localize.locations_data = filter_locations(options)
+        fitbounds = false
+        // return $.get(localize.locations_url, options).done(function(data) {
+          // localize.locations_data = data;
+          // $('.map-container').removeClass('map-loading')
+          // if (data && data.length > 0) {
+          if (localize.locations_data && localize.locations_data.length > 0) {
             $('.map-container').removeClass('map-no-locations')
             return element.trigger('update-markers', fitBounds);
-          } else if (data && data.length === 0) {
+          } else if (localize.locations_data && localize.locations_data.length === 0) {
             $('.map-container').addClass('map-no-locations')
           }
-          return;
-        });
+          // return;
+        // });
       }
     });
     return $(document).on('geolocated', function(event) {
-      return element.trigger('update-markers-data', true);
+      localize.locations_data = []
+      return element.trigger('update-markers-data', fitbounds);
+      // return element.trigger('update-markers-data', false);
     });
   };
 
   $.fn.mapMarkers = function() {
-    var addMarker, bounds, cluster_options, clusters, element, filters, geoError, geoSuccess, geocodeLatLng, geocoder, infowindow, map, map_controls, map_options, province, provinces;
+    var addMarker, bounds, cluster_options, clusters, element, filters, geoError, geoSuccess, geocodeLatLng, geocoder, infowindow, map, map_controls, map_options, province, provinces, search;
     element = $(this);
     if (typeof google === 'undefined') {
       return;
@@ -200,6 +316,8 @@
     }
     filters = $('#map-filters');
     province = filters.find('select:first');
+    search = filters.find('input');
+
     provinces = [];
     geocoder = new google.maps.Geocoder;
     province.find('option').each(function() {
@@ -214,6 +332,7 @@
         'location': coords
       }, function(results, status) {
         var value;
+        const valid_results = results.filter( function(a, ind) { return ind === 0 || a.types.filter(function(b) {return b === "postal_code" } ).length > 0 } )
         if (status === 'OK') {
           var bounds = {
             south: coords.lat() - 0.01,
@@ -223,36 +342,52 @@
           }
           newbounds = bounds;
           map_form_update = true;
+          const loc_formatted_address = valid_results[1] !== undefined ? valid_results[1].formatted_address : valid_results[0].formatted_address
+          filters.find('input[name="s"]').val(loc_formatted_address)
 
         } else {
           value = province.find('option:not([value=""]):first').attr('value');
           province.val(value);
         }
+        fitbounds = true
         return $(document).trigger('geolocated');
       });
     };
     geoSuccess = function(position) {
+      console.log('geoSuccess')
+      georesults = true
+      geosuccess = true
+      if ( all_locations.length === 0 ) {
+        return setTimeout( function(){geoSuccess(position)}, 100)
+      }
+      localize.locations_data = []
+      map_loaded = true;
+      filters = $('#map-filters');
+      // province = filters.find('select:first');
+      // province.val('')
       var user_coords;
       user_coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       return geocodeLatLng(user_coords);
     };
     geoError = function() {
-      var user_coords;
-      user_coords = new google.maps.LatLng(geolocation.latitude, geolocation.longitude);
-      return geocodeLatLng(user_coords);
+      georesults = true
+      console.log('geoError')
+      // var user_coords;
+      // user_coords = new google.maps.LatLng(geolocation.latitude, geolocation.longitude);
+      // return geocodeLatLng(user_coords);
     };
     navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
     var bound_restrictions = localize.zoom_out_of_greece !== "allow" ? {
-      latLngBounds: {
-        north: 46 + 5 ,
-        south: 29 - 5,
-        west: 12 - 5,
-        east: 36 + 5
+      latLngBounds: { // was 5, is 8
+        north: 46 + 8 ,
+        south: 29 - 8,
+        west: 12 - 8,
+        east: 36 + 8
       },
       strictBounds: true
     } : {};
-    console.log("bound_restrictions")
-    console.log(bound_restrictions)
+    // console.log("bound_restrictions")
+    // console.log(bound_restrictions)
     map_options = {
       zoom: 10,
       center: new google.maps.LatLng(37.9747815, 23.732726),
@@ -268,6 +403,7 @@
     };
     cluster_options = {
       gridSize: 50,
+      // maxZoom: 13, //stasouv
       maxZoom: 15,
       styles: [
         {
@@ -316,7 +452,7 @@
       $('#select-province').val('')
       var place = autocomplete.getPlace();
       if (!place.geometry) {
-        console.log(place)
+        // console.log(place)
         // User entered the name of a Place that was not suggested and
         // pressed the Enter key, or the Place Details request failed.
 
@@ -326,22 +462,28 @@
 
       // If the place has a geometry, then present it on a map.
       if (place.geometry.viewport) {
+        $('.map-container').addClass('map-loading')
+        localize.locations_data = []
+
         window.newbounds = place.geometry.viewport
         map.fitBounds(place.geometry.viewport);
         $('.map-container').addClass('map-loading')
         options = {
           bounds: JSON.stringify(place.geometry.viewport)
         }
-        return $.get(localize.locations_url, options).done(function(data) {
-          localize.locations_data = data;
-          $('.map-container').removeClass('map-loading')
-          if (data && data.length > 0) {
+
+        // return $.get(localize.locations_url, options).done(function(data) {
+          // localize.locations_data = data;
+          localize.locations_data = filter_locations(options);
+          // $('.map-container').removeClass('map-loading')
+          if (localize.locations_data && localize.locations_data.length > 0) {
             $('.map-container').removeClass('map-no-locations')
-          } else if (data && data.length === 0) {
+          } else if (localize.locations_data && localize.locations_data.length === 0) {
             $('.map-container').addClass('map-no-locations')
           }
+          window.newbounds = place.geometry.viewport
           return element.trigger('update-markers');
-        });
+        // });
       }
     });
 
@@ -352,6 +494,28 @@
     });
     map_controls = $('#map-controls').removeClass('hide').detach();
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(map_controls[0]);
+    var bounds_interval
+    map.addListener('bounds_changed', function() {
+      // var zoom = map.getZoom()
+      // if ( bounds_interval ) {
+      //   clearTimeout( bounds_interval )
+      // }
+      if (window.newbounds && ! settingbounds ) {
+
+        settingbounds = true
+        // console.log('zooming')
+        // console.log(map.getBounds())
+        window.newbounds = map.getBounds()
+        $(document).trigger('geolocated');
+        if ( map.getZoom() < 12 ) {
+          $('.filters-search').find('input[name="s"]').val('')
+        }
+        bounds_interval = setTimeout( function() {
+          settingbounds = false
+        }, 1000)
+      }
+    })
+
     addMarker = function(item) {
       var html, item_data, latLng, marker;
       latLng = new google.maps.LatLng(item.latitude, item.longitude);
@@ -369,6 +533,8 @@
         html: html
       });
       marker.addListener('click', function() {
+        // console.log('click marker')
+        window.newbounds = undefined
         infowindow.setContent(marker.html);
         map.panTo(this.getPosition());
         var current_zoom = map.getZoom();
@@ -405,6 +571,10 @@
         tel_text: localize.map_tel_text
       };
       locations.html(Mustache.render(locations_template, data));
+      setTimeout( function() {
+        $('.map-container').removeClass('map-loading')
+      }, 300)
+
       if (locations.children().length) {
         return locations.removeClass('hide');
       } else {
@@ -422,17 +592,19 @@
     filters = $('#map-filters');
     search = filters.find('.search-form');
     filters.on('change', 'input', function(event) {
+      $('.map-container').addClass('map-loading')
+
       if ($(this).attr('name') !== "s") {
         map_form_update = true
       }
       return markers.trigger('update-markers-data', false);
     });
-    filters.on('change', 'select', function(event) {
-      search.find('input').val('');
-      window.newbounds = undefined
-      map_form_update = true;
-      return markers.trigger('update-markers-data', true);
-    });
+    // filters.on('change', 'select', function(event) {
+    //   search.find('input').val('');
+    //   window.newbounds = undefined
+    //   map_form_update = true;
+    //   return markers.trigger('update-markers-data', true);
+    // });
     search.on('submit', function(event) {
       event.preventDefault();
       return markers.trigger('update-markers-data', true);
@@ -544,6 +716,7 @@
 
 
   $(document).ready(function() {
+    get_initial_data();
     if ($(window).width() < 640 ) {
       var source_div = $('#map-markers')
       var target_div = $('#map-filters')
