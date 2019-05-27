@@ -551,9 +551,20 @@ ul, ol {
 }
 
 // Locations Page
-.map-legacy {
-	h2 {
-		margin-top: 0;
+.page-id-25 {
+	@media screen and (max-width: 640px) {
+		.page-header,
+		.page-section {
+			display: none;
+		}
+	}
+}
+
+@media screen and (min-width: 641px) {
+	.map-legacy {
+		h2 {
+			margin-top: 0;
+		}
 	}
 }
 
@@ -642,6 +653,24 @@ dt.faq {
 /******************
  ***** FOOTER *****
  ******************/
+
+ #catapult-cookie-bar {
+	font-size: 13px;
+	font-weight: 400;
+	padding: 10px 20px !important;
+
+	.ctcc-inner {
+		@include justify-content(space-between);
+	}
+
+	.ctcc-left-side {
+		max-width: 1500px;
+	}
+
+	button#catapultCookie {
+		padding: 5px 20px;
+	}
+}
 
 .to-top {
 	position: absolute;

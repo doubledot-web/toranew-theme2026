@@ -1,0 +1,12 @@
+#wpadminbar .opap-icon {
+	background: url('../../images/opap.svg') no-repeat center;
+	width: 16px;
+	height: 17px;
+	display: inline-block;
+	position: relative;
+	top: -2px;
+	background-size: contain;
+	vertical-align: middle;
+	margin-right: 8px;
+	margin-left: 3px;
+}

@@ -247,6 +247,93 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 
 
 
+/**********************
+ ***** LOGIN LOGO *****
+ **********************/
+
+function tora_login_logo() {
+	?>
+	<style type="text/css">
+		#login h1 a,
+		.login h1 a {
+			background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/library/images/login-logo.svg);
+			height: 104px;
+			width: 200px;
+			background-size: 200px 104px;
+			background-repeat: no-repeat;
+			padding-bottom: 0;
+		}
+	</style>
+<?php }
+add_action( 'login_enqueue_scripts', 'tora_login_logo' );
+
+
+function my_login_logo_url() {
+	return esc_url( 'https://www.opap.gr/' );
+}
+add_filter( 'login_headerurl', 'my_login_logo_url' );
+
+
+function my_login_logo_url_title() {
+	return 'opap Group';
+}
+add_filter( 'login_headertitle', 'my_login_logo_url_title' );
+
+
+
+/************************************
+ ***** DASHBOARD COLOR PALLETTE *****
+ ************************************/
+
+function tora_additional_admin_color_schemes() {
+	//Get the theme directory
+	$theme_dir = get_stylesheet_directory_uri();
+
+	//Tora
+	wp_admin_css_color(
+		'tora-blue',
+		__( 'Tora Blue', 'tora' ),
+		$theme_dir . '/library/css/admin/admin-colors/tora-blue/colors.css',
+		array( '#163a79', '#2d9edf', '#ffffff' ),
+		array( 'base' => '#163a79', 'focus' => '#2d9edf', 'current' => '#ffffff' )
+	);
+}
+add_action( 'admin_init', 'tora_additional_admin_color_schemes' );
+
+
+
+/*********************************
+ ***** CHANGE DASHBOARD LOGO *****
+ *********************************/
+
+function tora_remove_wp_dashboard_logo() {
+	global $wp_admin_bar;
+	$wp_admin_bar->remove_menu( 'wp-logo' );
+	$wp_admin_bar->remove_menu( 'comments' );
+}
+add_action( 'wp_before_admin_bar_render', 'tora_remove_wp_dashboard_logo' );
+
+
+function tora_dashboard_logo( $wp_admin_bar ) {
+	$wp_admin_bar->add_node( array(
+		'id' 	=> 'opap-group',
+		'title' => '<span class="opap-icon"></span>OPAP Group',
+		'href' 	=> esc_url( 'https://www.opap.gr/' ),
+		'meta' 	=> array(
+			'target' => '_blank',
+		),
+	) );
+}
+add_action( 'admin_bar_menu', 'tora_dashboard_logo', 1 );
+
+
+function tora_admin_scripts() {
+	wp_enqueue_style( 'add_custom_wp_toolbar_css', get_stylesheet_directory_uri() . '/library/css/admin/style.css' );
+}
+add_action( 'admin_enqueue_scripts', 'tora_admin_scripts' );
+
+
+
 /*************
 * WOOCOMMERCE
 **************/
