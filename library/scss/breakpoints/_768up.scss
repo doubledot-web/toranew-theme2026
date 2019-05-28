@@ -3,6 +3,19 @@
 }
 
 
+/******************
+ ***** HEADER *****
+ ******************/
+
+ .logos {
+	.main-logo {
+		img {
+			width: 135px;
+		}
+	}
+ }
+
+
 /**********************
  ***** NAVIGATION *****
  **********************/
@@ -111,3 +124,21 @@
 	}
 }
  // end nav
+
+
+// Accordion & Carousel
+.accordion {
+	dt {
+		span {
+			font-size: 27px;
+		}
+
+		img {
+			max-width: 70px;
+		}
+
+		i {
+			font-size: 32px;
+		}
+	}
+}

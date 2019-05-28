@@ -10,3 +10,9 @@
 	margin-right: 8px;
 	margin-left: 3px;
 }
+
+#yoast-ab-icon,
+.wp-menu-image.svg {
+	filter: brightness(100);
+	opacity: .9;
+}

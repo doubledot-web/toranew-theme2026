@@ -20,6 +20,10 @@ a {
 	}
 }
 
+.wp-list-table a {
+	font-weight: bold;
+}
+
 #media-upload a.del-link:hover,
 div.dashboard-widget-submit input:hover,
 .subsubsub a:hover,
@@ -179,6 +183,11 @@ input[type=radio]:checked:before {
 	&:hover, &:focus {
 		color: $menu-submenu-focus-text;
 	}
+}
+
+#adminmenu .wp-submenu li.current a,
+#adminmenu .wp-submenu li.current a:hover {
+	font-weight: bold;
 }
 
 ul#adminmenu a.wp-has-current-submenu:after,
