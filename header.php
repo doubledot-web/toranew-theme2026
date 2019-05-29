@@ -71,7 +71,7 @@ $general_settings = get_field( 'general_settings', 'option' ); ?>
 
 				<div class="menu-container bg-blue text-right">
 
-					<nav itemscope itemtype="http://schema.org/SiteNavigationElement">
+					<nav itemscope itemtype="http://schema.org/SiteNavigationElement" class="wrap">
 						<?php
 						// https://developer.wordpress.org/reference/functions/wp_nav_menu/
 						wp_nav_menu( array(

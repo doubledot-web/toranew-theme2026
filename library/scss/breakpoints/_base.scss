@@ -526,11 +526,26 @@ ul, ol {
 /*************************
  ***** CONTENT PAGES *****
  *************************/
+
+.page-header,
+.service-header {
+	background: $dark-blue;
+}
+
+.single-service.postid-35 {
+	.service-header {
+		background: $blue;
+	}
+}
+
+.single-service.postid-9681 {
+	.service-header {
+		background: $light-blue-2;
+	}
+}
  
 .page-header,
 .service-header {
-	background: $blue;
-
 	.featured-image {
 		min-height: 25rem;
 	}
@@ -558,6 +573,10 @@ ul, ol {
 
 // Locations Page
 .page-id-25 {
+	.page-header {
+		background: $light-blue-2;
+	}
+
 	@media screen and (max-width: 640px) {
 		.page-header,
 		.page-section {
