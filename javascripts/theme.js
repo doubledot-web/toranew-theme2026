@@ -257,7 +257,7 @@
       // map_form_update = false
       var categories, options, province, searchterm;
       categories = [];
-      searchterm = search.find('input').val();
+      // searchterm = search.find('input').val();
       filters.find('input:checked').each(function() {
         return categories.push($(this).val());
       });
@@ -507,9 +507,10 @@
         // console.log(map.getBounds())
         window.newbounds = map.getBounds()
         $(document).trigger('geolocated');
-        if ( map.getZoom() < 12 ) {
-          $('.filters-search').find('input[name="s"]').val('')
-        }
+        // SEARCH SHOULD NOT BE DELETED
+        // if ( map.getZoom() < 12 ) {
+        //   $('.filters-search').find('input[name="s"]').val('')
+        // }
         bounds_interval = setTimeout( function() {
           settingbounds = false
         }, 1000)
