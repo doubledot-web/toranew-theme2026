@@ -228,7 +228,6 @@ jQuery(document).ready(function($) {
 		preventActiveClick(e); // Prevent click if active tab
 		fitBounds(); // Center map to display all active markers
 		$('#map-no-content').css('position', 'absolute');
-
 		$('.map-mobile-filters').removeClass('hidden');
 	});
 
