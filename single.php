@@ -16,7 +16,7 @@ endif; ?>
 						<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?> role="article">
 
 							<header class="service-header">
-								<div class="featured-image intro-text flex-col flex p-1" style="background: url('<?php echo esc_url( get_the_post_thumbnail_url() ); ?>') no-repeat right center; background-size: cover;">
+								<div class="featured-image intro-text flex-col flex p-1" style="background: url('<?php echo esc_url( get_the_post_thumbnail_url() ); ?>') no-repeat 70% center; background-size: cover;">
 									<h1 class="service-title" itemprop="headline">
 										<?php get_field( 'header_title' ) ? the_field( 'header_title' ) : the_title(); ?>
 									</h1>

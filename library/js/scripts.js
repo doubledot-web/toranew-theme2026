@@ -213,7 +213,13 @@ jQuery(document).ready(function($) {
 	$('body').on('update-markers', '#map-markers', function() {
 		fitBounds(); // Center map to display all active markers
 		locations = $('.location-item').toArray();
+		assignServicesLabelColors();
 		togglePagination(); // Toggle pagination if there are no items
+	});
+
+
+	$('body').on('click', '#map-markers', function(){
+		assignServicesLabelColors();
 	});
 
 
@@ -252,6 +258,29 @@ jQuery(document).ready(function($) {
 		$('.locations-pagination').pagination('go', page);
 	});
 
+
+	// Assign Services Label Colors
+	function assignServicesLabelColors() {
+		$('.location-item .label').each(function() {
+			switch( $(this).text() ) {
+				case 'Ανανέωση χρόνου ομιλίας/Internet':
+					$(this).addClass('bg-blue');
+					break;
+				case 'Πληρωμή λογαριασμών':
+					$(this).addClass('bg-dark-blue');
+					break;
+				case 'Μεταφορά Χρημάτων':
+					$(this).addClass('bg-light-blue');
+					break;
+				case 'Ενέργεια ':
+					$(this).addClass('bg-blue');
+					break;
+				default:
+					$(this).addClass('bg-blue');
+					break;
+			}
+		});
+	}
 
 	// Toggle pagination
 	function togglePagination() {

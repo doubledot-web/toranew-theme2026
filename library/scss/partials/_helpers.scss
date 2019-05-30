@@ -76,9 +76,9 @@
 
 
 // Colors
-.bg-blue {
-	background: $blue;
-
+.bg-blue,
+.bg-dark-blue,
+.bg-light-blue {
 	&, * {
 		color: $white;
 	}
@@ -86,6 +86,18 @@
 	a:hover {
 		color: rgba($white, .8) !important;
 	}
+}
+
+.bg-blue {
+	background: $blue;
+}
+
+.bg-dark-blue {
+	background: $dark-blue;
+}
+
+.bg-light-blue {
+	background: $light-blue-2;
 }
 
 .dark-color {
