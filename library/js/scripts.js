@@ -288,6 +288,10 @@ jQuery(document).ready(function($) {
 			$('.locations-count-selector, .locations-pagination').hide();
 			$('#map-no-content').css('display', 'flex');
 			$('#map-markers, #map-locations').css('opacity', '.3');
+			setTimeout(function() {
+				$('#map-no-content').hide();
+				$('#map-markers, #map-locations').css('opacity', '1');
+			}, 2500)
 		} else {
 			paginationInit( $('.locations-count-selector select').val() );
 			$('.locations-pagination').fadeIn(function() {

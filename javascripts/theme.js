@@ -10,6 +10,13 @@
   var geosuccess = false;
   $ = jQuery;
 
+  window.standardBounds = {
+    south: 37.285106060522345,
+    west: 22.422991953125006,
+    north: 38.60197072314411,
+    east: 25.037738046875006
+  }
+  window.noLocations = false
   const load_map_data = function() {
     if( !map_loaded || all_locations.length === 0 ) {
       if (all_locations.length === 0) {
@@ -24,12 +31,7 @@
       // value = province.find('option:not([value=""]):first').attr('value');
       // province.val(value);
       if (georesults && !geosuccess) {
-        window.newbounds = {
-          south: 37.285106060522345,
-          west: 22.422991953125006,
-          north: 38.60197072314411,
-          east: 25.037738046875006
-        }
+        window.newbounds = window.standardBounds
       }
       if (georesults) {
         $(document).trigger('geolocated');
@@ -279,8 +281,9 @@
           categories: categories,
           province: province
         };
-        $('.map-container').addClass('map-loading')
-
+        if ( ! window.noLocations ) {
+          $('.map-container').addClass('map-loading')
+        }
         //
         localize.locations_data = filter_locations(options)
         fitbounds = false
@@ -290,9 +293,19 @@
           // if (data && data.length > 0) {
           if (localize.locations_data && localize.locations_data.length > 0) {
             $('.map-container').removeClass('map-no-locations')
-            return element.trigger('update-markers', fitBounds);
+            // if ( ! window.noLocations ) {
+              return element.trigger('update-markers', fitBounds);
+            // }
           } else if (localize.locations_data && localize.locations_data.length === 0) {
-            $('.map-container').addClass('map-no-locations')
+            if ( ! window.noLocations ) {
+              $('.map-container').addClass('map-no-locations')
+            } else {
+              window.noLocations = false
+            }
+            setTimeout(function(){
+              $('.map-container').removeClass('map-no-locations')
+              $('.map-container').removeClass('map-loading')
+            }, 2500)
           }
           // return;
         // });
@@ -354,7 +367,7 @@
       });
     };
     geoSuccess = function(position) {
-      console.log('geoSuccess')
+      // console.log('geoSuccess')
       georesults = true
       geosuccess = true
       if ( all_locations.length === 0 ) {
@@ -371,7 +384,7 @@
     };
     geoError = function() {
       georesults = true
-      console.log('geoError')
+      // console.log('geoError')
       // var user_coords;
       // user_coords = new google.maps.LatLng(geolocation.latitude, geolocation.longitude);
       // return geocodeLatLng(user_coords);
@@ -451,6 +464,8 @@
     autocomplete.addListener('place_changed', function() {
       $('#select-province').val('')
       var place = autocomplete.getPlace();
+      // console.log("place")
+      // console.log(place)
       if (!place.geometry) {
         // console.log(place)
         // User entered the name of a Place that was not suggested and
@@ -479,7 +494,16 @@
           if (localize.locations_data && localize.locations_data.length > 0) {
             $('.map-container').removeClass('map-no-locations')
           } else if (localize.locations_data && localize.locations_data.length === 0) {
+            window.noLocations = true
+            // console.log("CASE A")
+            map.fitBounds(place.geometry.viewport);
             $('.map-container').addClass('map-no-locations')
+            $('.map-container').removeClass('map-loading')
+            setTimeout(function(){
+              $('.map-container').removeClass('map-no-locations')
+              map.fitBounds(place.geometry.viewport);
+              // filter_locations(window.standardBounds)
+            }, 2500)
           }
           window.newbounds = place.geometry.viewport
           return element.trigger('update-markers');
@@ -500,12 +524,14 @@
       // if ( bounds_interval ) {
       //   clearTimeout( bounds_interval )
       // }
+      console.log("SETTING BOUNDS")
       if (window.newbounds && ! settingbounds ) {
 
         settingbounds = true
         // console.log('zooming')
         // console.log(map.getBounds())
         window.newbounds = map.getBounds()
+        window.noLocations = true
         $(document).trigger('geolocated');
         // SEARCH SHOULD NOT BE DELETED
         // if ( map.getZoom() < 12 ) {
@@ -564,6 +590,9 @@
       });
       clusters.addMarkers(window.markers);
       if (fitBounds) {
+        // console.log("bounds")
+        // console.log(bounds)
+
         map.fitBounds(bounds, 50);
       }
       data = {
