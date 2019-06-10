@@ -566,6 +566,15 @@ ul, ol {
 	}
 }
 
+.page-header {
+	.intro-text {
+		h1, p {
+			color: $blue;
+			text-shadow: none;
+		}
+	}
+}
+
 // Service sections
 .service-section {
 	a.button {
