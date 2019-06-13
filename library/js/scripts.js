@@ -218,7 +218,7 @@ jQuery(document).ready(function($) {
 	});
 
 
-	$('body').on('click', '#map-markers', function(){
+	$('body').on('click touchend', '#map-markers', function(){
 		assignServicesLabelColors();
 	});
 
