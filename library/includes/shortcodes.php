@@ -45,3 +45,25 @@ function yt_video_init( $atts ) {
 	return ob_get_clean();
 }
 add_shortcode( 'yt_video', 'yt_video_init' );
+
+
+// Native Video Embed
+function native_video_embed_init( $atts ) {
+	$a = shortcode_atts( array(
+		'url' 	 => '',
+		'width'  => '100%',
+		'height' => 'auto',
+		'poster' => '',
+	), $atts );
+
+	ob_start(); ?>
+
+	<video width="<?php esc_attr_e( $a['width'] ); ?>" height="<?php esc_attr_e( $a['height'] ); ?>" controls poster="<?php echo esc_url( $a['poster'] ); ?>">
+		<source src="<?php echo esc_url( $a['url'] ) ?>" type="video/mp4">
+		Your browser does not support the video tag.
+	</video>
+
+	<?php
+	return ob_get_clean();
+}
+add_shortcode( 'video_embed', 'native_video_embed_init' );
