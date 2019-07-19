@@ -50,15 +50,20 @@ add_shortcode( 'yt_video', 'yt_video_init' );
 // Native Video Embed
 function native_video_embed_init( $atts ) {
 	$a = shortcode_atts( array(
-		'url' 	 => '',
-		'width'  => '100%',
-		'height' => 'auto',
-		'poster' => '',
+		'url' 	   => '',
+		'width'    => '100%',
+		'height'   => 'auto',
+		'poster'   => '',
+		'autoplay' => 'true',
+		'controls' => 'true',
 	), $atts );
+
+	$autoplay = 'true' === $a['autoplay'] ? 'autoplay' : '';
+	$controls = 'true' === $a['controls'] ? 'controls' : '';
 
 	ob_start(); ?>
 
-	<video width="<?php esc_attr_e( $a['width'] ); ?>" height="<?php esc_attr_e( $a['height'] ); ?>" controls poster="<?php echo esc_url( $a['poster'] ); ?>">
+	<video class="native-video" width="<?php esc_attr_e( $a['width'] ); ?>" height="<?php esc_attr_e( $a['height'] ); ?>" poster="<?php echo esc_url( $a['poster'] ); ?>" <?php echo $autoplay . ' ' . $controls; ?>>
 		<source src="<?php echo esc_url( $a['url'] ) ?>" type="video/mp4">
 		Your browser does not support the video tag.
 	</video>

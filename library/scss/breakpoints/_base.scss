@@ -202,6 +202,16 @@ ul, ol {
 	}
 }
 
+.native-video {
+	background: $black;
+}
+#popmake-13845,
+#popmake-13975 {
+	.popmake-content {
+		line-height: 0;
+	}
+}
+
 .image-background {
 	padding: 5rem 0;
 }
