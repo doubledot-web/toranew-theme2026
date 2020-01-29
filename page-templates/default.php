@@ -21,23 +21,10 @@
 				</header>
 
 				<section class="page-body wrap">
+					<?php get_template_part( 'library/includes/terms-archive-select' ); ?>
 					<?php get_template_part( 'library/includes/layout-elements' ); ?>
 					<?php the_content(); ?>
-
-					<?php $terms_versions = get_field( 'versions' ); ?>
-					<?php if ( $terms_versions ) : ?>
-						<div class="terms-archive">
-							<select>
-								<option value="" disabled selected>Αρχείο</option>
-								<?php
-								foreach ( $terms_versions as $version ) :
-									$version = $version['version'] ?>
-									<option value="<?php esc_attr_e( $version['file'] ); ?>"><?php esc_html_e( $version['date'] ); ?></option>
-								<?php endforeach; ?>
-							</select>
-						</div>
-					<?php endif; ?>
-
+					<?php get_template_part( 'library/includes/terms-archive-select' ); ?>
 				</section>
 
 			</article>
