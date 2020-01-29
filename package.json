@@ -1,0 +1,25 @@
+{
+  "name": "toranew-theme",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "bourbon": "^4.3.4",
+    "bourbon-neat": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/doubledot-web/toranew-theme.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doubledot-web/toranew-theme/issues"
+  },
+  "homepage": "https://github.com/doubledot-web/toranew-theme#readme"
+}

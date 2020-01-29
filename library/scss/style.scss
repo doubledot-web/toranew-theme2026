@@ -1,5 +1,5 @@
-@import "bourbon";
-@import "neat";
+@import "../../node_modules/bourbon/app/assets/stylesheets/bourbon"; // relative path of the bourbon module
+@import "../../node_modules/bourbon-neat/core/neat"; // relative path to the neat module
 
 @import "partials/normalize-scss/normalize";
 @include normalize();

@@ -5,6 +5,16 @@ jQuery(document).ready(function($) {
 	let winWidth;
 	const desktopBreakpoint = 768;
 
+	termsArchive();
+
+
+	function termsArchive() {
+		$('.terms-archive select').on('change', function() {
+			let pdf = window.open( $(this).val(), '_blank' );
+			pdf.focus();
+		});
+	}
+
 	// SLICKNAV
 	$('#menu-mobile-menu').slicknav({
 		'label' : '',

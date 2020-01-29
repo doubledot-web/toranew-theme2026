@@ -585,6 +585,18 @@ ul, ol {
 	}
 }
 
+
+.terms-archive {
+	text-align: right;
+	padding: 0 40px;
+	margin-bottom: 100px;
+
+	select {
+		padding: 5px 15px;
+	}
+}
+
+
 // Service sections
 .service-section {
 	a.button {
