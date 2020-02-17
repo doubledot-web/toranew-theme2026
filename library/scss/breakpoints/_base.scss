@@ -590,12 +590,21 @@ ul, ol {
 	text-align: right;
 	padding: 20px 40px 0 0;
 
-	&:last-child {
-		padding: 0 40px 100px 0;
+	> div {
+		display: inline-block;
+	}
+
+	p {
+		margin: 0;
+		padding: 3px 5px;
 	}
 
 	select {
 		padding: 5px 15px;
+	}
+
+	&:last-child {
+		padding: 0 40px 100px 0;
 	}
 }
 
