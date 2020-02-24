@@ -12,12 +12,12 @@
 
 	<?php wp_head(); ?>
 
-	<!-- Google Tag Manager - tora.gr -->
+	<!-- Google Tag Manager - uat.tora.gr -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-PJ85B42');</script>
+	})(window,document,'script','dataLayer','GTM-N8VKGPQ');</script>
 	<!-- End Google Tag Manager -->
 </head>
 
@@ -26,8 +26,8 @@ $general_settings = get_field( 'general_settings', 'option' ); ?>
 
 <body <?php body_class(); ?> itemscope itemtype="http://schema.org/WebPage">
 
-	<!-- Google Tag Manager (noscript) - tora.gr -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJ85B42"
+	<!-- Google Tag Manager (noscript) - uat.tora.gr -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N8VKGPQ"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
 
