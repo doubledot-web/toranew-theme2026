@@ -5,7 +5,7 @@ if ( $terms_versions ) : ?>
 	<div class="terms-archive">
 		<div>
 			<select>
-				<option value="" disabled selected><?php _e( 'Επιλέξτε έκδοση / Select version', 'tora' ); ?></option>
+				<option value="" disabled selected><?php _e( 'Επιλέξτε έκδοση', 'tora' ); ?></option>
 				<?php
 				foreach ( $terms_versions as $version ) :
 					$version = $version['version'] ?>
