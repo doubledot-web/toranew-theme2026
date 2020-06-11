@@ -13,10 +13,14 @@
 			case 'contact':
 				get_template_part( 'page-templates/contact' );
 				break;
+			case 'redirect_proxy':
+				get_template_part( 'page-templates/redirect-proxy' );
+				break;
 			default:
 				get_template_part( 'page-templates/default' );
 				break;
-		} ?>
+		}
+		?>
 
 	</div>
 
