@@ -1,3 +1,9 @@
+<?php
+if ( 'redirect_proxy' === get_field( 'page_template' ) ) {
+	get_template_part( 'page-templates/redirect-proxy' );
+}
+?>
+
 <?php get_header(); ?>
 
 	<div id="content">
@@ -12,9 +18,6 @@
 				break;
 			case 'contact':
 				get_template_part( 'page-templates/contact' );
-				break;
-			case 'redirect_proxy':
-				get_template_part( 'page-templates/redirect-proxy' );
 				break;
 			default:
 				get_template_part( 'page-templates/default' );
