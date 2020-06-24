@@ -21,8 +21,10 @@
 				</header>
 
 				<section class="page-body wrap">
+					<?php get_template_part( 'library/includes/terms-archive-select' ); ?>
 					<?php get_template_part( 'library/includes/layout-elements' ); ?>
 					<?php the_content(); ?>
+					<?php get_template_part( 'library/includes/terms-archive-select' ); ?>
 				</section>
 
 			</article>
