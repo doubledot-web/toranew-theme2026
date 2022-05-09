@@ -3,12 +3,14 @@
   var $, calendar_template, events_template, locations_template;
   var map_form_update = false;
   var map_loaded = false;
+  $ = jQuery;
+
+  /* vv added by stasou vv */
   var settingbounds = false
   var all_locations = [];
   var fitbounds = false;
   var georesults = false;
   var geosuccess = false;
-  $ = jQuery;
 
   window.standardBounds = {
     south: 37.285106060522345,
@@ -39,9 +41,7 @@
         setTimeout( function() {return load_map_data()} , 100 )
       }
 
-
       // $('.map-container').removeClass('map-loading')
-
     }
   }
 
@@ -54,8 +54,8 @@
   const filter_locations = function(options) {
     var return_locations, bounds
 
-    // console.log('options')
-    // console.log(options)
+//     console.log('options')
+//     console.log(options)
     if (options.bounds) {
       if (! options.bounds.south ) {
         bounds = JSON.parse(options.bounds)
@@ -92,7 +92,8 @@
     })
 
     localize.locations_data = []
-
+    console.log(return_locations.length)
+    // console.log(return_locations)
     return return_locations
   }
 
@@ -114,6 +115,9 @@
       window.temp_locations = data;
     })
   }
+
+  /* ^^ added by stasou ^^ */
+
 
   calendar_template = '<div class="events-calendar"> <div class="controls"> <span class="clndr-previous-button fa fa-chevron-left"></span> <span class="month">{{ month }} {{ year }}</span> <span class="clndr-next-button fa fa-chevron-right"></span> </div> <div class="days-container"> <div class="headers"> {{#daysOfTheWeek}} <div class="day-header">{{ . }}</div> {{/daysOfTheWeek}} </div> <div class="days"> {{#days}} <div class="{{ classes }}" id="{{ id }}"> <span>{{ day }}</span> </div> {{/days}} </div> </div> </div>';
 
@@ -252,7 +256,17 @@
     element.trigger('update-markers-data', true);
 
     element.on('update-markers-data', function(event, fitBounds) {
+      /* COMMENTED BY STASOUV
+      if (!map_form_update && map_loaded ) {
+        return;
+      }
+      map_form_update = false
+      var categories, options, province, searchterm;
+      categories = [];
+      searchterm = search.find('input').val();
+      */
 
+      /* vv added by stasou vv */
       // if (!map_form_update && map_loaded ) {
       //   return;
       // }
@@ -260,9 +274,12 @@
       var categories, options, province, searchterm;
       categories = [];
       // searchterm = search.find('input').val();
+      /* ^^ added by stasou ^^ */
+
       filters.find('input:checked').each(function() {
         return categories.push($(this).val());
       });
+
       province = filters.find('select').val();
       var get_all;
       if (!map_loaded) {
@@ -273,7 +290,6 @@
         localize.locations_data = [];
         return element.trigger('update-markers', fitBounds);
       } else {
-        localize.locations_data = [];
         var form_bounds = window.newbounds ? JSON.stringify(window.newbounds) : undefined
         options = {
           get_all: get_all,
@@ -281,6 +297,23 @@
           categories: categories,
           province: province
         };
+
+        /* COMMENTED BY STASOUV
+        $('.map-container').addClass('map-loading')
+        return $.get(localize.locations_url, options).done(function(data) {
+          localize.locations_data = data;
+          $('.map-container').removeClass('map-loading')
+          if (data && data.length > 0) {
+            $('.map-container').removeClass('map-no-locations')
+            return element.trigger('update-markers', fitBounds);
+          } else if (data && data.length === 0) {
+            $('.map-container').addClass('map-no-locations')
+          }
+          return;
+        });
+        */
+
+        /* vv added by stasou vv */
         if ( ! window.noLocations ) {
           $('.map-container').addClass('map-loading')
         }
@@ -309,17 +342,26 @@
           }
           // return;
         // });
+        /* ^^ added by stasou ^^ */
+
       }
     });
     return $(document).on('geolocated', function(event) {
+      /* COMMENTED BY STASOUV
+      return element.trigger('update-markers-data', true);
+      */
+      /* vv added by stasou vv */
       localize.locations_data = []
       return element.trigger('update-markers-data', fitbounds);
-      // return element.trigger('update-markers-data', false);
+      /* ^^ added by stasou ^^ */
     });
   };
 
   $.fn.mapMarkers = function() {
+    // vv mods by stasouv
+    // var addMarker, bounds, cluster_options, clusters, element, filters, geoError, geoSuccess, geocodeLatLng, geocoder, infowindow, map, map_controls, map_options, province, provinces;
     var addMarker, bounds, cluster_options, clusters, element, filters, geoError, geoSuccess, geocodeLatLng, geocoder, infowindow, map, map_controls, map_options, province, provinces, search;
+    // ^^ mods by stasouv
     element = $(this);
     if (typeof google === 'undefined') {
       return;
@@ -329,8 +371,10 @@
     }
     filters = $('#map-filters');
     province = filters.find('select:first');
+    // vv mods by stasouv
     search = filters.find('input');
 
+    // ^^ mods by stasouv
     provinces = [];
     geocoder = new google.maps.Geocoder;
     province.find('option').each(function() {
@@ -355,17 +399,44 @@
           }
           newbounds = bounds;
           map_form_update = true;
+          // vv mods by stasouv
           const loc_formatted_address = valid_results[1] !== undefined ? valid_results[1].formatted_address : valid_results[0].formatted_address
           filters.find('input[name="s"]').val(loc_formatted_address)
+          // ^^ mods by stasouv
 
         } else {
           value = province.find('option:not([value=""]):first').attr('value');
           province.val(value);
         }
+        // vv mods by stasouv
         fitbounds = true
+        // ^^ mods by stasouv
         return $(document).trigger('geolocated');
       });
     };
+    /* COMMENTED BY STASOUV
+    geoSuccess = function(position) {
+      var user_coords;
+      user_coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      return geocodeLatLng(user_coords);
+    };
+    geoError = function() {
+      var user_coords;
+      user_coords = new google.maps.LatLng(geolocation.latitude, geolocation.longitude);
+      return geocodeLatLng(user_coords);
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+    var bound_restrictions = localize.zoom_out_of_greece !== "allow" ? {
+      latLngBounds: {
+        north: 46 + 5 ,
+        south: 29 - 5,
+        west: 12 - 5,
+        east: 36 + 5
+      },
+      strictBounds: true
+    } : {};
+    */
+    // vv mods by stasouv
     geoSuccess = function(position) {
       // console.log('geoSuccess')
       georesults = true
@@ -376,8 +447,6 @@
       localize.locations_data = []
       map_loaded = true;
       filters = $('#map-filters');
-      // province = filters.find('select:first');
-      // province.val('')
       var user_coords;
       user_coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       return geocodeLatLng(user_coords);
@@ -399,8 +468,10 @@
       },
       strictBounds: true
     } : {};
-    // console.log("bound_restrictions")
-    // console.log(bound_restrictions)
+    // ^^ mods by stasouv
+
+//    console.log("bound_restrictions")
+//    console.log(bound_restrictions)
     map_options = {
       zoom: 10,
       center: new google.maps.LatLng(37.9747815, 23.732726),
@@ -416,7 +487,6 @@
     };
     cluster_options = {
       gridSize: 50,
-      // maxZoom: 13, //stasouv
       maxZoom: 15,
       styles: [
         {
@@ -464,10 +534,8 @@
     autocomplete.addListener('place_changed', function() {
       $('#select-province').val('')
       var place = autocomplete.getPlace();
-      // console.log("place")
-      // console.log(place)
       if (!place.geometry) {
-        // console.log(place)
+        console.log(place)
         // User entered the name of a Place that was not suggested and
         // pressed the Enter key, or the Place Details request failed.
 
@@ -478,15 +546,27 @@
       // If the place has a geometry, then present it on a map.
       if (place.geometry.viewport) {
         $('.map-container').addClass('map-loading')
+        // vv mods by stasouv
         localize.locations_data = []
-
+        // ^^ mods by stasouv
         window.newbounds = place.geometry.viewport
         map.fitBounds(place.geometry.viewport);
-        $('.map-container').addClass('map-loading')
         options = {
           bounds: JSON.stringify(place.geometry.viewport)
         }
-
+        /* COMMENTED BY STASOUV
+        return $.get(localize.locations_url, options).done(function(data) {
+          localize.locations_data = data;
+          $('.map-container').removeClass('map-loading')
+          if (data && data.length > 0) {
+            $('.map-container').removeClass('map-no-locations')
+          } else if (data && data.length === 0) {
+            $('.map-container').addClass('map-no-locations')
+          }
+          return element.trigger('update-markers');
+        });
+        */
+        // vv mods by stasouv
         // return $.get(localize.locations_url, options).done(function(data) {
           // localize.locations_data = data;
           localize.locations_data = filter_locations(options);
@@ -508,6 +588,8 @@
           window.newbounds = place.geometry.viewport
           return element.trigger('update-markers');
         // });
+        // ^^ mods by stasouv
+
       }
     });
 
@@ -518,18 +600,13 @@
     });
     map_controls = $('#map-controls').removeClass('hide').detach();
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(map_controls[0]);
+    // vv mods by stasouv
     var bounds_interval
     map.addListener('bounds_changed', function() {
-      // var zoom = map.getZoom()
-      // if ( bounds_interval ) {
-      //   clearTimeout( bounds_interval )
-      // }
       console.log("SETTING BOUNDS")
       if (window.newbounds && ! settingbounds ) {
 
         settingbounds = true
-        // console.log('zooming')
-        // console.log(map.getBounds())
         window.newbounds = map.getBounds()
         window.noLocations = true
         $(document).trigger('geolocated');
@@ -538,10 +615,12 @@
         //   $('.filters-search').find('input[name="s"]').val('')
         // }
         bounds_interval = setTimeout( function() {
+	  window.fitloaded = true
           settingbounds = false
         }, 1000)
       }
     })
+    // ^^ mods by stasouv
 
     addMarker = function(item) {
       var html, item_data, latLng, marker;
@@ -560,10 +639,12 @@
         html: html
       });
       marker.addListener('click', function() {
-        // console.log('click marker')
-        window.newbounds = undefined;
+        // vv mods by stasouv
+        window.newbounds = undefined
+        // ^^ mods by stasouv
+
         infowindow.setContent(marker.html);
-        addExtraSpanOnWindow();
+        addExtraSpanOnWindow()
         map.panTo(this.getPosition());
         var current_zoom = map.getZoom();
         if (current_zoom && current_zoom < 15) {
@@ -591,9 +672,6 @@
       });
       clusters.addMarkers(window.markers);
       if (fitBounds) {
-        // console.log("bounds")
-        // console.log(bounds)
-
         map.fitBounds(bounds, 50);
       }
       data = {
@@ -602,9 +680,11 @@
         tel_text: localize.map_tel_text
       };
       locations.html(Mustache.render(locations_template, data));
+      // vv mods by stasouv
       setTimeout( function() {
         $('.map-container').removeClass('map-loading')
       }, 300)
+      // ^^ mods by stasouv
 
       if (locations.children().length) {
         return locations.removeClass('hide');
@@ -623,19 +703,23 @@
     filters = $('#map-filters');
     search = filters.find('.search-form');
     filters.on('change', 'input', function(event) {
+      // vv mods by stasouv
       $('.map-container').addClass('map-loading')
+      // ^^ mods by stasouv
 
       if ($(this).attr('name') !== "s") {
         map_form_update = true
       }
       return markers.trigger('update-markers-data', false);
     });
-    // filters.on('change', 'select', function(event) {
-    //   search.find('input').val('');
-    //   window.newbounds = undefined
-    //   map_form_update = true;
-    //   return markers.trigger('update-markers-data', true);
-    // });
+    /* COMMENTED BY STASOUV
+    filters.on('change', 'select', function(event) {
+      search.find('input').val('');
+      window.newbounds = undefined
+      map_form_update = true;
+      return markers.trigger('update-markers-data', true);
+    });
+    */
     search.on('submit', function(event) {
       event.preventDefault();
       return markers.trigger('update-markers-data', true);
@@ -769,7 +853,9 @@
   });
 
 }).call(this);
-  
+
+
+// add Extra Span Marker
 function addExtraSpanOnWindow() {
     setTimeout(() =>{
         const map = document.getElementById('map-markers');
@@ -787,10 +873,11 @@ function addExtraSpanOnWindow() {
             }
         }
     },250)
-   
+
 }
-  
-  
+
+// List
+
 const mapLocationsElement = document.getElementById('map-locations');
 const locationItems = mapLocationsElement.getElementsByClassName('location-item');
 for (let locationItem of locationItems) {
@@ -812,6 +899,7 @@ for (let locationItem of locationItems) {
 
 
 
+// fixed
 const lcselector = document.getElementsByClassName('locations-count-selector');
 const lcsELEment = lcselector[0];
 const observer = new MutationObserver(function(mutations) {
@@ -822,12 +910,12 @@ const observer = new MutationObserver(function(mutations) {
             const locationInfoElem = locationItem.getElementsByClassName('location-info');
             const slielem = locationInfoElem[0];
             const locationInfoSpans = locationItem.getElementsByTagName('span');
-            for (let locationSpan of locationInfoSpans) { 
+            for (let locationSpan of locationInfoSpans) {
                 if (locationSpan.innerText === 'Πληρωμή στα online παιχνίδια ΟΠΑΠ') {
                    return;
                 }
             }
-            for (let locationSpan of locationInfoSpans) { 
+            for (let locationSpan of locationInfoSpans) {
                 if (locationSpan.innerText === 'Πληρωμή λογαριασμών') {
                     const newSpanElement = document.createElement('span');
                     newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
@@ -839,10 +927,11 @@ const observer = new MutationObserver(function(mutations) {
                 }
             }
         }
-    });    
+    });
 });
 observer.observe(lcsELEment, { attributes : true, attributeFilter : ['style'] });
-  
+
+
 const windowHrefMap = window.location.href;
 if (windowHrefMap.includes('1008')) {
     const checkedInputs = document.getElementById('map-filters');
@@ -851,11 +940,11 @@ if (windowHrefMap.includes('1008')) {
         if ((input.id).includes('1008')) {
             input.checked = true;
         }
-        
+
     }
 }
-
-
-  
-
-  
+// if ( window.windowHrefMap.includes('1008')) {
+//     return false;
+// } else {
+//     console.log('containes');
+// }
