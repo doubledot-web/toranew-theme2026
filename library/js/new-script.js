@@ -17,10 +17,10 @@ function CheckBanner() {
     const homePage ='https://uat.tora.gr/';
     const ToraPage = windowLocation.includes('tora-app');
     const OroiXrisisPage = windowLocation.includes('oroi-xrhshs-tora-app');
-    console.log(topBannerFrequencySee);
+    const PolitikiAporitou = windowLocation.includes('privacy-policy-tora-app');
     if (!timestamp) {
         if (ToraPage || windowLocation == homePage) {
-            if (OroiXrisisPage) {
+            if (OroiXrisisPage || PolitikiAporitou) {
                 banner.style.display = 'flex';
             } 
             return; 
