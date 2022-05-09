@@ -4,15 +4,17 @@ if ( have_rows( 'element' ) ) :
 	while ( have_rows( 'element' ) ) : the_row();
 
 		switch ( get_row_layout() ) {
-			case 'slide_show' :  ?>
+           
+            case 'slide_show' :  ?>
                 <?php if ( get_sub_field( 'slide' ) ) : 
                         $slides =  get_sub_field( 'slide' ); 
                         set_query_var( 'slides', $slides );
                         get_template_part('slider-templates/home', 'slider');
                     endif;
             break; 
-			case 'background_container' :
 
+			case 'background_container' :
+                
 				$header_background = get_sub_field( 'header_background' ); ?>
 
 				<?php if ( 'video' === $header_background['type'] ) : ?>
@@ -218,14 +220,17 @@ if ( have_rows( 'element' ) ) :
 
 					<div class="page-section accordion-section wrap">
 
-						<dl class="accordion">
+						<dl class="accordion acc-new">
 
 							<?php foreach ( get_sub_field( 'accordion' ) as $key => $accordion_item ) : ?>
 
 								<?php if ( get_sub_field( 'faqs_style' ) ) : ?>
 									<dt class="faq">
 										<a href="" data-counter="<?php echo $key + 1 ?>.">
-											<span class="h3 normal"><?php esc_html_e( $accordion_item['tile']['title'] ); ?></span><i class="fas fa-arrow-down"></i>
+											<span class="h3 normal"><?php esc_html_e( $accordion_item['tile']['title'] ); ?></span>
+                                            <!-- <i class="fas fa-arrow-down"></i> -->
+                                            <img class="img-arrow-blue imgi" src="<?php echo get_template_directory_uri() ?>/library/images/right_arrow.svg">
+
 										</a>
 									</dt>
 								<?php else : ?>
@@ -234,7 +239,9 @@ if ( have_rows( 'element' ) ) :
 											<?php if ( $accordion_item['tile']['icon'] ) : ?>
 												<img src="<?php echo esc_url( $accordion_item['tile']['icon'] ); ?>" />
 											<?php endif; ?>
-											<span class="h3"><?php esc_html_e( $accordion_item['tile']['title'] ); ?></span><i class="fas fa-arrow-down"></i>
+											<span class="h3"><?php esc_html_e( $accordion_item['tile']['title'] ); ?></span>
+                                            <!-- <i class="fas fa-arrow-down"></i> -->
+                                            <img class="img-arrow-blue imgi" src="<?php echo get_template_directory_uri() ?>/library/images/right_arrow.svg">
 										</a>
 									</dt>
 								<?php endif; ?>
@@ -295,10 +302,10 @@ if ( have_rows( 'element' ) ) :
 			case 'heading' :
 
 				$style = get_sub_field( 'style' ); ?>
-
-				<div class="heading-section wrap">
+                
+				<div id ="<?php echo the_sub_field('heading_id');   ?>"  class="heading-section wrap">
 					<?php
-
+                    
 					$element = $style['element'];
 
 					$font_style = ( '' != $style['font_size'] ) ? 'font-size:' . $style['font_size'] . 'px;' : '';
