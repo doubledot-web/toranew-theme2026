@@ -4,7 +4,13 @@ if ( have_rows( 'element' ) ) :
 	while ( have_rows( 'element' ) ) : the_row();
 
 		switch ( get_row_layout() ) {
-
+			case 'slide_show' :  ?>
+                <?php if ( get_sub_field( 'slide' ) ) : 
+                        $slides =  get_sub_field( 'slide' ); 
+                        set_query_var( 'slides', $slides );
+                        get_template_part('slider-templates/home', 'slider');
+                    endif;
+            break; 
 			case 'background_container' :
 
 				$header_background = get_sub_field( 'header_background' ); ?>

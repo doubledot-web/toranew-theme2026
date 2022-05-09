@@ -6,7 +6,7 @@ $locations = $tora_b2c->locations['args']; ?>
 <div class="locations-section">
 
 	<div class="wrap">
-		<h2 class="locations-title"><?php esc_html_e( $locations['map_title'], 'tora' ); ?></h2>
+		 <h2 class="locations-title"><?php if (get_field('map_title_tora')): the_field('map_title_tora'); endif;?> </h2>
 	</div>
 
 	<div class="outer-container">
@@ -30,7 +30,9 @@ $locations = $tora_b2c->locations['args']; ?>
 								<div class="grid-row grid-collapse">
 
 									<?php foreach ( $locations['categories'] as $category ) : ?>
-										<div class="filter-item col-m-12 col-t-6 col-d-6">
+
+                                    <?php if ( $category['id'] != "36"): ?>
+										<div class="filter-item col-m-12 col-t-6 col-d-6 t-<?php echo $category['id'] ?>">
 											<div class="switch tiny">
 												<input class="switch-input" id="switch-<?php esc_attr_e( $category['id'] ) ?>" value="<?php esc_attr_e( $category['id'] ) ?>" type="checkbox" <?php esc_attr_e( $category['checked'] ) ?> name="categories[]">
 												<label class="switch-paddle rounded" for="switch-<?php esc_attr_e( $category['id'] ) ?>">
@@ -39,7 +41,18 @@ $locations = $tora_b2c->locations['args']; ?>
 											</div>
 											<span class="filter"> <?php esc_html_e( $category['name'] ) ?> </span>
 										</div>
-									<?php endforeach; ?>
+									<?php endif; endforeach; ?>
+
+								  <!-- extra field -->
+								 <div class="filter-item col-m-12 col-t-6 col-d-6 t-1008">
+                                    <div class="switch tiny">
+										<input class="switch-input" id="switch-1008" value="<?php esc_attr_e( '8' ) ?>" type="checkbox" <?php esc_attr_e( $category['checked'] ) ?> name="categories[]">
+										<label class="switch-paddle rounded" for="switch-<?php esc_attr_e( '1008') ?>">
+											<span class="show-for-sr"> Πληρωμή στα οnline παιχνίδια ΟΠΑΠ </span>
+										</label>
+									</div>
+									 <span class="filter"> Πληρωμή στα online παιχνίδια ΟΠΑΠ </span>
+								</div>
 
 								</div>
 							</div>

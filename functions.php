@@ -140,6 +140,11 @@ function dd_scripts_and_styles() {
 	wp_enqueue_style( 'theme_style', get_stylesheet_directory_uri() . '/library/css/style.css' );
 	wp_register_script( 'theme_script', get_stylesheet_directory_uri() . '/library/js/scripts.js', array( 'slick', 'pagination' ), '', true );
 
+    /** New Css File */
+    wp_enqueue_style( 'theme_new_style', get_stylesheet_directory_uri() . '/library/css/new-style.css' );
+    /** New Script */
+    wp_register_script( 'theme_new_script', get_stylesheet_directory_uri() . '/library/js/new-script.js', false , '', true );
+    wp_enqueue_script('theme_new_script');
 
 	// localize script to pass usefull variables to theme scripts
 	// https://codex.wordpress.org/Function_Reference/wp_localize_script
@@ -157,7 +162,25 @@ function dd_scripts_and_styles() {
 	wp_enqueue_style( 'font-awesome-5', 'https://use.fontawesome.com/releases/v5.8.1/css/all.css' );
 }
 
+/**  load bootstrap css */
+function load_css () {
+    wp_register_style('bootstrap' , get_template_directory_uri() .  '/library/css/bootstrap.min.css' ,  array(), false , 'all');
+    wp_enqueue_style('bootstrap');
+}
+add_action( 'wp_enqueue_scripts', 'load_css' );
 
+/** Load bootstrap js */
+function load_js() {
+   
+    // wp_register_script( 'jquery3', get_template_directory_uri() .  '/library/js/jquery3.4.1.slim.min.js' ,  '' , true , true);
+    wp_register_script( 'popper', get_template_directory_uri() .  '/library/js/popper.min.js' ,  '' , false , true);
+    wp_register_script( 'bootstrapjs', get_template_directory_uri() .  '/library/js/bootstrap.min.js' ,  '' , false , true);
+    // wp_enqueue_script('jquery3');
+    wp_enqueue_script('popper');
+    wp_enqueue_script('bootstrapjs');
+ 
+}
+add_action( 'wp_enqueue_scripts', 'load_js' );
 
 /*************************************************
 ADD DEFER & ASYNC ATTRIBUTES TO WORDPRESS SCRIPTS

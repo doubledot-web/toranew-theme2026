@@ -561,8 +561,9 @@
       });
       marker.addListener('click', function() {
         // console.log('click marker')
-        window.newbounds = undefined
+        window.newbounds = undefined;
         infowindow.setContent(marker.html);
+        addExtraSpanOnWindow();
         map.panTo(this.getPosition());
         var current_zoom = map.getZoom();
         if (current_zoom && current_zoom < 15) {
@@ -768,3 +769,93 @@
   });
 
 }).call(this);
+  
+function addExtraSpanOnWindow() {
+    setTimeout(() =>{
+        const map = document.getElementById('map-markers');
+        const locationInfoElem = map.getElementsByClassName('location-info');
+        const slielem = locationInfoElem[0];
+        const spansElem = slielem.getElementsByTagName('span');
+        for (let item of spansElem) {
+            console.log(item.innerText);
+            if (item.innerText === 'Πληρωμή λογαριασμών') {
+                const newSpanElement = document.createElement('span');
+                newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+                slielem.appendChild(newSpanElement);
+                newSpanElement.classList.add("label","rounded");
+                newSpanElement.style.backgroundColor = '#0273A2';
+            }
+        }
+    },250)
+   
+}
+  
+  
+const mapLocationsElement = document.getElementById('map-locations');
+const locationItems = mapLocationsElement.getElementsByClassName('location-item');
+for (let locationItem of locationItems) {
+    const locationInfoElem = locationItem.getElementsByClassName('location-info');
+    const slielem = locationInfoElem[0];
+    const locationInfoSpans = locationItem.getElementsByTagName('span');
+    for (let locationSpan of locationInfoSpans) {
+        if (locationSpan.innerText === 'Πληρωμή λογαριασμών') {
+            const newSpanElement = document.createElement('span');
+            newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+            slielem.appendChild(newSpanElement);
+            newSpanElement.classList.add('label","rounded');
+            newSpanElement.classList.remove('label","rounded');
+            newSpanElement.classList.add("label","rounded");
+            newSpanElement.style.backgroundColor = '#0273A2';
+        }
+    }
+}
+
+
+
+const lcselector = document.getElementsByClassName('locations-count-selector');
+const lcsELEment = lcselector[0];
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutationRecord) {
+        const mapLocationsElement = document.getElementById('map-locations');
+        const locationItems = mapLocationsElement.getElementsByClassName('location-item');
+        for (let locationItem of locationItems) {
+            const locationInfoElem = locationItem.getElementsByClassName('location-info');
+            const slielem = locationInfoElem[0];
+            const locationInfoSpans = locationItem.getElementsByTagName('span');
+            for (let locationSpan of locationInfoSpans) { 
+                if (locationSpan.innerText === 'Πληρωμή στα online παιχνίδια ΟΠΑΠ') {
+                   return;
+                }
+            }
+            for (let locationSpan of locationInfoSpans) { 
+                if (locationSpan.innerText === 'Πληρωμή λογαριασμών') {
+                    const newSpanElement = document.createElement('span');
+                    newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+                    slielem.appendChild(newSpanElement);
+                    newSpanElement.classList.add('label","rounded');
+                    newSpanElement.classList.remove('label","rounded');
+                    newSpanElement.classList.add("label","rounded");
+                    newSpanElement.style.backgroundColor = '#0273A2';
+                }
+            }
+        }
+    });    
+});
+observer.observe(lcsELEment, { attributes : true, attributeFilter : ['style'] });
+  
+const windowHrefMap = window.location.href;
+if (windowHrefMap.includes('1008')) {
+    const checkedInputs = document.getElementById('map-filters');
+    const inputsSwitch = checkedInputs.getElementsByClassName('switch-input');
+    for (let input of inputsSwitch) {
+        if ((input.id).includes('1008')) {
+            input.checked = true;
+        }
+        
+    }
+}
+
+
+  
+
+  
