@@ -15,6 +15,8 @@ jQuery(document).ready(function($) {
 		});
 	}
 
+	window.fitloaded = false
+
 	// SLICKNAV
 	$('#menu-mobile-menu').slicknav({
 		'label' : '',
@@ -221,7 +223,9 @@ jQuery(document).ready(function($) {
 
 
 	$('body').on('update-markers', '#map-markers', function() {
-		fitBounds(); // Center map to display all active markers
+		if (window.fitloaded) {
+			fitBounds(); // Center map to display all active markers
+		}
 		locations = $('.location-item').toArray();
 		assignServicesLabelColors();
 		togglePagination(); // Toggle pagination if there are no items
@@ -330,7 +334,7 @@ jQuery(document).ready(function($) {
 			for (var i = 0; i < markers.length; i++) {
 				bounds.extend(markers[i].getPosition());
 			}
-			// map.fitBounds(bounds);
+			map.fitBounds(bounds);
 
 		} else {
 			var center = new google.maps.LatLng(37.9747815, 23.732726); // Athens coordinates
