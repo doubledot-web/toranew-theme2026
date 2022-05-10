@@ -1,49 +1,41 @@
 		<footer class="footer bg-blue p-b-1" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
-
+             
 			<div id="inner-footer" class="wrap cf">
-
-				<a href="#container" class="to-top" data-smooth-scroll>
-					<i class="fa fa-chevron-up"></i>
-				</a>
-
 				<div class="grid-row p-t-2">
 					<?php get_template_part( 'asides/footer-col-1' ); ?>
 					<?php get_template_part( 'asides/footer-col-2' ); ?>
 					<?php get_template_part( 'asides/footer-col-3' ); ?>
-
+					<?php get_template_part( 'asides/footer-col-4' ); ?>
 					<div class="col-12 p-t-2">
-						<nav itemscope itemtype="http://schema.org/SiteNavigationElement">
-							<?php
-							wp_nav_menu( array(
-								'container' 	  => false, // remove nav container
-								'container_class' => 'menu', // class of container (should you choose to use it)
-								'menu' 			  => __( 'The Social Footer Menu', 'thisisbare' ), // nav name
-								'menu_class' 	  => 'nav social-nav text-center cf', // adding custom nav class
-								'theme_location'  => 'social-nav', // where it's located in the theme
-							) ); ?>
-						</nav>
-
 						<p class="copyright normal">Copyright &copy; <?php echo date( 'Y' ); ?> - <?php bloginfo( 'name' ); ?>. All Rights Reserved</p>
-
-						<nav itemscope itemtype="http://schema.org/SiteNavigationElement">
+						<nav class="footer-menu-bottom-left" itemscope itemtype="http://schema.org/SiteNavigationElement">
 							<?php
 							wp_nav_menu( array(
-								'container' 	  => false, // remove nav container
-								'container_class' => 'menu', // class of container (should you choose to use it)
-								'menu' 			  => __( 'The Footer Menu', 'thisisbare' ), // nav name
-								'menu_class' 	  => 'nav cf', // adding custom nav class
-								'theme_location'  => 'footer-nav', // where it's located in the theme
+								'container' 	  => false, 
+								'container_class' => 'menu', 
+								'menu' 			  => __( 'The Footer Menu', 'thisisbare' ), 
+								'menu_class' 	  => 'nav cf', 
+								'theme_location'  => 'footer-nav', 
 							) ); ?>
-						</nav>
+                        </nav>
+                        <div class="footer-menu-bottom-right"> 
+                           <a class="tora-button-ln" href="https://www.linkedin.com/company/tora-wallet-s.a." target="_blank"  rel="noopener noreferrer">
+                                    <img class="Linkedin-f" src="<?php echo get_template_directory_uri() ?>/library/images/Linkedin-f.png" alt=""> 
+                                    LinkedIn Tora Wallet
+                            </a>
+                        </div>
 					</div>
 				</div>
 
 			</div>
-
+            <a href="#container" class="to-top2" data-smooth-scroll>
+				    <img src="<?php echo get_template_directory_uri() ?>/library/images/Upicon.png"> <span>Κορυφή σελίδας  </span>
+				</a>
 		</footer>
+        
 	</div> <?php // container div - opens in header.php ?>
-
+   
 	<?php wp_footer(); ?>
-
+   
 </body>
 </html>
