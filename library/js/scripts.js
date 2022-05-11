@@ -223,7 +223,7 @@ jQuery(document).ready(function($) {
 
 
 	$('body').on('update-markers', '#map-markers', function() {
-		if (window.fitloaded) {
+		if (! window.fitloaded) {
 			fitBounds(); // Center map to display all active markers
 		}
 		locations = $('.location-item').toArray();
