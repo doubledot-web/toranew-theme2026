@@ -19,6 +19,9 @@ if ( 'redirect_proxy' === get_field( 'page_template' ) ) {
 			case 'contact':
 				get_template_part( 'page-templates/contact' );
 				break;
+			case 'pudo_page':
+				get_template_part( 'page-templates/pudo-page' );
+				break;
 			default:
 				get_template_part( 'page-templates/default' );
 				break;
