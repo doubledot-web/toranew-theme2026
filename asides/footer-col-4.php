@@ -7,7 +7,7 @@
 	<?php else : ?>
 
 		<div class="no-widgets">
-			<p><?php _e( 'This is a widget ready area. Add some and they will appear here.', 'thisisbare' );  ?></p>
+			<p><?php // _e( 'This is a widget ready area. Add some and they will appear here.', 'thisisbare' );  ?></p>
 		</div>
 
 	<?php endif; ?>
