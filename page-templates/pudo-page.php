@@ -354,7 +354,7 @@ $column_class = $column['background']['add_overlay'] ? 'overlay' : ''; ?>
 
             echo $column['title'] ? '<h2 style="max-width: 60%; color: #fff">' . esc_html( $column['title'] ) . '</h2>' : '';
 
-	    $pudo_term = get_term_by('name', 'Παραλαβή και παράδοση δεμάτων', 'location-category');
+	    $pudo_term = get_term_by('name', 'Παραλαβή και επιστροφή δεμάτων', 'location-category');
 
 	    ?>  <p class="counter h1"><span data-count="<?php echo $pudo_term->count; ?>">0</span></p>
             <?php if ( $column['counter'] ) :
