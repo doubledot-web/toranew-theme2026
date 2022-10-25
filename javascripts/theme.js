@@ -631,6 +631,11 @@
         link_text: localize.map_link_text,
         tel_text: localize.map_tel_text
       };
+      // Αφαίρεση bubble Εισιτήρια Θεαμάτων
+      var locx = item_data.locations[0]
+      locx = { ...locx, services: locx.services.filter( s => s !== 'Εισιτήρια Θεαμάτων')}
+      item_data.locations = [locx];
+      // done
       html = Mustache.render(locations_template, item_data);
       marker = new google.maps.Marker({
         position: latLng,
@@ -866,7 +871,8 @@ function addExtraSpanOnWindow() {
             console.log(item.innerText);
             if (item.innerText === 'Πληρωμή λογαριασμών') {
                 const newSpanElement = document.createElement('span');
-                newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+                // newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+                newSpanElement.innerHTML = 'Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού';
                 slielem.appendChild(newSpanElement);
                 newSpanElement.classList.add("label","rounded");
                 newSpanElement.style.backgroundColor = '#0273A2';
@@ -887,7 +893,8 @@ for (let locationItem of locationItems) {
     for (let locationSpan of locationInfoSpans) {
         if (locationSpan.innerText === 'Πληρωμή λογαριασμών') {
             const newSpanElement = document.createElement('span');
-            newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+            // newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+            newSpanElement.innerHTML = 'Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού';
             slielem.appendChild(newSpanElement);
             newSpanElement.classList.add('label","rounded');
             newSpanElement.classList.remove('label","rounded');
@@ -911,14 +918,16 @@ const observer = new MutationObserver(function(mutations) {
             const slielem = locationInfoElem[0];
             const locationInfoSpans = locationItem.getElementsByTagName('span');
             for (let locationSpan of locationInfoSpans) {
-                if (locationSpan.innerText === 'Πληρωμή στα online παιχνίδια ΟΠΑΠ') {
+                // if (locationSpan.innerText === 'Πληρωμή στα online παιχνίδια ΟΠΑΠ') {
+                if (locationSpan.innerText === 'Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού') {
                    return;
                 }
             }
             for (let locationSpan of locationInfoSpans) {
                 if (locationSpan.innerText === 'Πληρωμή λογαριασμών') {
                     const newSpanElement = document.createElement('span');
-                    newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+                    // newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+                    newSpanElement.innerHTML = 'Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού';
                     slielem.appendChild(newSpanElement);
                     newSpanElement.classList.add('label","rounded');
                     newSpanElement.classList.remove('label","rounded');

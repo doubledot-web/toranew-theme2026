@@ -56,7 +56,8 @@ $locations = $tora_b2c->locations['args']; ?>
 													<span class="show-for-sr"> Πληρωμή στα οnline παιχνίδια ΟΠΑΠ </span>
 												</label>
 											</div>
-											<span class="filter"> Πληρωμή στα online παιχνίδια ΟΠΑΠ </span>
+											<!-- <span class="filter"> Πληρωμή στα online παιχνίδια ΟΠΑΠ </span> -->
+											<span class="filter"> Φόρτιση (Top-up)<br> Ηλεκτρονικού Παικτικού Λογαριασμού </span>
 									</div>
 
 								</div>
