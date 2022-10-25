@@ -7,8 +7,8 @@ $args = array(
 	'tax_query'   => array(
 		array(
 			'taxonomy' => 'location-category',
-			'field'	   => 'slug',
-			'terms'	   => wp_list_pluck( $services, 'slug' ),
+			'field'	   => 'id',
+			'terms'	   => in_array( '38', wp_list_pluck( $services, 'term_id' ) ) ? array( '8' ) : wp_list_pluck( $services, 'term_id' ),
 		),
 	),
 );
