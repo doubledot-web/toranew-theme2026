@@ -16,13 +16,15 @@ endif; ?>
 						<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?> role="article">
 
 							<header class="service-header">
-								<div class="featured-image intro-text flex-col flex p-1" style="background: url('<?php echo esc_url( get_the_post_thumbnail_url() ); ?>') no-repeat 70% center; background-size: cover;">
-									<h1 class="service-title" itemprop="headline">
-										<?php get_field( 'header_title' ) ? the_field( 'header_title' ) : the_title(); ?>
-									</h1>
-									<?php if ( get_field( 'subtitle' ) ) : ?>
-										<p class="service-intro normal h3"><?php the_field( 'subtitle' ); ?></p>
-									<?php endif; ?>
+								<div class="featured-image intro-text flex-col flex p-1" style="background: url('<?php echo esc_url( get_the_post_thumbnail_url() ); ?>') no-repeat 70% center; background-size: cover; position: relative; align-items: flex-start;">
+									<div style="padding-left: 40px;">
+										<h1 class="service-title" itemprop="headline" style="margin-bottom: 50px;">
+											<?php get_field( 'header_title' ) ? the_field( 'header_title' ) : the_title(); ?>
+										</h1>
+										<?php if ( get_field( 'subtitle' ) ) : ?>
+											<p class="service-intro normal h3"><?php the_field( 'subtitle' ); ?></p>
+										<?php endif; ?>
+									</div>
 								</div>
 							</header>
 
