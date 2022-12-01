@@ -157,8 +157,7 @@
 
         <div style="width:100%; height: 80px"></div>
 
-        <?php
-        /*
+
         <!-- Πως λειτουργούν οι αποστολές δεμάτων και φακέλων  -->
         <div  id="apostoli-dematon-fakelon"  class="container top-section-part pl-0">
             <?php the_field('forth_section_top_part') ?>
@@ -242,8 +241,6 @@
         </div>
 
         <div style="width:100%; height: 80px"></div>
-        */
-        ?>
 
 
         <!-- Πως λειτουργούν οι επιστροφές σε e-Shops  -->
@@ -334,7 +331,7 @@
     </div>
 
     <!-- Map -->
-    <?php 
+    <?php
 if ( have_rows( 'element' ) ) :  while ( have_rows( 'element' ) ) : the_row();
 
 $rl =   get_row_layout();
