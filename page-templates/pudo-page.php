@@ -160,15 +160,15 @@
 
         <!-- Πως λειτουργούν οι αποστολές δεμάτων και φακέλων  -->
         <div  id="apostoli-dematon-fakelon"  class="container top-section-part pl-0">
-            <?php the_field('forth_section_top_part') ?>
+            <?php the_field('fourth_section_top_part_') ?>
         </div>
 
 
         <div id="apostoli-dematon-fakelon-how-to" class="container grey-container">
-            <h4> <?php the_field('forth_section_mid_part_title') ?> </h4>
+            <h4> <?php the_field('fourth_section_mid_part_title') ?> </h4>
             <div class="row justify-content-center d-none d-lg-flex">
 
-                <?php $index=1; $forthSectiontabs = get_field('forth_section_mid_part_tabs'); foreach ($forthSectiontabs as $forthSecionTab) : ?>
+                <?php $index=1; $forthSectiontabs = get_field('fourth_section_mid_part_tabs'); foreach ($forthSectiontabs as $forthSecionTab) : ?>
                 <div class="col-3 center-items">
                     <div class="row">
                         <div class="col-sm-12">
@@ -186,7 +186,7 @@
             </div>
             <!-- Tablet -->
             <div class="row d-none d-sm-flex d-md-flex d-lg-none">
-                <?php $index=1; $forthSectiontabs = get_field('forth_section_mid_part_tabs'); foreach ($forthSectiontabs as $forthSecionTab) : ?>
+                <?php $index=1; $forthSectiontabs = get_field('fourth_section_mid_part_tabs'); foreach ($forthSectiontabs as $forthSecionTab) : ?>
                 <div class="row tablet-row">
                     <div class="col-sm-4">
                         <img src="<?php echo $forthSecionTab['image']['url'] ?>" alt="<?php echo $forthSecionTab['image']['alt'] ?>">
@@ -202,7 +202,7 @@
             </div>
             <!-- mobile -->
             <div class="row d-sm-none row-mobile">
-                <?php $index=1; $forthSectiontabs = get_field('forth_section_mid_part_tabs'); foreach ($forthSectiontabs as $forthSecionTab) : ?>
+                <?php $index=1; $forthSectiontabs = get_field('fourth_section_mid_part_tabs'); foreach ($forthSectiontabs as $forthSecionTab) : ?>
                 <div class="row tab-row-mob">
                     <div class="col-sm-12">
                         <img src="<?php echo $forthSecionTab['image']['url'] ?>" alt="<?php echo $forthSecionTab['image']['alt'] ?>">
@@ -222,8 +222,8 @@
             <div class="container d-lg-none">
                 <div class="row">
                     <div class="col-12 pl-0">
-                        <a class="dark-blue-reverse" href="<?php echo the_field('pudo_forth_section_button_url')  ?>"
-                            role="button"> <?php the_field('pudo_forth_section_button_text') ?></a>
+                        <a class="dark-blue-reverse" href="<?php echo the_field('pudo_fourth_section_button_url')  ?>"
+                            role="button"> <?php the_field('pudo_fourth_section_button_text') ?></a>
                     </div>
                 </div>
             </div>
@@ -234,8 +234,8 @@
         <div class="container d-none d-lg-flex">
             <div class="row">
                 <div class="col-12 pl-0">
-                    <a class="dark-blue-reverse" href="<?php echo the_field('pudo_forth_section_button_url')  ?>"
-                        role="button"> <?php the_field('pudo_forth_section_button_text') ?></a>
+                    <a class="dark-blue-reverse" href="<?php echo the_field('pudo_fourth_section_button_url')  ?>"
+                        role="button"> <?php the_field('pudo_fourth_section_button_text') ?></a>
                 </div>
             </div>
         </div>
@@ -286,7 +286,7 @@
             </div>
             <!-- mobile -->
             <div class="row d-sm-none row-mobile">
-                <?php $index=1; $fifthSectiontabs = get_field('forth_section_mid_part_tabs'); foreach ($fifthSectiontabs as $fifthSecionTab) : ?>
+                <?php $index=1; $fifthSectiontabs = get_field('fifth_section_mid_part_tabs'); foreach ($fifthSectiontabs as $fifthSecionTab) : ?>
                 <div class="row tab-row-mob">
                     <div class="col-sm-12">
                         <img src="<?php echo $fifthSecionTab['image']['url'] ?>" alt="<?php echo $fifthSecionTab['image']['alt'] ?>">
