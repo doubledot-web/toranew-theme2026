@@ -34,7 +34,7 @@ $locations = $tora_b2c->locations['args']; ?>
 									<?php foreach ( $locations['categories'] as $category ) : ?>
 
                                     <?php if ( $category['id'] != "36"): ?>
-										<div class="filter-item col-m-12 col-t-6 col-d-6 t-<?php echo $category['id'] ?>">
+										<div style="white-space: nowrap;" class="filter-item col-m-12 col-t-6 col-d-6 t-<?php echo $category['id'] ?>">
 											<div class="switch tiny">
 												<input class="switch-input" id="switch-<?php esc_attr_e( $category['id'] ) ?>"
                                                        value="<?php esc_attr_e( $category['id'] ) ?>"
