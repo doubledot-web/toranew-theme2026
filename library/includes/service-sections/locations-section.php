@@ -8,7 +8,7 @@ $args = array(
 		array(
 			'taxonomy' => 'location-category',
 			'field'	   => 'id',
-			'terms'	   => in_array( '38', wp_list_pluck( $services, 'term_id' ) ) ? array( '8' ) : wp_list_pluck( $services, 'term_id' ),
+			'terms'	   => in_array( '52', wp_list_pluck( $services, 'term_id' ) ) ? array( '8' ) : wp_list_pluck( $services, 'term_id' ),
 		),
 	),
 );
