@@ -3,7 +3,7 @@ $services = get_the_terms( get_queried_object(), 'location-category' );
 
 $bill_payment_id = '8';
 
-if ( strpos( $_SERVER['SERVER_NAME'], 'uat' ) ) {
+if ( strpos( $_SERVER['SERVER_NAME'], 'uat' ) !== false ) {
 	$top_up_id = '52';
 } else {
 	$top_up_id = '38';
