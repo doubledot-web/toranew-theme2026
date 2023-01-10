@@ -39,7 +39,7 @@ $query = new WP_Query( $args ); ?>
 
 				<p class="counter h1"><span data-count="<?php esc_attr_e( $query->found_posts ); ?>">0</span></p>
 
-				<?php $query_key = $is_top_up_term ? $bill_payment_id : $services[0]->term_id; ?>
+				<?php $query_key = $is_top_up_term ? '1008' : $services[0]->term_id; ?>
 
 				<a class="button button-white" href="<?php echo esc_url( add_query_arg( 'categories[0]', $query_key, $services_settings['locations_section_link'] ) ) ?>">
 					<?php _e( 'Βρες ένα κοντινό σημείο', 'tora_ddot' ) ?>
