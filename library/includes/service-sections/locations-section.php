@@ -1,6 +1,16 @@
 <?php
 $services = get_the_terms( get_queried_object(), 'location-category' );
 
+$bill_payment_id = '8';
+
+if ( strpos( $_SERVER['SERVER_NAME'], 'uat' ) ) {
+	$top_up_id = '52';
+} else {
+	$top_up_id = '38';
+}
+
+$is_top_up_term = in_array( $top_up_id, wp_list_pluck( $services, 'term_id' ) );
+
 $args = array(
 	'post_type'   => 'location',
 	'post_status' => 'publish',
@@ -8,7 +18,7 @@ $args = array(
 		array(
 			'taxonomy' => 'location-category',
 			'field'	   => 'id',
-			'terms'	   => in_array( '52', wp_list_pluck( $services, 'term_id' ) ) ? array( '8' ) : wp_list_pluck( $services, 'term_id' ),
+			'terms'	   => $is_top_up_term ? array( $bill_payment_id ) : wp_list_pluck( $services, 'term_id' ),
 		),
 	),
 );
@@ -29,7 +39,9 @@ $query = new WP_Query( $args ); ?>
 
 				<p class="counter h1"><span data-count="<?php esc_attr_e( $query->found_posts ); ?>">0</span></p>
 
-				<a class="button button-white" href="<?php echo esc_url( add_query_arg( 'categories[0]', $services[0]->term_id, $services_settings['locations_section_link'] ) ) ?>">
+				<?php $query_key = $is_top_up_term ? $bill_payment_id : $services[0]->term_id; ?>
+
+				<a class="button button-white" href="<?php echo esc_url( add_query_arg( 'categories[0]', $query_key, $services_settings['locations_section_link'] ) ) ?>">
 					<?php _e( 'Βρες ένα κοντινό σημείο', 'tora_ddot' ) ?>
 				</a>
 
