@@ -873,7 +873,7 @@ function addExtraSpanOnWindow() {
                 const newSpanElement = document.createElement('span');
                 // newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
                 // newSpanElement.innerHTML = 'Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού';
-                newSpanElement.innerHTML = 'Φόρτιση pamestoixima.gr – tzoker.gr – stoiximan.gr';
+                newSpanElement.innerHTML = 'Φόρτιση pamestoixima.gr – opaponline.gr – stoiximan.gr';
                 slielem.appendChild(newSpanElement);
                 newSpanElement.classList.add("label","rounded");
                 newSpanElement.style.backgroundColor = '#0273A2';
