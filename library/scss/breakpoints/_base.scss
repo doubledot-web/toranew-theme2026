@@ -26,14 +26,15 @@ img {
 a {
 	color: $link-color;
 	text-decoration: none;
-	@include transition(.3s ease-out color);
+	@include transition(0.3s ease-out color);
 
 	&:hover {
 		color: $link-hover;
 	}
 }
 
-ul, ol {
+ul,
+ol {
 	padding-left: 17px;
 
 	li {
@@ -41,12 +42,11 @@ ul, ol {
 	}
 }
 
-
 /******************
  ***** HEADER *****
  ******************/
 
- .logos {
+.logos {
 	padding: 15px 0;
 
 	> div {
@@ -58,8 +58,7 @@ ul, ol {
 			width: 100px;
 		}
 	}
- }
-
+}
 
 /**********************
  ***** NAVIGATION *****
@@ -79,12 +78,11 @@ ul, ol {
 	}
 }
 
-
 /***********************
  ***** WP ELEMENTS *****
  ***********************/
 
- .widget_nav_menu {
+.widget_nav_menu {
 	.widgettitle {
 		margin-bottom: 0;
 	}
@@ -92,13 +90,12 @@ ul, ol {
 	a {
 		text-decoration: none;
 	}
-	
+
 	ul {
 		list-style-type: none;
 		padding: 0;
 	}
- }
-
+}
 
 /*********************
  ***** STRUCTURE *****
@@ -135,7 +132,7 @@ ul, ol {
 	.section-title {
 		margin: 0;
 	}
-	
+
 	.section-content {
 		font-size: 23px;
 		font-weight: 400;
@@ -216,7 +213,6 @@ ul, ol {
 	padding: 5rem 0;
 }
 
-
 // Text Editor
 .text-editor {
 	+ .text-editor {
@@ -232,7 +228,6 @@ ul, ol {
 		margin-bottom: 0;
 	}
 }
-
 
 // Icon Boxes
 .icon-box {
@@ -251,7 +246,6 @@ ul, ol {
 	}
 }
 
-
 // Two Column & One Column
 .two-columns-section,
 .one-column-section {
@@ -265,11 +259,14 @@ ul, ol {
 		}
 	}
 
-	h2, p, a {
+	h2,
+	p,
+	a {
 		position: relative;
 	}
 
-	h2, p {
+	h2,
+	p {
 		margin: 30px 0;
 	}
 
@@ -282,13 +279,13 @@ ul, ol {
 	position: relative;
 
 	&:before {
-		content: '';
+		content: "";
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: rgba($black, .3);
+		background: rgba($black, 0.3);
 	}
 }
 
@@ -305,7 +302,8 @@ ul, ol {
 		}
 	}
 
-	h2, p {
+	h2,
+	p {
 		max-width: 535px;
 	}
 
@@ -333,12 +331,12 @@ ul, ol {
 		font-size: 60px;
 	}
 	&:before {
-		content: '';
+		content: "";
 		width: 60px;
 		height: 60px;
 		display: inline-block;
 		vertical-align: middle;
-		background: url('../images/landing-tora-pin-icon.png') no-repeat center;
+		background: url("../images/landing-tora-pin-icon.png") no-repeat center;
 		background-size: contain;
 		margin-right: 30px;
 	}
@@ -347,7 +345,6 @@ ul, ol {
 		font-size: 20px;
 	}
 }
-
 
 // Accordion & Carousel
 .accordion {
@@ -361,8 +358,8 @@ ul, ol {
 		padding: 5px 10px;
 		position: relative;
 		margin: 10px 0 0 0;
-		box-shadow: 0 0 5px rgba($black, .2);
-		@include transition(background .3s ease-out);
+		box-shadow: 0 0 5px rgba($black, 0.2);
+		@include transition(background 0.3s ease-out);
 
 		span {
 			font-size: 16px;
@@ -394,7 +391,7 @@ ul, ol {
 			right: 20px;
 			top: 50%;
 			@include transform(translateY(-50%));
-			@include transition(all .3s ease-out);
+			@include transition(all 0.3s ease-out);
 			font-size: 24px;
 		}
 
@@ -404,14 +401,14 @@ ul, ol {
 			}
 		}
 	}
-  
+
 	dd {
 		padding: 0 10px;
 		margin-top: 10px;
 		margin-left: 0;
 		background: $light-gray;
 		overflow: hidden;
-		@include transition(max-height .4s ease-out);
+		@include transition(max-height 0.4s ease-out);
 
 		h3 {
 			font-size: 27px;
@@ -421,7 +418,7 @@ ul, ol {
 
 		&.carousel ul {
 			padding: 0;
-			list-style-type: none;	
+			list-style-type: none;
 		}
 	}
 }
@@ -439,7 +436,7 @@ ul, ol {
 		padding: 0;
 		list-style-type: none;
 	}
-	
+
 	.slick-slider {
 		margin: 10px 0;
 	}
@@ -466,12 +463,13 @@ ul, ol {
 		li {
 			padding: 0;
 			margin: 0;
-			
+
 			button {
 				padding: 0;
 				margin: 0 4px;
 
-				&, &:before {
+				&,
+				&:before {
 					width: 8px;
 					height: 8px;
 				}
@@ -504,20 +502,21 @@ ul, ol {
 	position: relative;
 
 	&:before {
-		content:"";
-		position:absolute;
-		left:3px;
-		right:3px;
-		top:-6px;
-		bottom:-6px;
+		content: "";
+		position: absolute;
+		left: 3px;
+		right: 3px;
+		top: -6px;
+		bottom: -6px;
 		border: 3px solid $dark-blue;
 	}
 
-  	.slide {
-  		margin: 10px 0;
-  	}
+	.slide {
+		margin: 10px 0;
+	}
 
-	p, li {
+	p,
+	li {
 		padding: 15px 20px;
 		color: $black;
 		font-weight: 400;
@@ -530,8 +529,6 @@ ul, ol {
 		margin: 0;
 	}
 }
-
-
 
 /*************************
  ***** CONTENT PAGES *****
@@ -553,7 +550,7 @@ ul, ol {
 		background: $light-blue-2;
 	}
 }
- 
+
 .page-header,
 .service-header {
 	.featured-image {
@@ -568,7 +565,8 @@ ul, ol {
 			margin: 0;
 		}
 
-		h1, p {
+		h1,
+		p {
 			color: $white;
 			max-width: 500px;
 			text-shadow: 4px 4px 5px rgba(51, 51, 51, 0.8);
@@ -578,13 +576,13 @@ ul, ol {
 
 .page-header {
 	.intro-text {
-		h1, p {
+		h1,
+		p {
 			color: $blue;
 			text-shadow: none;
 		}
 	}
 }
-
 
 .terms-archive {
 	text-align: right;
@@ -607,7 +605,6 @@ ul, ol {
 		padding: 0 40px 100px 0;
 	}
 }
-
 
 // Service sections
 .service-section {
@@ -638,7 +635,6 @@ ul, ol {
 	}
 }
 
-
 // Contact Page
 .contact-boxes-section {
 	padding: 5rem 0 7.5rem;
@@ -651,13 +647,14 @@ ul, ol {
 	font-weight: 300;
 
 	&:before {
-		content:"";
-		position:absolute;
-		left:4px;
-		right:-10px;
-		top:4px;
-		bottom:-10px;
+		content: "";
+		position: absolute;
+		left: 4px;
+		right: -10px;
+		top: 4px;
+		bottom: -10px;
 		border: 3px solid $light-blue;
+		z-index: -1;
 	}
 
 	h2 {
@@ -665,12 +662,11 @@ ul, ol {
 		font-size: 27px;
 	}
 
-	h2, p {
+	h2,
+	p {
 		margin: 0;
 	}
 }
-
-
 
 // 404 Page
 .error404 {
@@ -680,8 +676,6 @@ ul, ol {
 	}
 }
 
-
-
 // FAQs style
 dt.faq {
 	padding: 20px 60px 20px 40px;
@@ -690,7 +684,7 @@ dt.faq {
 	span {
 		font-size: 20px;
 	}
-	
+
 	i {
 		right: 40px;
 	}
@@ -712,10 +706,11 @@ dt.faq {
 			margin: 7px 0;
 		}
 
-		ul, ol {
+		ul,
+		ol {
 			padding-left: 50px;
 		}
-		
+
 		@media screen and (min-width: 1240px) {
 			padding-right: 40%;
 		}
@@ -730,12 +725,11 @@ dt.faq {
 	font-weight: 400;
 }
 
-
 /******************
  ***** FOOTER *****
  ******************/
 
- #catapult-cookie-bar {
+#catapult-cookie-bar {
 	font-size: 13px;
 	font-weight: 400;
 	padding: 10px 20px !important;
@@ -813,7 +807,7 @@ footer {
 			opacity: 1;
 			margin-top: 0;
 		}
-		
+
 		.arrow-down {
 			width: 210px;
 			height: 15px;
@@ -837,10 +831,10 @@ footer {
 		position: absolute;
 		left: 50%;
 		@include transform(translateX(-50%));
-		@include transition(all .3s ease-out);
+		@include transition(all 0.3s ease-out);
 
 		&:after {
-			content: '';
+			content: "";
 			display: inline-block;
 			width: 15px;
 			height: 15px;
@@ -860,7 +854,7 @@ footer {
 			i {
 				margin-right: 5px;
 			}
-			
+
 			a {
 				font-weight: 500;
 			}
@@ -870,4 +864,121 @@ footer {
 
 .copyright {
 	margin: 20px 0 5px 0;
+}
+
+.form-button {
+	color: #fff;
+	background: #003e7e;
+	border-color: #003e7e;
+	padding: 6px;
+	text-align: center;
+	border-radius: 4px;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		background: #022246;
+		border-color: #022246;
+		color: #fff;
+	}
+
+	&.place-bottom {
+		margin-top: 2rem;
+		display: block;
+	}
+}
+
+.theme-form {
+	&-terms {
+		font-size: 16px;
+		line-height: 24px;
+		margin-top: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.form-group {
+		position: relative;
+		margin-bottom: 2rem;
+	}
+
+	.form-row:last-child .form-group {
+		margin-bottom: 1rem;
+	}
+
+	label,
+	.form-control {
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 24px;
+		color: #000;
+	}
+
+	label {
+		position: absolute;
+		top: 0;
+		left: 5px;
+		padding-left: 0.75rem;
+		transform: translateY(16px);
+		z-index: -1;
+		cursor: text;
+		background: #fff;
+		transition: all 0.3s ease-in-out;
+		transform-origin: 0% 100%;
+	}
+
+	.form-control {
+		height: calc(2.6em + 0.75rem + 2px);
+		padding: 0.5rem 0.75rem;
+		background: transparent;
+
+		&:focus,
+		&.active {
+			border-color: #ced4da;
+			outline: 0;
+			box-shadow: none;
+
+			+ label {
+				left: 10px;
+				transform: translateY(-14px) scale(0.8);
+				transform-origin: 0 0;
+				font-weight: 300;
+				padding: 3px 5px;
+				z-index: 1;
+			}
+		}
+	}
+
+	.form-text {
+		font-size: 12px;
+		font-weight: 300;
+		line-height: 16px;
+		color: rgba($black, 0.6);
+	}
+
+	.wpcf7-not-valid-tip {
+		font-size: 12px;
+		font-weight: 300;
+		line-height: 16px;
+		color: #dc3545;
+		margin-top: 0.25rem;
+	}
+
+	.wpcf7-not-valid,
+	.wpcf7-not-valid + label,
+	.input-error ~ small,
+	.input-error ~ div .form-text {
+		border-color: #dc3545 !important;
+		color: #dc3545 !important;
+	}
+
+	.wpcf7-response-output.wpcf7-validation-errors {
+		background: #f5c6cb;
+		color: #b00020;
+		border-color: #f5c6cb;
+	}
+
+	.wpcf7-response-output.wpcf7-mail-sent-ok {
+		background: #caf5d4;
+		color: #155724;
+		border-color: #caf5d4;
+	}
 }

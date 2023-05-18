@@ -4,17 +4,17 @@ if ( have_rows( 'element' ) ) :
 	while ( have_rows( 'element' ) ) : the_row();
 
 		switch ( get_row_layout() ) {
-           
+
             case 'slide_show' :  ?>
-                <?php if ( get_sub_field( 'slide' ) ) : 
-                        $slides =  get_sub_field( 'slide' ); 
+                <?php if ( get_sub_field( 'slide' ) ) :
+                        $slides =  get_sub_field( 'slide' );
                         set_query_var( 'slides', $slides );
                         get_template_part('slider-templates/home', 'slider');
                     endif;
-            break; 
+            break;
 
 			case 'background_container' :
-                
+
 				$header_background = get_sub_field( 'header_background' ); ?>
 
 				<?php if ( 'video' === $header_background['type'] ) : ?>
@@ -213,9 +213,8 @@ if ( have_rows( 'element' ) ) :
 
 				<?php
 				break;
-
-			case 'accordion' : ?>
-
+			case 'accordion':
+				?>
 				<?php if ( get_sub_field( 'accordion' ) ) : ?>
 
 					<div class="page-section accordion-section wrap">
@@ -275,10 +274,9 @@ if ( have_rows( 'element' ) ) :
 				<?php
 				break;
 
-			case 'carousel' : ?>
-
-				<?php if ( get_sub_field( 'carousel_items' ) ) : ?>
-
+			case 'carousel':
+				if ( get_sub_field( 'carousel_items' ) ) :
+					?>
 					<div class="page-section carousel-section bg-blue">
 						<div class="wrap grid-row">
 							<div class="col-m-12 col-t-4 col-d-4">
@@ -299,13 +297,16 @@ if ( have_rows( 'element' ) ) :
 				<?php
 				break;
 
-			case 'heading' :
+			case 'heading':
+				$style = get_sub_field( 'style' );
 
-				$style = get_sub_field( 'style' ); ?>
-                
-				<div id ="<?php echo the_sub_field('heading_id');   ?>"  class="heading-section wrap">
+				$centered = ! empty( $style['centered'] ) ? ' text-center' : '';
+				?>
+
+
+				<div id ="<?php echo the_sub_field('heading_id');   ?>" class="heading-section wrap<?php echo $centered; ?>">
 					<?php
-                    
+
 					$element = $style['element'];
 
 					$font_style = ( '' != $style['font_size'] ) ? 'font-size:' . $style['font_size'] . 'px;' : '';
@@ -318,8 +319,39 @@ if ( have_rows( 'element' ) ) :
 
 				<?php
 				break;
+			case 'form':
+				?>
+				<div class="flex page-section theme-form-section">
+					<?php
+					if ( get_sub_field( 'sidebar_text' ) ) :
+						$sidebar_text = get_sub_field( 'sidebar_text' );
+						if ( $sidebar_text['visible'] ) {
+							?>
+							<div class="col-m-12 col-t-12 col-d-4">
+								<div class="theme-form-sidebar">
+									<?php echo wp_kses_post( $sidebar_text['text'] ); ?>
+								</div>
+							</div>
+							<?php
+						}
+					endif;
+					?>
+					<div class="col-m-12 col-t-12 col-d-8">
+					<?php
+					if ( get_sub_field( 'sidebar_text' ) ) :
+						$form_shortcode = get_sub_field( 'form_shortcode' );
+						?>
+						<div class="theme-form-container">
+							<?php echo do_shortcode( "$form_shortcode" ); ?>
+						</div>
+						<?php
+					endif;
+					?>
+					</div>
+				</div>
+				<?php
+				break;
 		}
-
 	endwhile;
 
 endif; ?>

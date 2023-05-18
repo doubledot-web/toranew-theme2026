@@ -3,32 +3,28 @@
 	width: 1024px;
 }
 
-
 /******************
  ***** HEADER *****
  ******************/
 
- .logos {
+.logos {
 	.main-logo {
 		img {
 			width: 135px;
 		}
 	}
- }
-
+}
 
 /**********************
  ***** NAVIGATION *****
  **********************/
 
 .slicknav_menu {
- 	display: none;
+	display: none;
 }
 
 #menu-main-menu {
 	display: block;
-
-
 
 	display: table;
 	width: 100%;
@@ -46,7 +42,7 @@
 		padding: 0;
 		margin: 0;
 	}
-	
+
 	li {
 		display: inline-block;
 		position: relative;
@@ -62,7 +58,7 @@
 		display: inline-block;
 
 		&:hover {
-			color: rgba($white, .8);
+			color: rgba($white, 0.8);
 		}
 	}
 
@@ -71,7 +67,7 @@
 	li.current_page_item,
 	li.current_page_ancestor {
 		> a {
-			color: rgba($white, .8);
+			color: rgba($white, 0.8);
 		}
 	}
 }
@@ -89,7 +85,7 @@
 			opacity: 1;
 			top: auto;
 			z-index: 100;
-			@include transition(all .4s ease-out);
+			@include transition(all 0.4s ease-out);
 		}
 	}
 
@@ -97,7 +93,7 @@
 	ul.children {
 		margin: 10px -24px 0 30px;
 		position: absolute;
-		box-shadow: 0 0 20px rgba($black, .3);
+		box-shadow: 0 0 20px rgba($black, 0.3);
 		opacity: 0;
 		z-index: 8999;
 		background: $blue;
@@ -123,11 +119,22 @@
 	}
 }
 
-
 .single-service.postid-35 {
 	.service-header {
 		.featured-image {
 			background-position: 70% -80px !important;
 		}
+	}
+}
+
+.theme-form {
+	position: relative;
+
+	.wpcf7-response-output {
+		position: absolute;
+		top: 0;
+		right: calc(100% + 40px);
+		width: calc(46% - 6.6666666667px);
+		margin: 0;
 	}
 }

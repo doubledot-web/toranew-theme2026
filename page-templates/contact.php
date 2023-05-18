@@ -34,7 +34,7 @@
 							<?php else : ?>
 
 								<?php while ( have_rows( 'contact_boxes' ) ) : the_row(); ?>
-									<div class="col-m-12 col-t-6 col-d-6 contact-box">
+									<div class="col-m-12 col-t-4 col-d-4 contact-box">
 										<?php the_sub_field( 'contact_box' ); ?>
 									</div>
 								<?php endwhile; ?>

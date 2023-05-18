@@ -2,25 +2,23 @@
 	width: 760px;
 }
 
-
 .widget_nav_menu {
 	.menu-item-has-children {
 		margin: 0;
 		padding: 0;
 
-		 > a {
-		 	padding: .7rem 0;
-		 	margin: 1em 0;
-		 	display: block;
-		 }
+		> a {
+			padding: 0.7rem 0;
+			margin: 1em 0;
+			display: block;
+		}
 	}
 
 	.sub-menu {
 		padding-left: 30px;
 	}
 }
- // end nav
-
+// end nav
 
 // Accordion & Carousel
 .accordion {
@@ -38,7 +36,6 @@
 		}
 	}
 }
-
 
 /*************************
  ***** CONTENT PAGES *****

@@ -129,6 +129,12 @@ ENQUEUEING SCRIPTS & STYLES
 add_action( 'wp_enqueue_scripts', 'dd_scripts_and_styles', 999 );
 
 function dd_scripts_and_styles() {
+	wp_deregister_script( 'google-maps-api' );
+
+	$maps_key = geocode_api_key();
+
+	wp_register_script( 'google-maps-api', 'https://maps.googleapis.com/maps/api/js?libraries=places,geometry&language=el&key=' . $maps_key, null, null, true );
+
 	wp_enqueue_style( 'slick', get_stylesheet_directory_uri() . '/library/js/slick/slick.css' );
 	wp_enqueue_style( 'slick_theme', get_stylesheet_directory_uri() . '/library/js/slick/slick-theme.css' );
 	wp_enqueue_script( 'slick', get_stylesheet_directory_uri() . '/library/js/slick/slick.min.js', array( 'jquery' ), '', true );
@@ -140,16 +146,16 @@ function dd_scripts_and_styles() {
 	wp_enqueue_style( 'theme_style', get_stylesheet_directory_uri() . '/library/css/style.css' );
 	wp_register_script( 'theme_script', get_stylesheet_directory_uri() . '/library/js/scripts.js', array( 'slick', 'pagination' ), '', true );
 
-    /** New Css File */
-    wp_enqueue_style( 'theme_new_style', get_stylesheet_directory_uri() . '/library/css/new-style.css' );
-    /** New Script */
-    wp_register_script( 'theme_new_script', get_stylesheet_directory_uri() . '/library/js/new-script.js', false , '', true );
-    wp_enqueue_script('theme_new_script');
+	/** New Css File */
+	wp_enqueue_style( 'theme_new_style', get_stylesheet_directory_uri() . '/library/css/new-style.css' );
+	/** New Script */
+	wp_register_script( 'theme_new_script', get_stylesheet_directory_uri() . '/library/js/new-script.js', false, '', true );
+	wp_enqueue_script( 'theme_new_script' );
 
 	// localize script to pass usefull variables to theme scripts
 	// https://codex.wordpress.org/Function_Reference/wp_localize_script
 	$global_vars = array(
-		'site_url' 	   => get_bloginfo( 'url' ),
+		'site_url'     => get_bloginfo( 'url' ),
 		'template_url' => get_template_directory_uri(),
 	);
 	wp_localize_script( 'theme_script', 'global_vars', $global_vars );
@@ -163,22 +169,24 @@ function dd_scripts_and_styles() {
 }
 
 /**  load bootstrap css */
-function load_css () {
-    wp_register_style('bootstrap' , get_template_directory_uri() .  '/library/css/bootstrap.min.css' ,  array(), false , 'all');
-    wp_enqueue_style('bootstrap');
+function load_css() {
+	wp_register_style( 'bootstrap', get_template_directory_uri() . '/library/css/bootstrap.min.css', array(), false, 'all');
+	wp_enqueue_style( 'bootstrap' );
 }
 add_action( 'wp_enqueue_scripts', 'load_css' );
 
 /** Load bootstrap js */
 function load_js() {
-   
-    // wp_register_script( 'jquery3', get_template_directory_uri() .  '/library/js/jquery3.4.1.slim.min.js' ,  '' , true , true);
-    wp_register_script( 'popper', get_template_directory_uri() .  '/library/js/popper.min.js' ,  '' , false , true);
-    wp_register_script( 'bootstrapjs', get_template_directory_uri() .  '/library/js/bootstrap.min.js' ,  '' , false , true);
-    // wp_enqueue_script('jquery3');
-    wp_enqueue_script('popper');
-    wp_enqueue_script('bootstrapjs');
- 
+
+	// wp_register_script( 'jquery3', get_template_directory_uri() .  '/library/js/jquery3.4.1.slim.min.js' ,  '' , true , true);
+	wp_register_script( 'popper', get_template_directory_uri() . '/library/js/popper.min.js', '', false, true );
+	wp_register_script( 'bootstrapjs', get_template_directory_uri() . '/library/js/bootstrap.min.js', '', false, true );
+	// wp_enqueue_script('jquery3');
+	wp_enqueue_script( 'popper' );
+	wp_enqueue_script( 'bootstrapjs' );
+
+	// wp_deregister_script( 'contact-form-7' ); // deregister contact form 7 js
+
 }
 add_action( 'wp_enqueue_scripts', 'load_js' );
 
@@ -430,3 +438,81 @@ function my_hide_shipping_when_free_is_available( $rates ) {
 }
 add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_available', 100 );
 // end WOOCOMMERCE
+
+
+// function remove_spans_from_cf( $content ) {
+// 	$content = preg_replace( '/<(span).*?class="\s*(?:.*\s)?wpcf7-form-control-wrap(?:\s[^"]+)?\s*"[^\>]*>(.*)<\/\1>/i', '\2', $content );
+// 	return $content;
+// }
+// add_filter( 'wpcf7_form_elements', 'remove_spans_from_cf' );
+
+
+// add_filter( 'wpcf7_validate_email', 'custom_email_confirmation_validation_filter', 20, 2 );
+// add_filter( 'wpcf7_validate_email*', 'custom_email_confirmation_validation_filter', 20, 2 );
+// function custom_email_confirmation_validation_filter( $result, $tag ) {
+// 	if ( 'email' === $tag->name ) {
+// 		$email = trim( $_POST['email'] );
+// 		if ( ! is_email( $email ) ) {
+// 			$result->invalidate( $tag, __( 'Εισαγωγή μη έγκυρης διεύθυνσης email', 'tora' ) );
+// 		}
+// 	}
+// 	return $result;
+// }
+
+
+add_filter( 'wpcf7_validate_text', 'custom_text_confirmation_validation_filter', 20, 2 );
+add_filter( 'wpcf7_validate_text*', 'custom_text_confirmation_validation_filter', 20, 2 );
+function custom_text_confirmation_validation_filter( $result, $tag ) {
+	if ( 'fullname' === $tag->name ) {
+		$fullname = trim( $_POST['fullname'] );
+		if ( preg_match( '/[:;\"\/`!\[\]\'^£$%&*()}{@#~?><>,|=_+¬-]/i', $fullname ) ) {
+			$result->invalidate( $tag, __( 'Εισαγωγή ειδικών χαρακτήρων', 'tora' ) );
+		}
+	}
+
+	if ( 'afm' === $tag->name ) {
+		$afm = trim( $_POST['afm'] );
+		if ( ! is_numeric( $afm ) || (int) strlen( $afm ) !== 9 ) {
+			$result->invalidate( $tag, __( 'Το ΑΦΜ δεν είναι έγκυρο', 'tora' ) );
+		}
+	}
+
+	if ( 'zipcode' === $tag->name ) {
+		$zipcode = trim( $_POST['zipcode'] );
+		if ( ! preg_match( '/^[0-9]{3}[ ]{0,1}[0-9]{2}$/', $zipcode ) ) {
+			$result->invalidate( $tag, __( 'Ο Τ.Κ. δεν είναι έγκυρος', 'tora' ) );
+		}
+	}
+
+	if ( 'address' === $tag->name ) {
+		$address = trim( $_POST['address'] );
+		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ. ]+[0-9-]{0,7}$/u', $address ) ) {
+			$result->invalidate( $tag, __( 'Η διεύθυνση έδρας δεν είναι έγκυρη', 'tora' ) );
+		}
+	}
+
+	if ( 'city' === $tag->name ) {
+		$city = trim( $_POST['city'] );
+		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $city ) ) {
+			$result->invalidate( $tag, __( 'Εισαγωγή ειδικών χαρακτήρων', 'tora' ) );
+		}
+	}
+
+	if ( 'phone' === $tag->name ) {
+		$phone = trim( $_POST['phone'] );
+		if ( ! preg_match( '/^(\+30){0,3}[ ]{0,1}69[0-9 ]{8,11}$/', $phone ) && ! preg_match( '/^(\+30){0,3}[ ]{0,1}2[0-9 ]{8,11}$/', $phone ) ) {
+			$result->invalidate( $tag, __( 'Το τηλέφωνο δεν είναι έγκυρο', 'tora' ) );
+		}
+	}
+
+	if ( 'other-legalform' === $tag->name ) {
+		$other_legalform = trim( $_POST['other-legalform'] );
+		$legalform       = trim( $_POST['legalform'] );
+		if ( 'Άλλο' === $legalform && empty( $other_legalform ) ) {
+			$result->invalidate( $tag, __( 'Αυτο το πεδίο είναι υποχρεωτικό.', 'tora' ) );
+		}
+	}
+	return $result;
+}
+
+add_filter( 'wpcf7_autop_or_not', '__return_false' );
