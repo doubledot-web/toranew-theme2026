@@ -457,11 +457,10 @@ jQuery(document).ready(function ($) {
 			"wpcf7mailsent",
 			function (event) {
 				// console.log(event.detail);
-				if (event.detail.contactFormId == "16033") {
-					var thankyouURL =
-						document.getElementById("thankyouURL").value;
-					location = thankyouURL;
-				}
+				// if (event.detail.contactFormId == "16033") {
+				var thankyouURL = document.getElementById("thankyouURL").value;
+				location = thankyouURL;
+				// }
 			},
 			false
 		);

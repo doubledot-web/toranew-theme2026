@@ -970,6 +970,8 @@ footer {
 		color: #dc3545 !important;
 	}
 
+	&.invalid .wpcf7-response-output,
+	&.failed .wpcf7-response-output,
 	.wpcf7-response-output.wpcf7-validation-errors {
 		background: #f5c6cb;
 		color: #b00020;
