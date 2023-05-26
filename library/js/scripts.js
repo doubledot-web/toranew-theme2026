@@ -509,7 +509,7 @@ jQuery(document).ready(function ($) {
 				window.scrollTo({ top: y, behavior: "smooth" });
 				setTimeout(function () {
 					$(".wpcf7-response-output").hide();
-				}, 3000);
+				}, 5000);
 			}
 		});
 
