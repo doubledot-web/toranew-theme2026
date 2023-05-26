@@ -127,14 +127,13 @@
 	}
 }
 
+/****************
+ ***** FORM *****
+ ****************/
 .theme-form {
-	position: relative;
-
 	.wpcf7-response-output {
-		position: absolute;
-		top: 0;
-		right: calc(100% + 40px);
-		width: calc(46% - 6.6666666667px);
-		margin: 0;
+		left: unset;
+		margin: 0px 0 0 -340px;
+		width: 350px;
 	}
 }

@@ -415,10 +415,33 @@ jQuery(document).ready(function ($) {
 	// FORM VALIDATION
 	validateForm("#certificationForm");
 	function validateForm(form) {
-		$(".wpcf7-form-control-wrap").each(function () {
-			let getLabel = $(this).next("label").detach();
-			$(this).append(getLabel);
-		});
+		// $(".wpcf7-form-control-wrap").each(function () {
+		// 	let getLabel = $(this).next("label").detach();
+		// 	$(this).append(getLabel);
+		// });
+
+		const formsWithAnimatedLabels =
+			document.querySelectorAll(".form-control");
+		const focusedClass = "focused-input";
+		const inputErrorClass = "input-error";
+		// for (const form of formsWithAnimatedLabels) {
+		// 	const formControls = form.querySelectorAll(
+		// 		'[type="text"], [type="email"], textarea'
+		// 	);
+		if (formsWithAnimatedLabels.length > 0) {
+			for (const formControl of formsWithAnimatedLabels) {
+				formControl.addEventListener("focus", function () {
+					this.parentElement.classList.add(focusedClass);
+				});
+				formControl.addEventListener("blur", function () {
+					if (!this.value) {
+						this.parentElement.classList.remove(focusedClass);
+					}
+				});
+			}
+		}
+
+		// }
 
 		$(document).on("change", ".form-control", function () {
 			if ($(this).val() !== "") {
@@ -456,14 +479,39 @@ jQuery(document).ready(function ($) {
 		document.addEventListener(
 			"wpcf7mailsent",
 			function (event) {
-				// console.log(event.detail);
-				// if (event.detail.contactFormId == "16033") {
+				const inputs = document.querySelectorAll(".focused-input");
+				if (inputs.length > 0) {
+					for (const input of inputs) {
+						input.classList.remove(focusedClass);
+					}
+				}
+
+				const inputErrors = document.querySelectorAll(".input-error");
+				if (inputErrors.length > 0) {
+					for (const inputError of inputErrors) {
+						inputError.classList.remove(inputErrorClass);
+					}
+				}
+
 				var thankyouURL = document.getElementById("thankyouURL").value;
 				location = thankyouURL;
-				// }
 			},
 			false
 		);
+
+		$(window).on("wpcf7:invalid", function () {
+			const inputErrors = document.querySelectorAll(".wpcf7-not-valid");
+
+			if (inputErrors.length > 0) {
+				const element = document.querySelector("#" + inputErrors[0].id);
+				const y =
+					element.getBoundingClientRect().top + window.pageYOffset;
+				window.scrollTo({ top: y, behavior: "smooth" });
+				setTimeout(function () {
+					$(".wpcf7-response-output").hide();
+				}, 3000);
+			}
+		});
 
 		const button = document.getElementById("certificationFormSubmit");
 
@@ -544,20 +592,25 @@ jQuery(document).ready(function ($) {
 					case "locality":
 						$("#cityInput")
 							.val(component.long_name)
-							.trigger("change");
+							.parent()
+							.addClass("focused-input");
 						break;
 
 					case "administrative_area_level_3": {
 						$("#countyInput")
 							.val(component.short_name)
-							.trigger("change");
+							.parent()
+							.addClass("focused-input");
 						break;
 					}
 				}
 			}
 			addressWithNumber = `${addressName} ${addressNumber}`;
-			$("#addressInput").val(addressWithNumber).trigger("change");
-			$("#zipCodeInput").val(zipCode).trigger("change");
+			$("#addressInput")
+				.val(addressWithNumber)
+				.parent()
+				.addClass("focused-input");
+			$("#zipCodeInput").val(zipCode).parent().addClass("focused-input");
 
 			const button = document.getElementById("certificationFormSubmit");
 			button.removeAttribute("disabled");

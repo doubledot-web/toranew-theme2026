@@ -447,32 +447,19 @@ add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_availabl
 // add_filter( 'wpcf7_form_elements', 'remove_spans_from_cf' );
 
 
-// add_filter( 'wpcf7_validate_email', 'custom_email_confirmation_validation_filter', 20, 2 );
-// add_filter( 'wpcf7_validate_email*', 'custom_email_confirmation_validation_filter', 20, 2 );
-// function custom_email_confirmation_validation_filter( $result, $tag ) {
-// 	if ( 'email' === $tag->name ) {
-// 		$email = trim( $_POST['email'] );
-// 		if ( ! is_email( $email ) ) {
-// 			$result->invalidate( $tag, __( 'Εισαγωγή μη έγκυρης διεύθυνσης email', 'tora' ) );
-// 		}
-// 	}
-// 	return $result;
-// }
-
-
 add_filter( 'wpcf7_validate_text', 'custom_text_confirmation_validation_filter', 20, 2 );
 add_filter( 'wpcf7_validate_text*', 'custom_text_confirmation_validation_filter', 20, 2 );
 function custom_text_confirmation_validation_filter( $result, $tag ) {
 	if ( 'fullname' === $tag->name ) {
 		$fullname = trim( $_POST['fullname'] );
-		if ( preg_match( '/[:;\"\/`!\[\]\'^£$%&*()}{@#~?><>,|=_+¬-]/i', $fullname ) ) {
+		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $fullname ) ) {
 			$result->invalidate( $tag, __( 'Εισαγωγή ειδικών χαρακτήρων', 'tora' ) );
 		}
 	}
 
 	if ( 'afm' === $tag->name ) {
 		$afm = trim( $_POST['afm'] );
-		if ( ! is_numeric( $afm ) || (int) strlen( $afm ) !== 9 ) {
+		if ( ! preg_match( '/^[0-9]{9}$/', $afm ) ) {
 			$result->invalidate( $tag, __( 'Το ΑΦΜ δεν είναι έγκυρο', 'tora' ) );
 		}
 	}
