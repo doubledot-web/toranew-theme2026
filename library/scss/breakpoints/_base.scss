@@ -974,11 +974,10 @@ footer {
 	}
 
 	.input-error {
-		color: #dc3545 !important;
-
 		input,
 		select,
 		textarea {
+			color: #dc3545 !important;
 			border-color: #dc3545 !important;
 		}
 
