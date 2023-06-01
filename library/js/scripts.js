@@ -415,39 +415,30 @@ jQuery(document).ready(function ($) {
 	// FORM VALIDATION
 	validateForm("#certificationForm");
 	function validateForm(form) {
-		// $(".wpcf7-form-control-wrap").each(function () {
-		// 	let getLabel = $(this).next("label").detach();
-		// 	$(this).append(getLabel);
-		// });
-
 		const formsWithAnimatedLabels =
 			document.querySelectorAll(".form-control");
 		const focusedClass = "focused-input";
+		const activeClass = "active-input";
 		const inputErrorClass = "input-error";
-		// for (const form of formsWithAnimatedLabels) {
-		// 	const formControls = form.querySelectorAll(
-		// 		'[type="text"], [type="email"], textarea'
-		// 	);
+
 		if (formsWithAnimatedLabels.length > 0) {
 			for (const formControl of formsWithAnimatedLabels) {
 				formControl.addEventListener("focus", function () {
 					this.parentElement.classList.add(focusedClass);
 				});
 				formControl.addEventListener("blur", function () {
-					if (!this.value) {
-						this.parentElement.classList.remove(focusedClass);
-					}
+					// if (!this.value) {
+					this.parentElement.classList.remove(focusedClass);
+					// }
 				});
 			}
 		}
 
-		// }
-
 		$(document).on("change", ".form-control", function () {
 			if ($(this).val() !== "") {
-				$(this).addClass("active");
+				$(this).parent().addClass("active-input");
 			} else {
-				$(this).removeClass("active");
+				$(this).parent().removeClass("active-input");
 			}
 		});
 
@@ -471,7 +462,11 @@ jQuery(document).ready(function ($) {
 		$("#legalFormInput").on("change", function () {
 			if ($(this).val() === "Άλλο") {
 				$("#legalformOtherBlock").removeClass("d-none");
+				// Add focus state to legalformOtherInput input
+				$("#legalformOtherInput").focus();
 			} else {
+				// remove focus state from legalformOtherInput input
+				$("#legalformOtherInput").blur();
 				$("#legalformOtherBlock").addClass("d-none");
 			}
 		});
@@ -593,14 +588,14 @@ jQuery(document).ready(function ($) {
 						$("#cityInput")
 							.val(component.long_name)
 							.parent()
-							.addClass("focused-input");
+							.addClass("active-input");
 						break;
 
 					case "administrative_area_level_3": {
 						$("#countyInput")
 							.val(component.short_name)
 							.parent()
-							.addClass("focused-input");
+							.addClass("active-input");
 						break;
 					}
 				}
@@ -609,8 +604,8 @@ jQuery(document).ready(function ($) {
 			$("#addressInput")
 				.val(addressWithNumber)
 				.parent()
-				.addClass("focused-input");
-			$("#zipCodeInput").val(zipCode).parent().addClass("focused-input");
+				.addClass("active-input");
+			$("#zipCodeInput").val(zipCode).parent().addClass("active-input");
 
 			const button = document.getElementById("certificationFormSubmit");
 			button.removeAttribute("disabled");

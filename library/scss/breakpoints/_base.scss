@@ -866,6 +866,10 @@ footer {
 	margin: 20px 0 5px 0;
 }
 
+/****************
+ ***** FORM *****
+ ****************/
+
 .form-button {
 	color: #fff;
 	background: #003e7e;
@@ -888,6 +892,13 @@ footer {
 }
 
 .theme-form {
+	&-section {
+		@media screen and (max-width: 1029px) {
+			.col-m-12 {
+				width: calc(100% - 20px) !important;
+			}
+		}
+	}
 	&-terms {
 		font-size: 16px;
 		line-height: 24px;
@@ -931,23 +942,26 @@ footer {
 		background: transparent;
 
 		&:focus,
-		&.active {
-			border-color: #ced4da;
-			outline: 0;
+		&:active {
+			// outline: 0;
 			box-shadow: none;
+		}
 
-			// + label {
-			// 	left: 10px;
-			// 	transform: translateY(-14px) scale(0.8);
-			// 	transform-origin: 0 0;
-			// 	font-weight: 300;
-			// 	padding: 3px 5px;
-			// 	z-index: 1;
-			// }
+		&:active {
+			border-color: #000000;
+		}
+
+		&:hover {
+			border-color: #000000 !important;
+		}
+
+		&:focus {
+			border-color: #0266a2 !important;
 		}
 	}
 
-	.focused-input {
+	.focused-input,
+	.active-input {
 		+ label {
 			left: 10px;
 			transform: translateY(-14px) scale(0.8);
@@ -955,6 +969,23 @@ footer {
 			font-weight: 300;
 			padding: 3px 5px;
 			z-index: 1;
+		}
+
+		.form-control {
+			outline: 0;
+			box-shadow: none;
+		}
+	}
+
+	.active-input {
+		+ label {
+			color: #000000;
+		}
+	}
+
+	.focused-input {
+		+ label {
+			color: #0266a2 !important;
 		}
 	}
 
@@ -977,7 +1008,6 @@ footer {
 		input,
 		select,
 		textarea {
-			color: #dc3545 !important;
 			border-color: #dc3545 !important;
 		}
 
@@ -1005,9 +1035,6 @@ footer {
 	}
 }
 
-/****************
- ***** FORM *****
- ****************/
 .theme-form {
 	position: relative;
 

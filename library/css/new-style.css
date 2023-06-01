@@ -3308,6 +3308,15 @@ img.a-pos {
 	align-items: center;
 	height: 400px;
 }
+
+@media screen and (max-width: 767px) {
+	.page-header .intro-text.flex-col {
+		height: auto;
+		padding-top: 2rem !important;
+		padding-bottom: 2rem !important;
+	}
+}
+
 .slider-left-html-container p {
 	letter-spacing: 0.2px;
 	color: #013161;
