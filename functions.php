@@ -271,7 +271,7 @@ function dump( $att ) {
  ***** OPTIONS PAGE *****
  ************************/
 
-if ( function_exists( 'acf_add_options_page' ) ) {
+ if ( function_exists( 'acf_add_options_page' ) ) {
 	acf_add_options_page( array(
 		'page_title' => 'Theme Options',
 		'icon_url'   => 'dashicons-edit',
@@ -285,7 +285,7 @@ if ( function_exists( 'acf_add_options_page' ) ) {
  ***** LOGIN LOGO *****
  **********************/
 
-function tora_login_logo() {
+ function tora_login_logo() {
 	?>
 	<style type="text/css">
 		#login h1 a,
@@ -319,7 +319,7 @@ add_filter( 'login_headertitle', 'my_login_logo_url_title' );
  ***** DASHBOARD COLOR PALLETTE *****
  ************************************/
 
-function tora_additional_admin_color_schemes() {
+ function tora_additional_admin_color_schemes() {
 	//Get the theme directory
 	$theme_dir = get_stylesheet_directory_uri();
 
@@ -340,7 +340,7 @@ add_action( 'admin_init', 'tora_additional_admin_color_schemes' );
  ***** CHANGE DASHBOARD LOGO *****
  *********************************/
 
-function tora_remove_wp_dashboard_logo() {
+ function tora_remove_wp_dashboard_logo() {
 	global $wp_admin_bar;
 	$wp_admin_bar->remove_menu( 'wp-logo' );
 	$wp_admin_bar->remove_menu( 'comments' );
@@ -456,7 +456,7 @@ function custom_text_confirmation_validation_filter( $result, $tag ) {
 	if ( 'fullname' === $tag->name ) {
 		$fullname = trim( $_POST['fullname'] );
 		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $fullname ) ) {
-			$result->invalidate( $tag, __( 'Εισαγωγή ειδικών χαρακτήρων', 'tora' ) );
+			$result->invalidate( $tag, __( 'Εχετε εισάγει ειδικούς χαρακτήρες', 'tora' ) );
 		}
 	}
 
@@ -484,7 +484,7 @@ function custom_text_confirmation_validation_filter( $result, $tag ) {
 	if ( 'city' === $tag->name ) {
 		$city = trim( $_POST['city'] );
 		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $city ) ) {
-			$result->invalidate( $tag, __( 'Εισαγωγή ειδικών χαρακτήρων', 'tora' ) );
+			$result->invalidate( $tag, __( 'Εχετε εισάγει ειδικούς χαρακτήρες', 'tora' ) );
 		}
 	}
 
