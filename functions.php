@@ -38,6 +38,9 @@ function dd_cleanup_wp() {
 	require_once( 'legacy/functions.php' );
 }
 
+
+add_filter( 'xmlrpc_enabled', '__return_false', -100000000 );
+
 function remove_wp_ver_css_js( $src ) {
 	if ( strpos( $src, 'ver=' ) ) {
 		$src = remove_query_arg( 'ver', $src );
