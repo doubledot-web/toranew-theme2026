@@ -453,7 +453,7 @@ function custom_text_confirmation_validation_filter( $result, $tag ) {
 	if ( 'fullname' === $tag->name ) {
 		$fullname = trim( $_POST['fullname'] );
 		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $fullname ) ) {
-			$result->invalidate( $tag, __( 'Εισαγωγή ειδικών χαρακτήρων', 'tora' ) );
+			$result->invalidate( $tag, __( 'Εχετε εισάγει ειδικούς χαρακτήρες', 'tora' ) );
 		}
 	}
 
@@ -481,7 +481,7 @@ function custom_text_confirmation_validation_filter( $result, $tag ) {
 	if ( 'city' === $tag->name ) {
 		$city = trim( $_POST['city'] );
 		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $city ) ) {
-			$result->invalidate( $tag, __( 'Εισαγωγή ειδικών χαρακτήρων', 'tora' ) );
+			$result->invalidate( $tag, __( 'Εχετε εισάγει ειδικούς χαρακτήρες', 'tora' ) );
 		}
 	}
 
