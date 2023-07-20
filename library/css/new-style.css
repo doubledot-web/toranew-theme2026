@@ -2137,7 +2137,7 @@ h2.locations-title {
         display: block !important;
     } */
 
-	#dropDownArrow {
+	.arrow-downw {
 		transition: 0.5s ease-in-out;
 	}
 	.rotate-anchor {
@@ -4636,13 +4636,13 @@ p.pudo.h3 {
 	color: #5c5b5b;
 }
 
-#dropDownArrow i {
+.arrow-down i {
 	position: absolute;
 	left: -25%;
 }
 
 @media screen and (min-width: 1029px) and (max-width: 1308px) {
-	#dropDownArrow i {
+	.arrow-down i {
 		left: 10% !important;
 		position: relative;
 	}
