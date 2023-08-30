@@ -132,8 +132,8 @@
  ****************/
 .theme-form {
 	.wpcf7-response-output {
-		left: unset;
-		margin: 0px 0 0 -340px;
-		width: 350px;
+		left: unset !important;
+		margin: 0px 0 0 -340px !important;
+		width: 350px !important;
 	}
 }

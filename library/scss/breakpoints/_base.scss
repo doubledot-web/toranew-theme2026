@@ -1023,15 +1023,15 @@ footer {
 	&.invalid .wpcf7-response-output,
 	&.failed .wpcf7-response-output,
 	.wpcf7-response-output.wpcf7-validation-errors {
-		background: #f5c6cb;
-		color: #b00020;
-		border-color: #f5c6cb;
+		background: #f5c6cb !important;
+		color: #b00020 !important;
+		border-color: #f5c6cb !important;
 	}
 
 	.wpcf7-response-output.wpcf7-mail-sent-ok {
-		background: #caf5d4;
-		color: #155724;
-		border-color: #caf5d4;
+		background: #caf5d4 !important;
+		color: #155724 !important;
+		border-color: #caf5d4 !important;
 	}
 }
 
