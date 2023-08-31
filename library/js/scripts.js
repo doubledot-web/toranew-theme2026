@@ -417,12 +417,14 @@ jQuery(document).ready(function ($) {
 	function validateForm(form) {
 		const formsWithAnimatedLabels =
 			document.querySelectorAll(".form-control");
+		const orderedElements = [];
 		const focusedClass = "focused-input";
 		const activeClass = "active-input";
 		const inputErrorClass = "input-error";
 
 		if (formsWithAnimatedLabels.length > 0) {
 			for (const formControl of formsWithAnimatedLabels) {
+				orderedElements.push(formControl.id);
 				formControl.addEventListener("focus", function () {
 					this.parentElement.classList.add(focusedClass);
 				});
@@ -434,22 +436,25 @@ jQuery(document).ready(function ($) {
 			}
 		}
 
+		$(".wpcf7-form").on("submit", function (e) {
+			$(".wpcf7-form-control").each(function () {
+				$(this).parent().removeClass("input-error");
+			});
+
+			setTimeout(function () {
+				$(".wpcf7-form").removeClass("sent");
+				$(".wpcf7-form").removeClass("failed");
+				$(".wpcf7-form").removeClass("invalid");
+				$(".wpcf7-form").addClass("init");
+			}, 5000);
+		});
+
 		$(document).on("change", ".form-control", function () {
 			if ($(this).val() !== "") {
 				$(this).parent().addClass("active-input");
 			} else {
 				$(this).parent().removeClass("active-input");
 			}
-		});
-
-		$(".wpcf7").on("wpcf7:invalid", function (event) {
-			$(".wpcf7-form-control").each(function () {
-				if ($(this).hasClass("wpcf7-not-valid")) {
-					$(this).parent().addClass("input-error");
-				} else {
-					$(this).parent().removeClass("input-error");
-				}
-			});
 		});
 
 		$(".val-counter").on("keyup change", function () {
@@ -494,18 +499,66 @@ jQuery(document).ready(function ($) {
 			false
 		);
 
-		$(window).on("wpcf7:invalid", function () {
-			const inputErrors = document.querySelectorAll(".wpcf7-not-valid");
+		document.addEventListener(
+			"wpcf7mailfailed",
+			function (event) {
+				$(".wpcf7-form").removeClass("init");
+			},
+			false
+		);
 
+		$(window).on("wpcf7invalid", function (event) {
+			$(".wpcf7-form").removeClass("init");
+			const inputErrors = event.detail.apiResponse.invalid_fields;
+
+			// sort inputErrors array according to orderedElements array if values exists in both arrays
 			if (inputErrors.length > 0) {
-				const element = document.querySelector("#" + inputErrors[0].id);
-				const y =
-					element.getBoundingClientRect().top + window.pageYOffset;
+				inputErrors.sort(function (a, b) {
+					return (
+						orderedElements.indexOf(a.idref) -
+						orderedElements.indexOf(b.idref)
+					);
+				});
+
+				inputErrors.forEach(function (element) {
+					$("#" + element.idref)
+						.parent()
+						.addClass("input-error");
+				});
+
+				const element = document.querySelector(
+					"#" + inputErrors[0].idref
+				);
+
+				const y = element.getBoundingClientRect().top + window.scrollY;
 				window.scrollTo({ top: y, behavior: "smooth" });
-				setTimeout(function () {
-					$(".wpcf7-response-output").hide();
-				}, 5000);
+				// setTimeout(function () {
+				// 	$(".wpcf7-response-output")
+				// 		.empty()
+				// 		.css({ display: "none !important" });
+				// }, 5000);
 			}
+
+			// const interval = setInterval(getErrorMessage, 500);
+
+			// function getErrorMessage() {
+			// 	const errorMsgs = $(".wpcf7-response-output");
+
+			// 	console.log(errorMsgs);
+			// 	console.log("----------------");
+
+			// 	if (errorMsgs.length > 0) {
+			// 		stopInterval(errorMsgs);
+			// 	}
+			// }
+
+			// function stopInterval(errorMsgs) {
+			// 	clearInterval(interval);
+			// 	console.log("CLEARED INTERVAL");
+			// 	setTimeout(function () {
+			// 		errorMsgs.css(display, "none");
+			// 	}, 4000);
+			// }
 		});
 
 		const button = document.getElementById("certificationFormSubmit");
