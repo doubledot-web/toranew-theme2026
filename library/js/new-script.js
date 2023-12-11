@@ -5,7 +5,7 @@ function CheckBanner() {
 	const topBannerUpHolder = document.getElementById("topBanner-up-holder");
 	const banner = document.getElementById("app-up-banner");
 
-	console.log(topBannerUpHolder);
+	// console.log(topBannerUpHolder);
 	if (!topBannerUpHolder) {
 		return;
 	}
@@ -98,7 +98,7 @@ setTimeout(() => {
 window.addEventListener("load", (event) => {
 	let ArrowDownElements = document.querySelectorAll(".arrow-down");
 	ArrowDownElements.forEach((ArrowDownElement) => {
-		console.log(ArrowDownElement);
+		// console.log(ArrowDownElement);
 		// ArrowDownElement.id = "dropDownArrow";
 		let parentElement = ArrowDownElement.parentElement;
 		// let parentElementID = ArrowDownElement.id;
@@ -199,7 +199,7 @@ function openFullAccordion(id) {
 }
 
 jQuery(window).on("load", function () {
-	console.log("load");
+	// console.log("load");
 	let crslHome = jQuery("#carouselHome").carousel();
 	crslHome.carousel("pause");
 	let crlsMidi = jQuery("#carouselMidi").carousel();
@@ -326,7 +326,7 @@ jQuery("#startStopMidi").on("click", function () {
 jQuery(document).scroll(function () {
 	let y = jQuery(this).scrollTop();
 	if (y > window.innerHeight / 2.5) {
-		console.log(innerHeight);
+		// console.log(innerHeight);
 		jQuery(".to-top2").show();
 	} else {
 		jQuery(".to-top2").hide();

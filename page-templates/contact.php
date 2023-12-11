@@ -32,11 +32,18 @@
 								</div>
 
 							<?php else : ?>
-
+								<?php $count = 0; ?>
 								<?php while ( have_rows( 'contact_boxes' ) ) : the_row(); ?>
-									<div class="col-m-12 col-t-4 col-d-4 contact-box">
+									<?php if ( $count <= 1 ) : ?>
+									<div class="col-m-12 col-t-6 col-d-6 contact-box mb-4">
 										<?php the_sub_field( 'contact_box' ); ?>
 									</div>
+									<?php else : ?>
+									<div class="col-m-12 col-t-4 col-d-4 contact-box mb-4">
+										<?php the_sub_field( 'contact_box' ); ?>
+									</div>
+									<?php endif; ?>
+									<?php $count++; ?>
 								<?php endwhile; ?>
 
 							<?php endif; ?>

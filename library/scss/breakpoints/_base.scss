@@ -637,7 +637,7 @@ ol {
 
 // Contact Page
 .contact-boxes-section {
-	padding: 5rem 0 7.5rem;
+	padding: 5rem 0 3rem;
 }
 .contact-box {
 	color: $blue;
@@ -923,7 +923,7 @@ footer {
 		color: #000;
 	}
 
-	label {
+	.theme-label {
 		position: absolute;
 		top: 0;
 		left: 5px;
@@ -940,6 +940,10 @@ footer {
 		height: calc(2.6em + 0.75rem + 2px);
 		padding: 0.5rem 0.75rem;
 		background: transparent;
+
+		&-textarea {
+			height: auto !important;
+		}
 
 		&:focus,
 		&:active {
@@ -962,7 +966,7 @@ footer {
 
 	.focused-input,
 	.active-input {
-		+ label {
+		+ .theme-label {
 			left: 10px;
 			transform: translateY(-14px) scale(0.8);
 			transform-origin: 0 0;
@@ -978,13 +982,13 @@ footer {
 	}
 
 	.active-input {
-		+ label {
+		+ .theme-label {
 			color: #000000;
 		}
 	}
 
 	.focused-input {
-		+ label {
+		+ .theme-label {
 			color: #0266a2 !important;
 		}
 	}
@@ -994,6 +998,15 @@ footer {
 		font-weight: 300;
 		line-height: 16px;
 		color: rgba($black, 0.6);
+	}
+
+	.theme-radio {
+		.form-radio-control > span {
+			display: block;
+			margin-left: 0;
+			margin-bottom: 6px;
+			color: #000;
+		}
 	}
 
 	.wpcf7-not-valid-tip {
@@ -1011,7 +1024,7 @@ footer {
 			border-color: #dc3545 !important;
 		}
 
-		+ label {
+		+ .theme-label {
 			color: #dc3545 !important;
 		}
 
@@ -1032,6 +1045,14 @@ footer {
 		background: #caf5d4 !important;
 		color: #155724 !important;
 		border-color: #caf5d4 !important;
+	}
+
+	.transaction {
+		display: none;
+
+		&.active {
+			display: block;
+		}
 	}
 }
 

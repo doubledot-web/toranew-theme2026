@@ -3,6 +3,8 @@
 * CLEAN UP WORDPRESS
 *********************/
 
+define( 'ERROR_LOG_PATH', './errorlog.log' );
+
 add_action( 'init', 'dd_cleanup_wp' );
 
 function dd_cleanup_wp() {
@@ -157,10 +159,32 @@ function dd_scripts_and_styles() {
 
 	// localize script to pass usefull variables to theme scripts
 	// https://codex.wordpress.org/Function_Reference/wp_localize_script
+
 	$global_vars = array(
 		'site_url'     => get_bloginfo( 'url' ),
 		'template_url' => get_template_directory_uri(),
 	);
+
+	$services_options       = get_field( 'complaint_form_services', 'option' );
+	$services_options_array = array();
+	if ( ! empty( $services_options ) ) {
+		foreach ( $services_options as $services_option ) {
+			if ( empty( $services_option['service']['transaction_details'] ) || ! is_array( $services_option['service']['transaction_details'] ) ) {
+				continue;
+			}
+			foreach ( $services_option['service']['transaction_details'] as $transaction_detail ) {
+				if ( ! empty( $transaction_detail['value'] ) || 0 === $transaction_detail['value'] ) {
+					if ( empty( $services_options_array[ $services_option['service']['name'] ] ) ) {
+						$services_options_array[ $services_option['service']['name'] ] = array();
+					}
+					$services_options_array[ $services_option['service']['name'] ][] = $transaction_detail['value'];
+				}
+			}
+		}
+	}
+
+	$global_vars['services'] = $services_options_array;
+
 	wp_localize_script( 'theme_script', 'global_vars', $global_vars );
 	wp_enqueue_script( 'theme_script' );
 
@@ -452,10 +476,13 @@ add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_availabl
 
 add_filter( 'wpcf7_validate_text', 'custom_text_confirmation_validation_filter', 20, 2 );
 add_filter( 'wpcf7_validate_text*', 'custom_text_confirmation_validation_filter', 20, 2 );
+add_filter( 'wpcf7_validate_email', 'custom_text_confirmation_validation_filter', 20, 2 );
 function custom_text_confirmation_validation_filter( $result, $tag ) {
 	if ( 'fullname' === $tag->name ) {
 		$fullname = trim( $_POST['fullname'] );
-		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $fullname ) ) {
+		if ( empty( $fullname ) ) {
+			$result->invalidate( $tag, __( 'Αυτο το πεδίο είναι υποχρεωτικό.', 'tora' ) );
+		} elseif ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $fullname ) ) {
 			$result->invalidate( $tag, __( 'Εχετε εισάγει ειδικούς χαρακτήρες', 'tora' ) );
 		}
 	}
@@ -495,6 +522,15 @@ function custom_text_confirmation_validation_filter( $result, $tag ) {
 		}
 	}
 
+	if ( 'tel' === $tag->name ) {
+		$tel = trim( $_POST['tel'] );
+		if ( ! empty( $tel ) ) {
+			if (  ! preg_match( '/^(\+30){0,3}[ ]{0,1}69[0-9 ]{8,11}$/', $tel ) && ! preg_match( '/^(\+30){0,3}[ ]{0,1}2[0-9 ]{8,11}$/', $tel ) ) {
+				$result->invalidate( $tag, __( 'Το τηλέφωνο δεν είναι έγκυρο', 'tora' ) );
+			}
+		}
+	}
+
 	if ( 'other-legalform' === $tag->name ) {
 		$other_legalform = trim( $_POST['other-legalform'] );
 		$legalform       = trim( $_POST['legalform'] );
@@ -502,7 +538,35 @@ function custom_text_confirmation_validation_filter( $result, $tag ) {
 			$result->invalidate( $tag, __( 'Αυτο το πεδίο είναι υποχρεωτικό.', 'tora' ) );
 		}
 	}
+
+	if ( 'e-mail' === $tag->name ) {
+		$e_mail = trim( $_POST['e-mail'] );
+		$tel    = trim( $_POST['tel'] );
+		if ( empty( $e_mail ) && empty( $tel ) ) {
+			$result->invalidate( $tag, __( 'Πρέπει να συμπληρωθεί τουλάχιστον ένα από τα δύο πεδία, "email" και "τηλέφωνο"', 'tora' ) );
+		}
+	}
+
 	return $result;
 }
 
 add_filter( 'wpcf7_autop_or_not', '__return_false' );
+
+function populate_services_options( $n, $options, $args ) {
+	if ( in_array( 'service_values', $options, true ) ) {
+
+		$services_options = get_field( 'complaint_form_services', 'option' );
+
+		$test = 1;
+
+		return array_map(
+			function( $el ) {
+				return $el['service']['name'];
+			},
+			$services_options
+		);
+	}
+
+	return $n;
+}
+add_filter( 'wpcf7_form_tag_data_option', 'populate_services_options', 10, 3 );

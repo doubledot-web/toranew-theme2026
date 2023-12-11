@@ -413,7 +413,21 @@ jQuery(document).ready(function ($) {
 	// END ADAPT TEXT COLOR ACCORDING TO BACKGROUND
 
 	// FORM VALIDATION
-	validateForm("#certificationForm");
+
+	if ($("#certificationForm").length > 0) {
+		validateForm("#certificationForm");
+	}
+
+	if ($("#complaintForm").length > 0) {
+		const services = global_vars.services;
+		toggleServiceSelectInfo(services);
+		validateForm("#complaintForm");
+	}
+
+	if ($("#feedbackForm").length > 0) {
+		validateForm("#feedbackForm");
+	}
+
 	function validateForm(form) {
 		const formsWithAnimatedLabels =
 			document.querySelectorAll(".form-control");
@@ -421,6 +435,8 @@ jQuery(document).ready(function ($) {
 		const focusedClass = "focused-input";
 		const activeClass = "active-input";
 		const inputErrorClass = "input-error";
+
+		console.log(formsWithAnimatedLabels);
 
 		if (formsWithAnimatedLabels.length > 0) {
 			for (const formControl of formsWithAnimatedLabels) {
@@ -508,8 +524,27 @@ jQuery(document).ready(function ($) {
 		);
 
 		$(window).on("wpcf7invalid", function (event) {
+			if ($("#telInput").length > 0 && $("#eMailInput").length > 0) {
+				if (!$("#telInput").val() && !$("#eMailInput").val()) {
+					$("#telInput").parent().addClass("input-error");
+					var inputError = {
+						field: "tel",
+						idref: "telInput",
+						message: "",
+					};
+				}
+			}
 			$(".wpcf7-form").removeClass("init");
 			const inputErrors = event.detail.apiResponse.invalid_fields;
+			if (inputError) {
+				inputErrors.push(inputError);
+			}
+
+			inputErrors.forEach(function (element) {
+				if (element.field === "upload-file-complaint") {
+					element.idref = "uploadFileComplaintInput";
+				}
+			});
 
 			// sort inputErrors array according to orderedElements array if values exists in both arrays
 			if (inputErrors.length > 0) {
@@ -572,6 +607,31 @@ jQuery(document).ready(function ($) {
 		});
 	}
 	// END FORM VALIDATION
+
+	function toggleServiceSelectInfo(services) {
+		if (!Array.isArray(services) && services.length <= 0) {
+			return;
+		}
+
+		$("#serviceInput").on("change", function () {
+			$(".transaction").removeClass("active");
+			if ($(this).val()) {
+				let serviceName = $(this).val();
+				console.log(services[serviceName]);
+
+				if (
+					!Array.isArray(services[serviceName]) &&
+					services[serviceName].length <= 0
+				) {
+					return;
+				}
+
+				for (const transactioId of services[serviceName]) {
+					$(".transaction_" + transactioId).addClass("active");
+				}
+			}
+		});
+	}
 
 	function isIterable(obj) {
 		// checks for null and undefined
