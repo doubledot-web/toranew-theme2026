@@ -473,6 +473,26 @@ add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_availabl
 // }
 // add_filter( 'wpcf7_form_elements', 'remove_spans_from_cf' );
 
+add_filter( 'wpcf7_validate', 'custom_radio_validation', 10, 2 );
+function custom_radio_validation( $result, $tags ) {
+	$radio_field_name = 'response-method';
+	$e_mail           = trim( $_POST['e-mail'] );
+	$tel              = trim( $_POST['tel'] );
+	$response_method  = trim( $_POST['response-method'] );
+
+	if ( ! empty( $tags ) ) {
+		foreach ( $tags as $tag ) {
+			if ( 'response-method' === $tag->name ) {
+				if ( ( empty( $e_mail ) && 'Μέσω Εmail' === $response_method ) || ( empty( $tel ) && 'Μέσω τηλεφωνικής επικοινωνίας' === $response_method ) ) {
+					$result->invalidate( $tag, __( 'Παρακαλώ πολύ καταχωρήστε τα αντίστοιχα στοιχεία επικοινωνίας σας ή αλλάξτε τρόπο απάντησης', 'tora' ) );
+				}
+			}
+		}
+	}
+
+	return $result;
+}
+
 
 add_filter( 'wpcf7_validate_text', 'custom_text_confirmation_validation_filter', 20, 2 );
 add_filter( 'wpcf7_validate_text*', 'custom_text_confirmation_validation_filter', 20, 2 );
@@ -523,10 +543,15 @@ function custom_text_confirmation_validation_filter( $result, $tag ) {
 	}
 
 	if ( 'tel' === $tag->name ) {
-		$tel = trim( $_POST['tel'] );
+		$tel             = trim( $_POST['tel'] );
+		$response_method = trim( $_POST['response-method'] );
 		if ( ! empty( $tel ) ) {
-			if (  ! preg_match( '/^(\+30){0,3}[ ]{0,1}69[0-9 ]{8,11}$/', $tel ) && ! preg_match( '/^(\+30){0,3}[ ]{0,1}2[0-9 ]{8,11}$/', $tel ) ) {
+			if ( ! preg_match( '/^(\+30){0,3}[ ]{0,1}69[0-9 ]{8,11}$/', $tel ) && ! preg_match( '/^(\+30){0,3}[ ]{0,1}2[0-9 ]{8,11}$/', $tel ) ) {
 				$result->invalidate( $tag, __( 'Το τηλέφωνο δεν είναι έγκυρο', 'tora' ) );
+			}
+		} else {
+			if ( 'Μέσω τηλεφωνικής επικοινωνίας' === $response_method ) {
+				$result->invalidate( $tag, __( 'Παρακαλώ πολύ, καταχωρήστε το τηλέφωνό σας ή αλλάξτε τρόπο απάντησης', 'tora' ) );
 			}
 		}
 	}
@@ -540,15 +565,22 @@ function custom_text_confirmation_validation_filter( $result, $tag ) {
 	}
 
 	if ( 'e-mail' === $tag->name ) {
-		$e_mail = trim( $_POST['e-mail'] );
-		$tel    = trim( $_POST['tel'] );
+		$e_mail          = trim( $_POST['e-mail'] );
+		$tel             = trim( $_POST['tel'] );
+		$response_method = trim( $_POST['response-method'] );
+
 		if ( empty( $e_mail ) && empty( $tel ) ) {
 			$result->invalidate( $tag, __( 'Πρέπει να συμπληρωθεί τουλάχιστον ένα από τα δύο πεδία, "email" και "τηλέφωνο"', 'tora' ) );
+		}
+
+		if ( empty( $e_mail ) && 'Μέσω Εmail' === $response_method ) {
+			$result->invalidate( $tag, __( 'Παρακαλώ πολύ, καταχωρήστε το e-mail σας ή αλλάξτε τρόπο απάντησης', 'tora' ) );
 		}
 	}
 
 	return $result;
 }
+
 
 add_filter( 'wpcf7_autop_or_not', '__return_false' );
 
