@@ -450,6 +450,8 @@ jQuery(document).ready(function ($) {
 					// }
 				});
 			}
+
+			orderedElements.push("responseMethodInput");
 		}
 
 		$(".wpcf7-form").on("submit", function (e) {
@@ -544,7 +546,14 @@ jQuery(document).ready(function ($) {
 				if (element.field === "upload-file-complaint") {
 					element.idref = "uploadFileComplaintInput";
 				}
+
+				if (element.field === "upload-file-feedback") {
+					element.idref = "uploadFileFeedbackInput";
+				}
 			});
+
+			console.log(inputErrors);
+			console.log(orderedElements);
 
 			// sort inputErrors array according to orderedElements array if values exists in both arrays
 			if (inputErrors.length > 0) {

@@ -34,12 +34,12 @@
 							<?php else : ?>
 								<?php $count = 0; ?>
 								<?php while ( have_rows( 'contact_boxes' ) ) : the_row(); ?>
-									<?php if ( $count <= 1 ) : ?>
-									<div class="col-m-12 col-t-6 col-d-6 contact-box mb-4">
+									<?php if ( $count <= 2 ) : ?>
+									<div class="col-m-12 col-t-4 col-d-4 contact-box mb-4">
 										<?php the_sub_field( 'contact_box' ); ?>
 									</div>
 									<?php else : ?>
-									<div class="col-m-12 col-t-4 col-d-4 contact-box mb-4">
+									<div class="col-m-12 col-t-6 col-d-6 contact-box mb-4">
 										<?php the_sub_field( 'contact_box' ); ?>
 									</div>
 									<?php endif; ?>
@@ -53,7 +53,15 @@
 					<?php endif; ?>
 
 					<?php get_template_part( 'library/includes/layout-elements' ); ?>
+
 					<?php the_content(); ?>
+				</section>
+
+				<section>
+					<?php
+					$services_settings = get_field( 'services_settings', 'option' );
+					include( locate_template( 'library/includes/service-sections/faq-section.php' ) );
+					?>
 				</section>
 
 			</article>

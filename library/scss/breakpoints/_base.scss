@@ -647,14 +647,15 @@ ol {
 	font-weight: 300;
 
 	&:before {
-		content: "";
-		position: absolute;
-		left: 4px;
-		right: -10px;
-		top: 4px;
-		bottom: -10px;
-		border: 3px solid $light-blue;
-		z-index: -1;
+		// content: "";
+		// position: absolute;
+		// left: 4px;
+		// right: -10px;
+		// top: 4px;
+		// bottom: -10px;
+		// border: 3px solid $light-blue;
+		// z-index: -1;
+		content: none;
 	}
 
 	h2 {
@@ -942,7 +943,7 @@ footer {
 		background: transparent;
 
 		&-textarea {
-			height: auto !important;
+			min-height: 180px !important;
 		}
 
 		&:focus,
@@ -1053,6 +1054,32 @@ footer {
 		&.active {
 			display: block;
 		}
+	}
+
+	.codedropz-upload-inner h3 {
+		font-size: 17px;
+	}
+
+	.dnd-upload-status .dnd-upload-details .remove-file {
+		position: absolute;
+		right: unset !important;
+		left: 100% !important;
+	}
+
+	.dnd-upload-status .dnd-upload-details .remove-file span:after {
+		width: 30px;
+		height: 30px;
+	}
+
+	select {
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M0 2l4 4 4-4H0z"/></svg>');
+		background-repeat: no-repeat;
+		background-position: right 0.75rem center;
+		background-size: 8px 8px;
+		padding-right: 2.375rem; /* Adjust as needed */
 	}
 }
 
