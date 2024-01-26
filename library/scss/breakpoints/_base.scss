@@ -1071,16 +1071,19 @@ footer {
 		height: 30px;
 	}
 
-	select {
-		appearance: none;
-		-webkit-appearance: none;
-		-moz-appearance: none;
-		background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path d="M0 2l4 4 4-4H0z"/></svg>');
-		background-repeat: no-repeat;
-		background-position: right 0.75rem center;
-		background-size: 8px 8px;
-		padding-right: 2.375rem; /* Adjust as needed */
-	}
+	// select {
+	// 	content: "\f107";
+	// 	appearance: none;
+	// 	-webkit-appearance: none;
+	// 	-moz-appearance: none;
+	// 	// font family font awesome
+	// 	font-family: "Font Awesome 5 Free";
+	// 	// background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path d="M0 2l4 4 4-4H0z" fill="black"/></svg>');
+	// 	background-repeat: no-repeat;
+	// 	background-position: right 0.75rem center;
+	// 	background-size: 8px 8px;
+	// 	padding-right: 2.375rem; /* Adjust as needed */
+	// }
 }
 
 .theme-form {
