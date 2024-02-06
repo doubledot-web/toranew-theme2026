@@ -617,6 +617,30 @@ jQuery(document).ready(function ($) {
 	}
 	// END FORM VALIDATION
 
+	toggleStickyPopup();
+
+	function toggleStickyPopup() {
+		var popup = $(".wpcf7-response-output");
+		var container = $(".theme-form-section");
+
+		$(window).on("load, scroll", function () {
+			var scrollPosition = $(window).scrollTop();
+			var containerHeight = container.outerHeight();
+			var viewportHeight = $(window).height();
+
+			if (
+				scrollPosition + viewportHeight >=
+				container.offset().top + containerHeight
+			) {
+				// User has scrolled to the bottom of the container
+				popup.addClass("bottom-reached");
+			} else {
+				// User is at the top of the page
+				popup.removeClass("bottom-reached");
+			}
+		});
+	}
+
 	function toggleServiceSelectInfo(services) {
 		if (!Array.isArray(services) && services.length <= 0) {
 			return;

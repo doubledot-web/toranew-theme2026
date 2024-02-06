@@ -2240,7 +2240,7 @@ h2.locations-title {
 	}
 	.to-top2 span {
 		font-size: 13.5px;
-		margin-left: 9px;
+		/* margin-left: 9px; */
 	}
 
 	.s-container {
@@ -4206,7 +4206,7 @@ span.h3 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 175px;
+	width: 160px;
 	box-shadow: 1px 2px 4px #2a2828b3;
 	display: none;
 	text-size-adjust: 80%;
@@ -4214,6 +4214,7 @@ span.h3 {
 	-moz-text-size-adjust: 80%;
 	-ms-text-size-adjust: 80%;
 	text-size-adjust: 80%;
+	text-align: center;
 }
 
 .to-top2 span {

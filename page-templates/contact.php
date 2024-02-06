@@ -39,7 +39,7 @@
 										<?php the_sub_field( 'contact_box' ); ?>
 									</div>
 									<?php else : ?>
-									<div class="col-m-12 col-t-6 col-d-6 contact-box mb-4">
+									<div class="col-m-12 col-t-6 col-d-6 contact-box mb-4 bg-gray">
 										<?php the_sub_field( 'contact_box' ); ?>
 									</div>
 									<?php endif; ?>

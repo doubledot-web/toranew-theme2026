@@ -475,10 +475,9 @@ add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_availabl
 
 add_filter( 'wpcf7_validate', 'custom_radio_validation', 10, 2 );
 function custom_radio_validation( $result, $tags ) {
-	$radio_field_name = 'response-method';
-	$e_mail           = trim( $_POST['e-mail'] );
-	$tel              = trim( $_POST['tel'] );
-	$response_method  = trim( $_POST['response-method'] );
+	$e_mail          = trim( $_POST['e-mail'] );
+	$tel             = trim( $_POST['tel'] );
+	$response_method = trim( $_POST['response-method'] );
 
 	if ( ! empty( $tags ) ) {
 		foreach ( $tags as $tag ) {
@@ -522,8 +521,12 @@ function custom_radio_validation( $result, $tags ) {
 			}
 			if ( 'tel' === $tag->name ) {
 				$tel             = trim( $_POST['tel'] );
+				$e_mail          = trim( $_POST['e-mail'] );
 				$response_method = trim( $_POST['response-method'] );
-				if ( ! empty( $tel ) ) {
+
+				if ( empty( $e_mail ) && empty( $tel ) ) {
+					$result->invalidate( $tag, __( 'Πρέπει να συμπληρωθεί τουλάχιστον ένα από τα δύο πεδία, "email" και "τηλέφωνο"', 'tora' ) );
+				} elseif ( ! empty( $tel ) ) {
 					if ( ! preg_match( '/^(\+30){0,3}[ ]{0,1}69[0-9 ]{8,11}$/', $tel ) && ! preg_match( '/^(\+30){0,3}[ ]{0,1}2[0-9 ]{8,11}$/', $tel ) ) {
 						$result->invalidate( $tag, __( 'Το τηλέφωνο δεν είναι έγκυρο', 'tora' ) );
 					}
@@ -552,7 +555,7 @@ function custom_radio_validation( $result, $tags ) {
 			if ( 'card-transaction-auth-num' === $tag->name ) {
 				$card_transaction_auth_num = trim( $_POST['card-transaction-auth-num'] );
 				if ( ! empty( $card_transaction_auth_num ) && ! preg_match( '/^[0-9]{6}$/', $card_transaction_auth_num ) ) {
-					$result->invalidate( $tag, __( 'Αριθμός Έγκρισης Συναλλαγής με Κάρτα δεν είναι έγκυρος', 'tora' ) );
+					$result->invalidate( $tag, __( 'Ο Αριθμός δεν είναι έγκυρος', 'tora' ) );
 				}
 			}
 
@@ -573,6 +576,14 @@ function custom_radio_validation( $result, $tags ) {
 				if ( ( empty( $e_mail ) && 'Μέσω Εmail' === $response_method ) || ( empty( $tel ) && 'Μέσω τηλεφωνικής επικοινωνίας' === $response_method ) ) {
 					$result->invalidate( $tag, __( 'Παρακαλώ πολύ καταχωρήστε τα αντίστοιχα στοιχεία επικοινωνίας σας ή αλλάξτε τρόπο απάντησης', 'tora' ) );
 				}
+			}
+
+			if ( 'upload-file-complaint' === $tag->name ) {
+				// echo '<pre>';
+				// echo json_encode( $result );
+				// // print_r( $tag );
+				// echo '</pre>';
+				// die();
 			}
 		}
 	}

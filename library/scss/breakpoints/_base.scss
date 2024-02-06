@@ -42,6 +42,10 @@ ol {
 	}
 }
 
+.bg-gray {
+	background: #eeeeee;
+}
+
 /******************
  ***** HEADER *****
  ******************/
@@ -904,7 +908,8 @@ footer {
 		font-size: 16px;
 		line-height: 24px;
 		margin-top: 1.5rem;
-		margin-bottom: 1.5rem;
+		// margin-bottom: 1.5rem;
+		margin-bottom: 0;
 	}
 
 	.form-group {
@@ -1064,11 +1069,21 @@ footer {
 		position: absolute;
 		right: unset !important;
 		left: 100% !important;
+
+		@media screen and (max-width: 575px) {
+			right: 0 !important;
+			left: unset !important;
+			top: 2px !important;
+		}
 	}
 
 	.dnd-upload-status .dnd-upload-details .remove-file span:after {
 		width: 30px;
 		height: 30px;
+	}
+
+	.dnd-upload-details .has-error {
+		font-size: 12px;
 	}
 
 	// select {
@@ -1087,14 +1102,34 @@ footer {
 }
 
 .theme-form {
-	position: relative;
+	// position: relative;
 
 	.wpcf7-response-output {
 		position: fixed;
 		bottom: 60px;
 		width: 260px;
 		z-index: 999;
-		margin: 0;
+		margin: 0 !important;
 		left: 20px;
+
+		&.bottom-reached {
+			position: absolute !important;
+			bottom: 40px !important;
+		}
+	}
+}
+
+.custom-select {
+	padding-right: 40px !important;
+	background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3e%3cpath fill='%23000' d='M8.3 4.8L6 7 3.7 4.8c-.3-.3-.7-.3-1 0s-.3.7 0 1l3 3c.1.1.2.2.4.2s.3-.1.4-.2l3-3c.3-.3.3-.7 0-1s-.7-.3-1 0z'/%3e%3c/svg%3e") !important;
+	background-repeat: no-repeat !important;
+	background-position: right 10px center !important;
+	background-size: 30px !important;
+}
+
+.has-contact-form {
+	position: relative;
+	.page-body.wrap {
+		position: static !important;
 	}
 }

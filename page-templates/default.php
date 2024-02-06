@@ -6,7 +6,12 @@
 
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
-			<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?> role="article">
+				<?php
+				$has_contact_form   = get_field( 'has_contact_form' );
+				$contact_form_class = ! empty( $has_contact_form ) ? ' has-contact-form' : '';
+				?>
+
+			<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' . $contact_form_class ); ?> role="article">
 
 				<header class="page-header flex">
 					<div class="featured-image flex-col flex-col-1of2" style="background: url('<?php echo esc_url( get_the_post_thumbnail_url() ); ?>') no-repeat center; background-size: cover;">
