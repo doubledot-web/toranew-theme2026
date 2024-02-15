@@ -161,6 +161,7 @@ function dd_scripts_and_styles() {
 	// https://codex.wordpress.org/Function_Reference/wp_localize_script
 
 	$global_vars = array(
+		// get url for functions.php
 		'site_url'     => get_bloginfo( 'url' ),
 		'template_url' => get_template_directory_uri(),
 	);
@@ -473,8 +474,7 @@ add_filter( 'woocommerce_package_rates', 'my_hide_shipping_when_free_is_availabl
 // }
 // add_filter( 'wpcf7_form_elements', 'remove_spans_from_cf' );
 
-add_filter( 'wpcf7_validate', 'custom_radio_validation', 10, 2 );
-function custom_radio_validation( $result, $tags ) {
+function custom_form_validation( $result, $tags ) {
 	$e_mail          = trim( $_POST['e-mail'] );
 	$tel             = trim( $_POST['tel'] );
 	$response_method = trim( $_POST['response-method'] );
@@ -578,109 +578,18 @@ function custom_radio_validation( $result, $tags ) {
 				}
 			}
 
-			if ( 'upload-file-complaint' === $tag->name ) {
-				// echo '<pre>';
-				// echo json_encode( $result );
-				// // print_r( $tag );
-				// echo '</pre>';
-				// die();
+			if ( 'upload-file' === $tag->name ) {
+				if ( 'dndError' === $_POST['upload-file-val'] ) {
+					$result->invalidate( $tag, __( '', 'tora' ) );
+				}
 			}
 		}
 	}
 
 	return $result;
 }
+add_filter( 'wpcf7_validate', 'custom_form_validation', 10, 2 );
 
-
-// add_filter( 'wpcf7_validate_text', 'custom_text_confirmation_validation_filter', 20, 2 );
-// add_filter( 'wpcf7_validate_text*', 'custom_text_confirmation_validation_filter', 20, 2 );
-// add_filter( 'wpcf7_validate_email', 'custom_text_confirmation_validation_filter', 20, 2 );
-// function custom_text_confirmation_validation_filter( $result, $tag ) {
-// 	if ( 'fullname' === $tag->name ) {
-// 		$fullname = trim( $_POST['fullname'] );
-// 		if ( empty( $fullname ) ) {
-// 			$result->invalidate( $tag, __( 'Αυτο το πεδίο είναι υποχρεωτικό.', 'tora' ) );
-// 		} elseif ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $fullname ) ) {
-// 			$result->invalidate( $tag, __( 'Εχετε εισάγει ειδικούς χαρακτήρες', 'tora' ) );
-// 		}
-// 	}
-
-// 	if ( 'afm' === $tag->name ) {
-// 		$afm = trim( $_POST['afm'] );
-// 		if ( ! preg_match( '/^[0-9]{9}$/', $afm ) ) {
-// 			$result->invalidate( $tag, __( 'Το ΑΦΜ δεν είναι έγκυρο', 'tora' ) );
-// 		}
-// 	}
-
-// 	if ( 'zipcode' === $tag->name ) {
-// 		$zipcode = trim( $_POST['zipcode'] );
-// 		if ( ! preg_match( '/^[0-9]{3}[ ]{0,1}[0-9]{2}$/', $zipcode ) ) {
-// 			$result->invalidate( $tag, __( 'Ο Τ.Κ. δεν είναι έγκυρος', 'tora' ) );
-// 		}
-// 	}
-
-// 	if ( 'address' === $tag->name ) {
-// 		$address = trim( $_POST['address'] );
-// 		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ. ]+[0-9-]{0,7}$/u', $address ) ) {
-// 			$result->invalidate( $tag, __( 'Η διεύθυνση έδρας δεν είναι έγκυρη', 'tora' ) );
-// 		}
-// 	}
-
-// 	if ( 'city' === $tag->name ) {
-// 		$city = trim( $_POST['city'] );
-// 		if ( ! preg_match( '/^[\p{Greek}a-zA-Zα-ωΑ-ΩίϊΐόάέύϋΰήώΊΪΌΆΈΎΫΉΏ.\s]+$/u', $city ) ) {
-// 			$result->invalidate( $tag, __( 'Εχετε εισάγει ειδικούς χαρακτήρες', 'tora' ) );
-// 		}
-// 	}
-
-// 	if ( 'phone' === $tag->name ) {
-// 		$phone = trim( $_POST['phone'] );
-// 		if ( ! preg_match( '/^(\+30){0,3}[ ]{0,1}69[0-9 ]{8,11}$/', $phone ) && ! preg_match( '/^(\+30){0,3}[ ]{0,1}2[0-9 ]{8,11}$/', $phone ) ) {
-// 			$result->invalidate( $tag, __( 'Το τηλέφωνο δεν είναι έγκυρο', 'tora' ) );
-// 		}
-// 	}
-
-// 	if ( 'tel' === $tag->name ) {
-// 		$tel             = trim( $_POST['tel'] );
-// 		$response_method = trim( $_POST['response-method'] );
-// 		if ( ! empty( $tel ) ) {
-// 			if ( ! preg_match( '/^(\+30){0,3}[ ]{0,1}69[0-9 ]{8,11}$/', $tel ) && ! preg_match( '/^(\+30){0,3}[ ]{0,1}2[0-9 ]{8,11}$/', $tel ) ) {
-// 				$result->invalidate( $tag, __( 'Το τηλέφωνο δεν είναι έγκυρο', 'tora' ) );
-// 			}
-// 		} else {
-// 			if ( 'Μέσω τηλεφωνικής επικοινωνίας' === $response_method ) {
-// 				$result->invalidate( $tag, __( 'Παρακαλώ πολύ, καταχωρήστε το τηλέφωνό σας ή αλλάξτε τρόπο απάντησης', 'tora' ) );
-// 			}
-// 		}
-// 	}
-
-// 	if ( 'other-legalform' === $tag->name ) {
-// 		$other_legalform = trim( $_POST['other-legalform'] );
-// 		$legalform       = trim( $_POST['legalform'] );
-// 		if ( 'Άλλο' === $legalform && empty( $other_legalform ) ) {
-// 			$result->invalidate( $tag, __( 'Αυτο το πεδίο είναι υποχρεωτικό.', 'tora' ) );
-// 		}
-// 	}
-
-// 	if ( 'e-mail' === $tag->name ) {
-// 		$e_mail          = trim( $_POST['e-mail'] );
-// 		$tel             = trim( $_POST['tel'] );
-// 		$response_method = trim( $_POST['response-method'] );
-
-// 		if ( empty( $e_mail ) && empty( $tel ) ) {
-// 			$result->invalidate( $tag, __( 'Πρέπει να συμπληρωθεί τουλάχιστον ένα από τα δύο πεδία, "email" και "τηλέφωνο"', 'tora' ) );
-// 		}
-
-// 		if ( empty( $e_mail ) && 'Μέσω Εmail' === $response_method ) {
-// 			$result->invalidate( $tag, __( 'Παρακαλώ πολύ, καταχωρήστε το e-mail σας ή αλλάξτε τρόπο απάντησης', 'tora' ) );
-// 		}
-// 	}
-
-// 	return $result;
-// }
-
-
-add_filter( 'wpcf7_autop_or_not', '__return_false' );
 
 function populate_services_options( $n, $options, $args ) {
 	if ( in_array( 'service_values', $options, true ) ) {
@@ -700,3 +609,7 @@ function populate_services_options( $n, $options, $args ) {
 	return $n;
 }
 add_filter( 'wpcf7_form_tag_data_option', 'populate_services_options', 10, 3 );
+
+
+
+add_filter( 'wpcf7_autop_or_not', '__return_false' );

@@ -428,6 +428,15 @@ jQuery(document).ready(function ($) {
 		validateForm("#feedbackForm");
 	}
 
+	// function removeFormMsgClasses() {
+	// 	setTimeout(function () {
+	// 		$(".wpcf7-form").removeClass("sent");
+	// 		$(".wpcf7-form").removeClass("failed");
+	// 		$(".wpcf7-form").removeClass("invalid");
+	// 		$(".wpcf7-form").addClass("init");
+	// 	}, 5000);
+	// }
+
 	function validateForm(form) {
 		const formsWithAnimatedLabels =
 			document.querySelectorAll(".form-control");
@@ -435,8 +444,6 @@ jQuery(document).ready(function ($) {
 		const focusedClass = "focused-input";
 		const activeClass = "active-input";
 		const inputErrorClass = "input-error";
-
-		console.log(formsWithAnimatedLabels);
 
 		if (formsWithAnimatedLabels.length > 0) {
 			for (const formControl of formsWithAnimatedLabels) {
@@ -453,6 +460,20 @@ jQuery(document).ready(function ($) {
 
 			orderedElements.push("responseMethodInput");
 		}
+
+		$(".form-button").on("click", function (e) {
+			$("#uploadFileInputVal").val("");
+			let dndHasErrors = $("#uploadFileWrapper").find(".has-error");
+
+			if (dndHasErrors.length > 0) {
+				$("#uploadFileInputVal").val("dndError");
+			}
+		});
+
+		// $(document).on("DOMNodeInserted", ".has-error", function () {
+		// Perform actions when an element with the specified class is inserted into the DOM
+		// console.log("An element with the class .has-error has appeared.");
+		// });
 
 		$(".wpcf7-form").on("submit", function (e) {
 			$(".wpcf7-form-control").each(function () {
@@ -543,12 +564,8 @@ jQuery(document).ready(function ($) {
 			}
 
 			inputErrors.forEach(function (element) {
-				if (element.field === "upload-file-complaint") {
-					element.idref = "uploadFileComplaintInput";
-				}
-
-				if (element.field === "upload-file-feedback") {
-					element.idref = "uploadFileFeedbackInput";
+				if (element.field === "upload-file") {
+					element.idref = "uploadFileWrapper";
 				}
 			});
 
@@ -576,33 +593,7 @@ jQuery(document).ready(function ($) {
 
 				const y = element.getBoundingClientRect().top + window.scrollY;
 				window.scrollTo({ top: y, behavior: "smooth" });
-				// setTimeout(function () {
-				// 	$(".wpcf7-response-output")
-				// 		.empty()
-				// 		.css({ display: "none !important" });
-				// }, 5000);
 			}
-
-			// const interval = setInterval(getErrorMessage, 500);
-
-			// function getErrorMessage() {
-			// 	const errorMsgs = $(".wpcf7-response-output");
-
-			// 	console.log(errorMsgs);
-			// 	console.log("----------------");
-
-			// 	if (errorMsgs.length > 0) {
-			// 		stopInterval(errorMsgs);
-			// 	}
-			// }
-
-			// function stopInterval(errorMsgs) {
-			// 	clearInterval(interval);
-			// 	console.log("CLEARED INTERVAL");
-			// 	setTimeout(function () {
-			// 		errorMsgs.css(display, "none");
-			// 	}, 4000);
-			// }
 		});
 
 		const button = document.getElementById("certificationFormSubmit");
@@ -650,7 +641,6 @@ jQuery(document).ready(function ($) {
 			$(".transaction").removeClass("active");
 			if ($(this).val()) {
 				let serviceName = $(this).val();
-				console.log(services[serviceName]);
 
 				if (
 					!Array.isArray(services[serviceName]) &&
