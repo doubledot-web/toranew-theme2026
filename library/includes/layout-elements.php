@@ -5,13 +5,13 @@ if ( have_rows( 'element' ) ) :
 
 		switch ( get_row_layout() ) {
 
-            case 'slide_show' :  ?>
-                <?php if ( get_sub_field( 'slide' ) ) :
-                        $slides =  get_sub_field( 'slide' );
-                        set_query_var( 'slides', $slides );
-                        get_template_part('slider-templates/home', 'slider');
-                    endif;
-            break;
+			case 'slide_show' :
+				if ( get_sub_field( 'slide' ) ) :
+					$slides = get_sub_field( 'slide' );
+					set_query_var( 'slides', $slides );
+					get_template_part( 'slider-templates/home', 'slider' );
+				endif;
+				break;
 
 			case 'background_container' :
 
@@ -103,6 +103,38 @@ if ( have_rows( 'element' ) ) :
 				</div>
 
 				<?php
+				break;
+
+			case 'rich_boxes' :
+				$fields = json_encode( get_sub_field( 'boxes' ) );
+				get_template_part( 'partials/content-blocks/rich-boxes', null, $fields );
+				break;
+
+
+			case 'horizontal_boxes' :
+				$fields = json_encode( get_sub_field( 'boxes' ) );
+				get_template_part( 'partials/content-blocks/horizontal-boxes', null, $fields );
+				break;
+
+
+			case 'tabs' :
+				$tabs          = get_sub_field( 'tabs' );
+				$section_title = get_sub_field( 'section_title' );
+				$fields        = array(
+					'tabs'          => $tabs,
+					'section_title' => $section_title,
+				);
+				get_template_part( 'partials/content-blocks/tabs', null, json_encode( $fields ) );
+				break;
+
+			case 'image_gallery' :
+				$fields = json_encode( get_sub_field( 'images' ) );
+				get_template_part( 'partials/content-blocks/image-gallery', null, $fields );
+				break;
+
+			case 'cards' :
+				$fields = json_encode( get_sub_field( 'cards' ) );
+				get_template_part( 'partials/content-blocks/cards', null, $fields );
 				break;
 
 			case 'icon_boxes' : ?>

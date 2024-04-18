@@ -57,3 +57,26 @@
 		min-height: 500px;
 	}
 }
+
+/*******************
+ ***** GENERAL *****
+ *******************/
+.text-editor-content {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-size: 32px !important;
+	}
+}
+
+/*************************
+ ***** IMAGE GALLERY *****
+ *************************/
+.image {
+	&-gallery-imgs {
+		gap: 50px;
+	}
+}

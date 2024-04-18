@@ -6,3 +6,38 @@
 		width: 300px !important;
 	}
 }
+
+/****************
+ ***** TABS *****
+ ****************/
+
+.tabs {
+	&-buttons {
+		gap: 20px;
+	}
+
+	&-small-text {
+		padding: 20px 5px;
+	}
+
+	&-button {
+		width: 160px;
+		padding: 20px 5px;
+		margin-bottom: 0;
+		text-align: center;
+
+		&-icon {
+			margin-bottom: 15px;
+			margin-right: 0;
+		}
+	}
+}
+
+/*************************
+ ***** IMAGE GALLERY *****
+ *************************/
+.image {
+	&-gallery-imgs {
+		gap: 30px;
+	}
+}

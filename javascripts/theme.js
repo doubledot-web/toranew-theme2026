@@ -305,9 +305,16 @@
 			// searchterm = search.find('input').val();
 			/* ^^ added by stasou ^^ */
 
-			filters.find("input:checked").each(function () {
-				return categories.push($(this).val());
-			});
+			let storesMap = $("#storesMap");
+
+			if (!storesMap.length) {
+				filters.find("input:checked").each(function () {
+					return categories.push($(this).val());
+				});
+			} else {
+				// get the json value of storesMap and parse it and assign the array to categories array
+				categories = JSON.parse(storesMap.val());
+			}
 
 			province = filters.find("select").val();
 			var get_all;

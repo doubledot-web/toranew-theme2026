@@ -70,35 +70,7 @@ $general_settings = get_field( 'general_settings', 'option' ); ?>
 
 				</div>
 
-				<div class="menu-container bg-map-blue text-right">
-
-					<nav itemscope itemtype="http://schema.org/SiteNavigationElement" class="wrap">
-						<?php
-						// https://developer.wordpress.org/reference/functions/wp_nav_menu/
-						wp_nav_menu( array(
-							'container' 	  => false, // remove nav container
-							'container_class' => 'menu cf', // class of container (should you choose to use it)
-							'menu' 			  => __( 'The Main Menu', 'thisisbare' ), // nav name
-							'menu_class' 	  => 'nav top-nav wrap cf', // adding custom nav class
-							'theme_location'  => 'main-nav', // where it's located in the theme
-						) ); ?>
-					</nav>
-
-				</div>
-
 			</div>
-
-			<nav itemscope itemtype="http://schema.org/SiteNavigationElement">
-				<?php
-				// https://developer.wordpress.org/reference/functions/wp_nav_menu/
-				wp_nav_menu( array(
-					'container' 	  => false, // remove nav container
-					'container_class' => 'menu cf', // class of container (should you choose to use it)
-					'menu' 			  => __( 'The Main Menu', 'thisisbare' ), // nav name
-					'menu_class' 	  => 'nav mobile-nav cf', // adding custom nav class
-					'theme_location'  => 'mobile-nav', // where it's located in the theme
-				) ); ?>
-			</nav>
 
 		</header>
 
