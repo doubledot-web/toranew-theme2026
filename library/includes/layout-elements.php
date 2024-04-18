@@ -137,6 +137,11 @@ if ( have_rows( 'element' ) ) :
 				get_template_part( 'partials/content-blocks/cards', null, $fields );
 				break;
 
+			case 'faq' :
+				$services_settings = get_field( 'services_settings', 'option' );
+				include( locate_template( 'library/includes/service-sections/faq-section.php' ) );
+				break;
+
 			case 'icon_boxes' : ?>
 
 				<div class="page-section icon-boxes">

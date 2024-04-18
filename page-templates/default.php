@@ -33,11 +33,13 @@
 					endif;
 					?>
 
-				<section class="page-body wrap">
-					<?php get_template_part( 'library/includes/terms-archive-select' ); ?>
+				<section class="page-body">
+					<div class="wrap"><?php get_template_part( 'library/includes/terms-archive-select' ); ?></div>
 					<?php get_template_part( 'library/includes/layout-elements' ); ?>
-					<?php the_content(); ?>
-					<?php get_template_part( 'library/includes/terms-archive-select' ); ?>
+					<div class="wrap">
+						<?php the_content(); ?>
+						<?php get_template_part( 'library/includes/terms-archive-select' ); ?>
+					</div>
 				</section>
 
 			</article>
