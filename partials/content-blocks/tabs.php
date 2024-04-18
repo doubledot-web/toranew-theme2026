@@ -68,7 +68,7 @@ foreach ( $tabs as $key => $tab ) {
 
 <div class="page-section tabs-section new-section">
 	<div class="wrap">
-		<h2 class="section-title text-center text-blue"><?php echo $section_title; ?></h2>
+		<h2 class="section-new-title text-center text-blue"><?php echo $section_title; ?></h2>
 		<div class="tabs-wrapper">
 			<ul class="tabs-pills nav nav-pills flex-row" id="pills-tab" role="tablist">
 				<?php echo $pills_html; ?>
