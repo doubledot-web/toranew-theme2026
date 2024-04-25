@@ -37,10 +37,10 @@ foreach ( $tabs as $key => $tab ) {
 
 		if ( ! empty( $tab->buttons ) ) {
 			foreach ( $tab->buttons as $button ) {
-				$button_icon_url    = ! empty( $button->icon->url ) ? esc_url( $button->icon->url ) : '';
-				$button_icon_alt    = ! empty( $button->icon->alt ) ? esc_attr( $button->icon->alt ) : '';
-				$button_icon_width  = ! empty( $button->icon->width ) ? esc_attr( $button->icon->width ) : '';
-				$button_icon_height = ! empty( $button->icon->height ) ? esc_attr( $button->icon->height ) : '';
+				$button_icon_url    = ! empty( $button->icon->url ) ? esc_url( $button->icon->url ) : get_template_directory_uri() . '/library/images/tab-icon.png';
+				$button_icon_alt    = ! empty( $button->icon->alt ) ? esc_attr( $button->icon->alt ) : esc_attr( $button->title );
+				$button_icon_width  = ! empty( $button->icon->width ) ? esc_attr( $button->icon->width ) : '64';
+				$button_icon_height = ! empty( $button->icon->height ) ? esc_attr( $button->icon->height ) : '64';
 
 				$panels_html .= ! empty( $button->link ) ? '<a href="' . esc_url( $button->link ) . '" class="" target="_blank">' : '<div>';
 
@@ -53,10 +53,10 @@ foreach ( $tabs as $key => $tab ) {
 		$panels_html .= '</div>';
 
 	} elseif ( 'small-text' === $tab->tab_content_type ) {
-		$small_text_icon_url    = ! empty( $tab->small_text->icon->url ) ? esc_url( $tab->small_text->icon->url ) : '';
+		$small_text_icon_url    = ! empty( $tab->small_text->icon->url ) ? esc_url( $tab->small_text->icon->url ) : get_template_directory_uri() . '/library/images/tab-icon.png';
 		$small_text_icon_alt    = ! empty( $tab->small_text->icon->alt ) ? esc_attr( $tab->small_text->icon->alt ) : '';
-		$small_text_icon_width  = ! empty( $tab->small_text->icon->width ) ? esc_attr( $tab->small_text->icon->width ) : '';
-		$small_text_icon_height = ! empty( $tab->small_text->icon->height ) ? esc_attr( $tab->small_text->icon->height ) : '';
+		$small_text_icon_width  = ! empty( $tab->small_text->icon->width ) ? esc_attr( $tab->small_text->icon->width ) : '64';
+		$small_text_icon_height = ! empty( $tab->small_text->icon->height ) ? esc_attr( $tab->small_text->icon->height ) : '64';
 
 		$panels_html .= '<div class="tabs-small-text d-flex justify-content-center align-items-center"><img src="' . $small_text_icon_url . '" alt="' . $small_text_icon_alt . '" width="' . $small_text_icon_width . '" height="' . $small_text_icon_height . '"><div class="tabs-small-text-text">' . wp_kses_post( $tab->small_text->text ) . '</div></div>';
 	}

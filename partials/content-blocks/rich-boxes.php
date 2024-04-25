@@ -10,10 +10,10 @@ if ( empty( $boxes ) ) {
 	<div class="rich-boxes-content wrap flex">
 		<?php
 		foreach ( $boxes as $box ) :
-			$box_icon_url    = ! empty( $box->icon->url ) ? esc_url( $box->icon->url ) : '';
-			$box_icon_alt    = ! empty( $box->icon->alt ) ? esc_attr( $box->icon->alt ) : '';
-			$box_icon_width  = ! empty( $box->icon->width ) ? esc_attr( $box->icon->width ) : '';
-			$box_icon_height = ! empty( $box->icon->height ) ? esc_attr( $box->icon->height ) : '';
+			$box_icon_url    = ! empty( $box->icon->url ) ? esc_url( $box->icon->url ) : get_template_directory_uri() . '/library/images/rich-box-icon-80x66.png';
+			$box_icon_alt    = ! empty( $box->icon->alt ) ? esc_attr( $box->icon->alt ) : esc_attr( $box->title );
+			$box_icon_width  = ! empty( $box->icon->width ) ? esc_attr( $box->icon->width ) : '80';
+			$box_icon_height = ! empty( $box->icon->height ) ? esc_attr( $box->icon->height ) : '66';
 
 			$box_title = ! empty( $box->title ) ? esc_html( $box->title ) : '';
 			$box_text  = ! empty( $box->text ) ? wp_kses_post( $box->text ) : '';
