@@ -18,6 +18,10 @@
 		north: 38.60197072314411,
 		east: 25.037738046875006,
 	};
+
+	const storesMap = $("#storesMap");
+	const is_stores_map = storesMap.length;
+
 	window.noLocations = false;
 	const load_map_data = function () {
 		if (!map_loaded || all_locations.length === 0) {
@@ -28,7 +32,7 @@
 					return load_map_data();
 				}, 1000);
 			}
-			console.log("data loaded");
+			// console.log("data loaded");
 			// var filters, province, value
 			// filters = $('#map-filters');
 			// province = filters.find('select:first');
@@ -104,7 +108,7 @@
 		});
 
 		localize.locations_data = [];
-		console.log(return_locations.length);
+		// console.log(return_locations.length);
 		// console.log(return_locations)
 		return return_locations;
 	};
@@ -115,9 +119,17 @@
 	}, 500);
 
 	function get_initial_data() {
-		const options = {
-			get_all: true,
-		};
+		let options
+		if (is_stores_map) {
+			options = {
+				categories: [41]
+			}
+		} else {
+			options = {
+				get_all: true,
+			};
+		}
+
 		$(".map-container").addClass("map-loading");
 		$.get(localize.locations_url, options).done(function (data) {
 			all_locations = data.map(function (i) {
@@ -305,21 +317,19 @@
 			// searchterm = search.find('input').val();
 			/* ^^ added by stasou ^^ */
 
-			let storesMap = $("#storesMap");
-
-			if (!storesMap.length) {
+			if (!is_stores_map) {
 				filters.find("input:checked").each(function () {
 					return categories.push($(this).val());
 				});
 			} else {
 				// get the json value of storesMap and parse it and assign the array to categories array
-				categories = JSON.parse(storesMap.val());
+				categories = [41]
 			}
 
 			province = filters.find("select").val();
 			var get_all;
 			if (!map_loaded) {
-				get_all = true;
+				get_all = ! is_stores_map;
 				map_loaded = true;
 			}
 			if (!categories.length) {
@@ -713,7 +723,7 @@
 			$("#select-province").val("");
 			var place = autocomplete.getPlace();
 			if (!place.geometry) {
-				console.log(place);
+				// console.log(place);
 				// User entered the name of a Place that was not suggested and
 				// pressed the Enter key, or the Place Details request failed.
 
@@ -788,7 +798,7 @@
 		// vv mods by stasouv
 		var bounds_interval;
 		map.addListener("bounds_changed", function () {
-			console.log("SETTING BOUNDS");
+			// console.log("SETTING BOUNDS");
 			if (window.newbounds && !settingbounds) {
 				settingbounds = true;
 				window.newbounds = map.getBounds();
@@ -1056,7 +1066,7 @@ function addExtraSpanOnWindow() {
 		const slielem = locationInfoElem[0];
 		const spansElem = slielem.getElementsByTagName("span");
 		for (let item of spansElem) {
-			console.log(item.innerText);
+			// console.log(item.innerText);
 			if (item.innerText === "Πληρωμή λογαριασμών") {
 				const newSpanElement = document.createElement("span");
 				// newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';

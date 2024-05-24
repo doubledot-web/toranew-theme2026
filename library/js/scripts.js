@@ -569,8 +569,8 @@ jQuery(document).ready(function ($) {
 				}
 			});
 
-			console.log(inputErrors);
-			console.log(orderedElements);
+			// console.log(inputErrors);
+			// console.log(orderedElements);
 
 			// sort inputErrors array according to orderedElements array if values exists in both arrays
 			if (inputErrors.length > 0) {
@@ -620,10 +620,13 @@ jQuery(document).ready(function ($) {
 			var viewportHeight = $(window).height();
 
 			if (
+				container.offset() &&
 				scrollPosition + viewportHeight >=
 				container.offset().top + containerHeight
 			) {
 				// User has scrolled to the bottom of the container
+				popup.addClass("bottom-reached");
+			} else if (scrollPosition + viewportHeight >= containerHeight) {
 				popup.addClass("bottom-reached");
 			} else {
 				// User is at the top of the page
