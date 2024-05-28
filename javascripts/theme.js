@@ -119,11 +119,11 @@
 	}, 500);
 
 	function get_initial_data() {
-		let options
+		let options;
 		if (is_stores_map) {
 			options = {
-				categories: [41]
-			}
+				categories: [58],
+			};
 		} else {
 			options = {
 				get_all: true,
@@ -323,13 +323,13 @@
 				});
 			} else {
 				// get the json value of storesMap and parse it and assign the array to categories array
-				categories = [41]
+				categories = [58];
 			}
 
 			province = filters.find("select").val();
 			var get_all;
 			if (!map_loaded) {
-				get_all = ! is_stores_map;
+				get_all = !is_stores_map;
 				map_loaded = true;
 			}
 			if (!categories.length) {

@@ -95,9 +95,24 @@ if ( have_rows( 'element' ) ) :
 
 					$style = '';
 					$style .= $styles['max_width'] ? 'max-width: ' . $styles['max_width'] . 'px;' : '';
-					$style .= $styles['centered'] ? 'margin: auto;' : ''; ?>
+					$style .= $styles['centered'] ? 'margin: auto;' : '';
 
-					<div class="wrap text-editor-content" style="<?php esc_attr_e( $style ); ?>">
+					if ($styles['max_width']) {
+						?>
+						<style>
+							@media all and (min-width: 1030px) {
+								.text-editor-content {
+									<?php echo $style; ?>
+								}
+							}
+
+						</style>
+						<?php
+					}
+					?>
+
+
+					<div class="wrap text-editor-content">
 						<?php the_sub_field( 'content' ); ?>
 					</div>
 				</div>
