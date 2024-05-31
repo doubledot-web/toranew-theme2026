@@ -1,11 +1,16 @@
+		<?php
+		$top_padding = ! is_page( 'shmeia-proti-pliromi' ) ? ' p-t-2' : '';
+		?>
 		<footer class="footer bg-blue p-b-1" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
 
 			<div id="inner-footer" class="wrap cf">
-				<div class="grid-row p-t-2">
-					<?php get_template_part( 'asides/footer-col-1' ); ?>
-					<?php get_template_part( 'asides/footer-col-2' ); ?>
-					<?php get_template_part( 'asides/footer-col-3' ); ?>
-					<?php get_template_part( 'asides/footer-col-4' ); ?>
+				<div class="grid-row<?php echo $top_padding; ?>">
+					<?php if ( ! is_page( 'shmeia-proti-pliromi' ) ) { ?>
+						<?php get_template_part( 'asides/footer-col-1' ); ?>
+						<?php get_template_part( 'asides/footer-col-2' ); ?>
+						<?php get_template_part( 'asides/footer-col-3' ); ?>
+						<?php get_template_part( 'asides/footer-col-4' ); ?>
+					<?php } ?>
 					<div class="col-12 p-t-2">
 						<p class="copyright normal">Copyright &copy; <?php echo date( 'Y' ); ?> - <?php bloginfo( 'name' ); ?>. All Rights Reserved</p>
 						<nav class="footer-menu-bottom-left" itemscope itemtype="http://schema.org/SiteNavigationElement">

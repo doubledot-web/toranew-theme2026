@@ -132,9 +132,13 @@ window.addEventListener("load", (event) => {
 }
 
 /** Adding New To widget Menu */
-let menuWidgetElement = document.querySelector(".widget-1").firstElementChild;
+let menuWidget1 = document.querySelector(".widget-1");
+let menuWidgetElement = null;
+if (menuWidget1) {
+	menuWidgetElement = menuWidget1.firstElementChild;
+}
 let menuWidgetElementInnerHtml = firstNavElement.innerHTML;
-if (menuWidgetElementInnerHtml.includes("Tora")) {
+if (menuWidgetElementInnerHtml.includes("Tora") && menuWidgetElement) {
 	menuWidgetElement.style.marginBottom = "-12px";
 	let newElement = document.createElement("p");
 	newElement.classList.add("newMenuClass2");
