@@ -122,7 +122,7 @@
 		let options;
 		if (is_stores_map) {
 			options = {
-				categories: [58],
+				categories: [59],
 			};
 		} else {
 			options = {
@@ -323,7 +323,7 @@
 				});
 			} else {
 				// get the json value of storesMap and parse it and assign the array to categories array
-				categories = [58];
+				categories = [59];
 			}
 
 			province = filters.find("select").val();

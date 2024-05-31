@@ -33,7 +33,7 @@ $locations = $tora_b2c->locations['args']; ?>
 
 									<?php foreach ( $locations['categories'] as $category ) : ?>
 										<?php $current_category_name = get_term( $category['id'] ) ? get_term( $category['id'] )->name : null; ?>
-                    <?php if ( $current_category_name && $current_category_name != "Εισιτήρια" && $current_category_name != "Πληρωμή δανείων" ): ?>
+                    <?php if ( $current_category_name && $current_category_name != "Εισιτήρια" && $current_category_name != "ID Scanning" ): ?>
 
 										<div style="white-space: nowrap;" class="filter-item col-m-12 col-t-6 col-d-6 t-<?php echo $category['id'] ?>">
 											<div class="switch tiny">
