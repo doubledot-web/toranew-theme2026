@@ -21,6 +21,10 @@
 
 	const storesMap = $("#storesMap");
 	const is_stores_map = storesMap.length;
+	let stores_categories = [];
+	if (is_stores_map) {
+		stores_categories = JSON.parse(storesMap.val());
+	}
 
 	window.noLocations = false;
 	const load_map_data = function () {
@@ -122,7 +126,8 @@
 		let options;
 		if (is_stores_map) {
 			options = {
-				categories: [59],
+				categories: stores_categories,
+				// categories: [59],
 			};
 		} else {
 			options = {
@@ -323,7 +328,8 @@
 				});
 			} else {
 				// get the json value of storesMap and parse it and assign the array to categories array
-				categories = [59];
+				categories = stores_categories;
+				// categories = [59];
 			}
 
 			province = filters.find("select").val();

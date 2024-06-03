@@ -23,11 +23,10 @@ $locations = $tora_b2c->locations['args']; ?>
 								<div class="grid-row grid-collapse">
 
 									<?php
+									$location_categories = get_field( 'location_categories' );
 									$categories = [];
-									foreach ( $locations['categories'] as $category ) :
-										if ( $category['id'] != "36" ) :
-											$categories[] = $category['id'];
-										endif;
+									foreach ( $location_categories as $category ) :
+										$categories[] = $category;
 									endforeach;
 									?>
 									<!-- extra -->
