@@ -941,7 +941,7 @@ footer {
 		transform: translateY(16px);
 		z-index: -1;
 		cursor: text;
-		background: #fff;
+		background: #f7f7f7;
 		transition: all 0.3s ease-in-out;
 		transform-origin: 0% 100%;
 	}
@@ -1119,6 +1119,7 @@ footer {
 		&.bottom-reached {
 			position: absolute !important;
 			bottom: 40px !important;
+			left: unset !important;
 		}
 	}
 }

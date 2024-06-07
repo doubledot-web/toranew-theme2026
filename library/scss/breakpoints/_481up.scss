@@ -1,13 +1,4 @@
 /****************
- ***** FORM *****
- ****************/
-.theme-form {
-	.wpcf7-response-output {
-		width: 300px !important;
-	}
-}
-
-/****************
  ***** TABS *****
  ****************/
 
@@ -39,5 +30,16 @@
 .image {
 	&-gallery-imgs {
 		gap: 30px;
+	}
+}
+
+/****************
+ ***** FORM *****
+ ****************/
+.theme-form {
+	.wpcf7-response-output {
+		left: unset !important;
+		margin: 0 !important;
+		width: 300px !important;
 	}
 }

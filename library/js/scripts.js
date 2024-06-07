@@ -622,12 +622,12 @@ jQuery(document).ready(function ($) {
 			if (
 				container.offset() &&
 				scrollPosition + viewportHeight >=
-				container.offset().top + containerHeight
+					container.offset().top + containerHeight
 			) {
 				// User has scrolled to the bottom of the container
 				popup.addClass("bottom-reached");
-			} else if (scrollPosition + viewportHeight >= containerHeight) {
-				popup.addClass("bottom-reached");
+				// } else if (scrollPosition + viewportHeight >= containerHeight) {
+				// 	popup.removeClass("bottom-reached");
 			} else {
 				// User is at the top of the page
 				popup.removeClass("bottom-reached");

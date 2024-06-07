@@ -373,7 +373,7 @@ if ( have_rows( 'element' ) ) :
 				break;
 			case 'form':
 				?>
-				<div class="flex page-section theme-form-section">
+				<div class="flex page-section theme-form-section wrap">
 					<?php
 					if ( get_sub_field( 'sidebar_text' ) ) :
 						$sidebar_text = get_sub_field( 'sidebar_text' );

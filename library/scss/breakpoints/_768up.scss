@@ -91,3 +91,13 @@
 .text-editor-content {
 	padding: 1rem 15px 3rem;
 }
+
+/****************
+ ***** FORM *****
+ ****************/
+.theme-form {
+	.wpcf7-response-output {
+		left: unset !important;
+		margin: 0 !important;
+	}
+}
