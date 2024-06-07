@@ -536,6 +536,13 @@ ol {
 	* {
 		margin: 0;
 	}
+
+	@media all and (max-width: 767px) {
+		& > * {
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+	}
 }
 
 /*************************

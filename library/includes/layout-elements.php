@@ -379,7 +379,7 @@ if ( have_rows( 'element' ) ) :
 						$sidebar_text = get_sub_field( 'sidebar_text' );
 						if ( $sidebar_text['visible'] ) {
 							?>
-							<div class="col-m-12 col-t-12 col-d-4">
+							<div class="col-m-12 col-d-4">
 								<div class="theme-form-sidebar">
 									<?php echo wp_kses_post( $sidebar_text['text'] ); ?>
 								</div>
@@ -388,7 +388,7 @@ if ( have_rows( 'element' ) ) :
 						}
 					endif;
 					?>
-					<div class="col-m-12 col-t-12 col-d-8">
+					<div class="col-m-12 col-d-8">
 					<?php
 					if ( get_sub_field( 'sidebar_text' ) ) :
 						$form_shortcode = get_sub_field( 'form_shortcode' );
