@@ -139,11 +139,11 @@ if (menuWidget1) {
 }
 let menuWidgetElementInnerHtml = firstNavElement.innerHTML;
 if (menuWidgetElementInnerHtml.includes("Tora") && menuWidgetElement) {
-	menuWidgetElement.style.marginBottom = "-12px";
-	let newElement = document.createElement("p");
-	newElement.classList.add("newMenuClass2");
-	newElement.innerHTML = "ΝΕΟ";
-	menuWidgetElement.appendChild(newElement);
+	// menuWidgetElement.style.marginBottom = "-12px";
+	// let newElement = document.createElement("p");
+	// newElement.classList.add("newMenuClass2");
+	// newElement.innerHTML = "ΝΕΟ";
+	// menuWidgetElement.appendChild(newElement);
 }
 
 if (document.getElementById("msb")) {
