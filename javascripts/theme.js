@@ -833,9 +833,13 @@
 			};
 			// Αφαίρεση bubble Εισιτήρια Θεαμάτων
 			var locx = item_data.locations[0];
+			const unfiltered_services =
+				locx.services instanceof Array
+					? locx.services
+					: Object.values(locx.services);
 			locx = {
 				...locx,
-				services: locx.services.filter(
+				services: unfiltered_services.filter(
 					(s) => s !== "Εισιτήρια Θεαμάτων"
 				),
 			};
