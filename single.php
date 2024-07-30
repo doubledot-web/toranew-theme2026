@@ -1,6 +1,7 @@
 <?php
 if ( is_singular( 'service' ) ) :
 	$services_settings = get_field( 'services_settings', 'option' );
+	$has_new_hero      = get_field( 'new_hero' );
 endif; ?>
 
 <?php get_header(); ?>
@@ -14,20 +15,24 @@ endif; ?>
 					<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
 						<article id="post-<?php the_ID(); ?>" <?php post_class( 'cf' ); ?> role="article">
-
-							<header class="service-header">
-								<div class="featured-image intro-text flex-col flex p-1" style="background: url('<?php echo esc_url( get_the_post_thumbnail_url() ); ?>') no-repeat 70% center; background-size: cover; position: relative; align-items: flex-start;">
-									<div style="padding-left: 40px;">
-										<h1 class="service-title" itemprop="headline" style="margin-bottom: 50px;">
-											<?php get_field( 'header_title' ) ? the_field( 'header_title' ) : the_title(); ?>
-										</h1>
-										<?php if ( get_field( 'subtitle' ) ) : ?>
-											<p class="service-intro normal h3"><?php the_field( 'subtitle' ); ?></p>
-										<?php endif; ?>
+							<?php if ( empty( $has_new_hero ) ) : ?>
+								<header class="service-header">
+									<div class="featured-image intro-text flex-col flex p-1" style="background: url('<?php echo esc_url( get_the_post_thumbnail_url() ); ?>') no-repeat 70% center; background-size: cover; position: relative; align-items: flex-start;">
+										<div style="padding-left: 40px;">
+											<h1 class="service-title" itemprop="headline" style="margin-bottom: 50px;">
+												<?php get_field( 'header_title' ) ? the_field( 'header_title' ) : the_title(); ?>
+											</h1>
+											<?php if ( get_field( 'subtitle' ) ) : ?>
+												<p class="service-intro normal h3"><?php the_field( 'subtitle' ); ?></p>
+											<?php endif; ?>
+										</div>
 									</div>
-								</div>
-							</header>
-
+								</header>
+							<?php
+							else :
+								get_template_part( 'partials/content-blocks/hero' );
+							endif;
+							?>
 							<section class="service-body">
 
 								<?php
