@@ -79,6 +79,22 @@ $locations = $tora_b2c->locations['args']; ?>
 				<a href="#" class="active show-map"><?php _e( 'ΕΜΦΑΝΙΣΗ ΧΑΡΤΗ', 'tora' ); ?></a><a href="#" class="show-list"><?php _e( 'ΕΜΦΑΝΙΣΗ ΛΙΣΤΑΣ', 'tora' ) ?></a>
 			</div>
 
+			<div id="store-types-filters" class="text-center">
+				<div class="store-type">
+					<label class="store-type-container"><img class="store-type-icon" width="26" height="26" src="<?php echo get_template_directory_uri() . '/library/images/opap-store-poi.png'; ?>" alt=""> <span><?php _e( 'Καταστήματα ΟΠΑΠ', 'tora' ); ?></span>
+						<input class="store-type-input"  value="<?php esc_attr_e( 'opap-store' ); ?>" type="checkbox" checked="checked">
+						<span class="store-type-checkmark"></span>
+					</label>
+				</div>
+
+				<div class="store-type">
+					<label class="store-type-container"><img class="store-type-icon" width="26" height="26" src="<?php echo get_template_directory_uri() . '/library/images/retail-store.png"'; ?>" alt=""> <span><?php _e( 'Μικρά Καταστήματα', 'tora' ); ?></span>
+						<input class="store-type-input" value="<?php esc_attr_e( 'retail-store' ); ?>" type="checkbox" checked="checked">
+						<span class="store-type-checkmark"></span>
+					</label>
+				</div>
+			</div>
+
 			<div class="map-wrapper">
 				<div class="map-mobile-filters">
 					<a href="#"><img src="<?php echo get_stylesheet_directory_uri(); ?>/library/images/sliders.png"></a>

@@ -43,3 +43,18 @@
 		width: 300px !important;
 	}
 }
+
+/**********************
+ ***** STORES MAP *****
+ **********************/
+#store-types-filters {
+	background: #d8e6ef;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+
+	.store-type {
+		display: block;
+	}
+}
