@@ -30,3 +30,8 @@ Use it to make something cool, have fun, and share what you've learned with othe
 .contact-boxes-section h2 {
 	color: #0266a2;
 }
+
+.location-item .location-image {
+  margin-right: 8px !important;
+  margin-bottom: 4px !important;
+}

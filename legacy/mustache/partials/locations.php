@@ -82,14 +82,14 @@ $locations = $tora_b2c->locations['args']; ?>
 			<div id="store-types-filters" class="text-center">
 				<div class="store-type">
 					<label class="store-type-container"><img class="store-type-icon" width="26" height="26" src="<?php echo get_template_directory_uri() . '/library/images/opap-store-poi.png'; ?>" alt=""> <span><?php _e( 'Καταστήματα ΟΠΑΠ', 'tora' ); ?></span>
-						<input class="store-type-input"  value="<?php esc_attr_e( 'opap-store' ); ?>" type="checkbox" checked="checked">
+						<input id="is_opap_store" class="store-type-input"  value="<?php esc_attr_e( 'opap-store' ); ?>" type="checkbox" checked="checked">
 						<span class="store-type-checkmark"></span>
 					</label>
 				</div>
 
 				<div class="store-type">
 					<label class="store-type-container"><img class="store-type-icon" width="26" height="26" src="<?php echo get_template_directory_uri() . '/library/images/retail-store.png"'; ?>" alt=""> <span><?php _e( 'Μικρά Καταστήματα', 'tora' ); ?></span>
-						<input class="store-type-input" value="<?php esc_attr_e( 'retail-store' ); ?>" type="checkbox" checked="checked">
+						<input id="is_retail_store" class="store-type-input" value="<?php esc_attr_e( 'retail-store' ); ?>" type="checkbox" checked="checked">
 						<span class="store-type-checkmark"></span>
 					</label>
 				</div>

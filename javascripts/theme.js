@@ -63,8 +63,24 @@
 		});
 	};
 
+	const logicalXOR = function(a, b) {
+		return !!(a ? !b : b);
+	}
+
 	const filter_locations = function (options) {
 		var return_locations, bounds;
+
+		const is_opap_store = document.getElementById('is_opap_store').checked;
+		const is_retail_store = document.getElementById('is_retail_store').checked;
+		const filter_on_store_type = logicalXOR(is_opap_store, is_retail_store)
+
+		var local_locations
+
+		if (filter_on_store_type) {
+			local_locations = all_locations.filter( l => l.is_opap_store == is_opap_store )
+		} else {
+			local_locations = all_locations
+		}
 
 		//     console.log('options')
 		//     console.log(options)
@@ -75,7 +91,7 @@
 				bounds = options.bounds;
 			}
 			// console.log(bounds)
-			return_locations = all_locations.filter(function (l) {
+			return_locations = local_locations.filter(function (l) {
 				return (
 					((l.latitude <= bounds.north &&
 						l.latitude >= bounds.south) ||
@@ -88,11 +104,11 @@
 				);
 			});
 		} else if (options.province) {
-			return_locations = all_locations.filter(function (l) {
+			return_locations = local_locations.filter(function (l) {
 				return l.province == options.province;
 			});
 		} else {
-			return_locations = all_locations;
+			return_locations = local_locations;
 		}
 
 		const categories = options.categories
@@ -152,13 +168,74 @@
 	/* ^^ added by stasou ^^ */
 
 	calendar_template =
-		'<div class="events-calendar"> <div class="controls"> <span class="clndr-previous-button fa fa-chevron-left"></span> <span class="month">{{ month }} {{ year }}</span> <span class="clndr-next-button fa fa-chevron-right"></span> </div> <div class="days-container"> <div class="headers"> {{#daysOfTheWeek}} <div class="day-header">{{ . }}</div> {{/daysOfTheWeek}} </div> <div class="days"> {{#days}} <div class="{{ classes }}" id="{{ id }}"> <span>{{ day }}</span> </div> {{/days}} </div> </div> </div>';
+		`<div class="events-calendar">
+			<div class="controls">
+				<span class="clndr-previous-button fa fa-chevron-left"></span>
+				<span class="month">{{ month }} {{ year }}</span>
+				<span class="clndr-next-button fa fa-chevron-right"></span>
+			</div>
+			<div class="days-container">
+				<div class="headers">
+					{{#daysOfTheWeek}}
+						<div class="day-header">{{ . }}</div>
+					{{/daysOfTheWeek}}
+				</div>
+				<div class="days">
+					{{#days}}
+						<div class="{{ classes }}" id="{{ id }}">
+							<span>{{ day }}</span>
+						</div>
+					{{/days}}
+				</div>
+			</div>
+		</div>`;
 
 	events_template =
-		'<h2 class="date">{{{ date }}}</h2> <div class="categories"> {{#categories}} <span class="category" data-id="{{ id }}">{{ name }}</span> {{/categories}} </div> <h4>{{ title }}</h4> <div class="events-list"> {{#events}} <p class="event hide" data-category="{{ category }}">{{ time }} {{ title }}</p> {{/events}} </div>';
+		`<h2 class="date">{{{ date }}}</h2>
+		<div class="categories">
+			{{#categories}}
+				<span class="category" data-id="{{ id }}">{{ name }}</span>
+			{{/categories}}
+		</div>
+		<h4>{{ title }}</h4>
+		<div class="events-list">
+			{{#events}}
+				<p class="event hide" data-category="{{ category }}">{{ time }} {{ title }}</p>
+			{{/events}}
+		</div>`;
 
 	locations_template =
-		'{{#locations}} <div class="location-item col-m-12 col-t-6 col-d-4"> <h5>{{{ title }}}</h5> {{#image}} <img src="{{ image }}" alt="{{ title }}" class="location-image" /> {{/image}} <div class="location-info"> <p>{{{ address }}}, {{{ postal }}} {{{ city }}}</p> {{#phone}} <p>{{{ tel_text }}}: {{{ phone }}}</p> {{/phone}} {{#services}} <span class="label rounded">{{{ . }}}</span> {{/services}} </div> <a class="button small success" href="https://maps.google.com/?q=loc:{{latitude}}+{{longitude}}" target="_blank">{{{ link_text }}}</a> </div> {{/locations}}';
+		`{{#locations}}
+			<div class="location-item col-m-12 col-t-6 col-d-4 hello-my-friend">
+				<h5>
+					{{#is_opap_store}}
+						<img src="{{ opap_store_icon }}" alt="{{ title }}" class="location-image" />
+					{{/is_opap_store}}
+					{{^is_opap_store}}
+						<img src="{{ other_store_icon }}" alt="{{ store_description }}" class="location-image" />
+					{{/is_opap_store}}
+					{{#store_description}}
+						{{{ store_description }}} | 
+					{{/store_description}}
+					{{{ title }}}
+				</h5>
+				{{#image}}
+					<img src="{{ image }}" alt="{{ title }}" class="location-image" />
+				{{/image}}
+				<div class="location-info">
+					<p>{{{ address }}}, {{{ postal }}} {{{ city }}}</p>
+					{{#phone}}
+						<p>{{{ tel_text }}}: {{{ phone }}}</p>
+					{{/phone}}
+					{{#services}}
+						<span class="label rounded">{{{ . }}}</span>
+					{{/services}}
+				</div>
+				<a class="button small success" href="https://maps.google.com/?q=loc:{{latitude}}+{{longitude}}" target="_blank">
+					{{{ link_text }}}
+				</a>
+			</div>
+		{{/locations}}`;
 
 	$.fn.equalizeGalleries = function () {
 		this.attr("data-equalizer", true).attr("data-equalize-on", "medium");
@@ -830,6 +907,8 @@
 				locations: [item],
 				link_text: localize.map_link_text,
 				tel_text: localize.map_tel_text,
+				opap_store_icon: localize.opap_store_icon,
+				other_store_icon: localize.other_store_icon,
 			};
 			// Αφαίρεση bubble Εισιτήρια Θεαμάτων
 			var locx = item_data.locations[0];
@@ -849,7 +928,7 @@
 			marker = new google.maps.Marker({
 				position: latLng,
 				title: item.address,
-				icon: localize.map_marker,
+				icon: item.is_opap_store ? localize.opap_store_icon : localize.other_store_icon,
 				html: html,
 			});
 			marker.addListener("click", function () {
@@ -892,6 +971,8 @@
 				locations: localize.locations_data,
 				link_text: localize.map_link_text,
 				tel_text: localize.map_tel_text,
+				opap_store_icon: localize.opap_store_icon,
+				other_store_icon: localize.other_store_icon,
 			};
 			locations.html(Mustache.render(locations_template, data));
 			// vv mods by stasouv
@@ -909,14 +990,27 @@
 	};
 
 	$.fn.mapFilters = function () {
-		var filters, markers, search;
+		var filters, store_type_filters, markers, search;
 		markers = $(this);
 		if (!markers.length) {
 			return;
 		}
 		filters = $("#map-filters");
+		store_type_filters = $("#store-types-filters");
+
 		search = filters.find(".search-form");
 		filters.on("change", "input", function (event) {
+			// vv mods by stasouv
+			$(".map-container").addClass("map-loading");
+			// ^^ mods by stasouv
+
+			if ($(this).attr("name") !== "s") {
+				map_form_update = true;
+			}
+			return markers.trigger("update-markers-data", false);
+		});
+
+		store_type_filters.on("change", "input", function (event) {
 			// vv mods by stasouv
 			$(".map-container").addClass("map-loading");
 			// ^^ mods by stasouv

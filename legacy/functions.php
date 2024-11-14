@@ -188,6 +188,8 @@ class Theme
 			'locations_url'        => get_rest_url( null, '/posts/locations' ),
 			'map_link_text'        => __( 'Get directions', TORA_B2C_TEXTDOMAIN ),
 			'map_tel_text'         => __( 'Tel', TORA_B2C_TEXTDOMAIN ),
+			'opap_store_icon'	   => get_stylesheet_directory_uri() .'/images/opap-store-poi-small.png',
+			'other_store_icon'	   => get_stylesheet_directory_uri() .'/images/retail-store-small.png',
 			'zoom_out_of_greece'   => $options['locations_map_zoom_out_of_greece'],
 		);
 
