@@ -88,7 +88,7 @@ $locations = $tora_b2c->locations['args']; ?>
 				</div>
 
 				<div class="store-type">
-					<label class="store-type-container"><img class="store-type-icon" width="26" height="26" src="<?php echo get_template_directory_uri() . '/library/images/retail-store.png"'; ?>" alt=""> <span><?php _e( 'Μικρά Καταστήματα', 'tora' ); ?></span>
+					<label class="store-type-container"><img class="store-type-icon" width="26" height="26" src="<?php echo get_template_directory_uri() . '/library/images/retail-store.png"'; ?>" alt=""> <span><?php _e( 'Καταστήματα Λιανικής', 'tora' ); ?></span>
 						<input id="is_retail_store" class="store-type-input" value="<?php esc_attr_e( 'retail-store' ); ?>" type="checkbox" checked="checked">
 						<span class="store-type-checkmark"></span>
 					</label>

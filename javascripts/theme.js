@@ -63,23 +63,26 @@
 		});
 	};
 
-	const logicalXOR = function(a, b) {
+	const logicalXOR = function (a, b) {
 		return !!(a ? !b : b);
-	}
+	};
 
 	const filter_locations = function (options) {
 		var return_locations, bounds;
 
-		const is_opap_store = document.getElementById('is_opap_store').checked;
-		const is_retail_store = document.getElementById('is_retail_store').checked;
-		const filter_on_store_type = logicalXOR(is_opap_store, is_retail_store)
+		const is_opap_store = document.getElementById("is_opap_store").checked;
+		const is_retail_store =
+			document.getElementById("is_retail_store").checked;
+		const filter_on_store_type = logicalXOR(is_opap_store, is_retail_store);
 
-		var local_locations
+		var local_locations;
 
 		if (filter_on_store_type) {
-			local_locations = all_locations.filter( l => l.is_opap_store == is_opap_store )
+			local_locations = all_locations.filter(
+				(l) => l.is_opap_store == is_opap_store
+			);
 		} else {
-			local_locations = all_locations
+			local_locations = all_locations;
 		}
 
 		//     console.log('options')
@@ -167,8 +170,7 @@
 
 	/* ^^ added by stasou ^^ */
 
-	calendar_template =
-		`<div class="events-calendar">
+	calendar_template = `<div class="events-calendar">
 			<div class="controls">
 				<span class="clndr-previous-button fa fa-chevron-left"></span>
 				<span class="month">{{ month }} {{ year }}</span>
@@ -190,8 +192,7 @@
 			</div>
 		</div>`;
 
-	events_template =
-		`<h2 class="date">{{{ date }}}</h2>
+	events_template = `<h2 class="date">{{{ date }}}</h2>
 		<div class="categories">
 			{{#categories}}
 				<span class="category" data-id="{{ id }}">{{ name }}</span>
@@ -204,8 +205,7 @@
 			{{/events}}
 		</div>`;
 
-	locations_template =
-		`{{#locations}}
+	locations_template = `{{#locations}}
 			<div class="location-item col-m-12 col-t-6 col-d-4 hello-my-friend">
 				<h5>
 					{{#is_opap_store}}
@@ -215,7 +215,7 @@
 						<img src="{{ other_store_icon }}" alt="{{ store_description }}" class="location-image" />
 					{{/is_opap_store}}
 					{{#store_description}}
-						{{{ store_description }}} | 
+						{{{ store_description }}} |
 					{{/store_description}}
 					{{{ title }}}
 				</h5>
@@ -928,7 +928,9 @@
 			marker = new google.maps.Marker({
 				position: latLng,
 				title: item.address,
-				icon: item.is_opap_store ? localize.opap_store_icon : localize.other_store_icon,
+				icon: item.is_opap_store
+					? localize.opap_store_icon
+					: localize.other_store_icon,
 				html: html,
 			});
 			marker.addListener("click", function () {
@@ -1179,7 +1181,7 @@ function addExtraSpanOnWindow() {
 					"Φόρτιση pamestoixima.gr – opaponline.gr – stoiximan.gr";
 				slielem.appendChild(newSpanElement);
 				newSpanElement.classList.add("label", "rounded");
-				newSpanElement.style.backgroundColor = "#0273A2";
+				// newSpanElement.style.backgroundColor = "#0273A2";
 			}
 		}
 	}, 250);

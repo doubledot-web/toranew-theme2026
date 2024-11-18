@@ -263,25 +263,26 @@ jQuery(document).ready(function ($) {
 
 	// Assign Services Label Colors
 	function assignServicesLabelColors() {
-		$(".location-item .label").each(function () {
-			switch ($(this).text()) {
-				case "Ανανέωση χρόνου ομιλίας/Internet":
-					$(this).addClass("bg-blue");
-					break;
-				case "Πληρωμή λογαριασμών":
-					$(this).addClass("bg-dark-blue");
-					break;
-				case "Μεταφορά Χρημάτων":
-					$(this).addClass("bg-light-blue");
-					break;
-				case "Ενέργεια ":
-					$(this).addClass("bg-blue");
-					break;
-				default:
-					$(this).addClass("bg-blue");
-					break;
-			}
-		});
+		return;
+		// $(".location-item .label").each(function () {
+		// 	switch ($(this).text()) {
+		// 		case "Ανανέωση χρόνου ομιλίας/Internet":
+		// 			$(this).addClass("bg-blue");
+		// 			break;
+		// 		case "Πληρωμή λογαριασμών":
+		// 			$(this).addClass("bg-dark-blue");
+		// 			break;
+		// 		case "Μεταφορά Χρημάτων":
+		// 			$(this).addClass("bg-light-blue");
+		// 			break;
+		// 		case "Ενέργεια ":
+		// 			$(this).addClass("bg-blue");
+		// 			break;
+		// 		default:
+		// 			$(this).addClass("bg-blue");
+		// 			break;
+		// 	}
+		// });
 	}
 
 	// Toggle pagination
