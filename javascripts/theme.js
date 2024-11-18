@@ -456,8 +456,7 @@
 				// $('.map-container').removeClass('map-loading')
 				// if (data && data.length > 0) {
 				if (
-					localize.locations_data &&
-					localize.locations_data.length > 0
+					localize.locations_data
 				) {
 					$(".map-container").removeClass("map-no-locations");
 					// if ( ! window.noLocations ) {
