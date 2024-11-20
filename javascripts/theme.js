@@ -209,10 +209,10 @@
 			<div class="location-item col-m-12 col-t-6 col-d-4 hello-my-friend">
 				<h5>
 					{{#is_opap_store}}
-						<img src="{{ opap_store_icon }}" alt="{{ title }}" class="location-image" />
+						<img src="{{ opap_store_icon }}" alt="{{ title }}" class="location-image" data-store-type="opap" />
 					{{/is_opap_store}}
 					{{^is_opap_store}}
-						<img src="{{ other_store_icon }}" alt="{{ store_description }}" class="location-image" />
+						<img src="{{ other_store_icon }}" alt="{{ store_description }}" class="location-image" data-store-type="retail" />
 					{{/is_opap_store}}
 					{{#store_description}}
 						{{{ store_description }}} |
@@ -1169,10 +1169,12 @@ function addExtraSpanOnWindow() {
 		const map = document.getElementById("map-markers");
 		const locationInfoElem = map.getElementsByClassName("location-info");
 		const slielem = locationInfoElem[0];
+		const locationImage = map.getElementsByClassName("location-image");
+		const slimage = locationImage[0];
 		const spansElem = slielem.getElementsByTagName("span");
 		for (let item of spansElem) {
 			// console.log(item.innerText);
-			if (item.innerText === "Πληρωμή λογαριασμών") {
+			if (item.innerText === "Πληρωμή λογαριασμών" && slimage.dataset.storeType === 'opap') {
 				const newSpanElement = document.createElement("span");
 				// newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
 				// newSpanElement.innerHTML = 'Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού';
