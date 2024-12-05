@@ -936,7 +936,8 @@
 				// ^^ mods by stasouv
 
 				infowindow.setContent(marker.html);
-				addExtraSpanOnWindow();
+				// This adds a manual bubble
+				// addExtraSpanOnWindow();
 				map.panTo(this.getPosition());
 				var current_zoom = map.getZoom();
 				if (current_zoom && current_zoom < 15) {
@@ -1162,29 +1163,30 @@
 }).call(this);
 
 // add Extra Span Marker
-function addExtraSpanOnWindow() {
-	setTimeout(() => {
-		const map = document.getElementById("map-markers");
-		const locationInfoElem = map.getElementsByClassName("location-info");
-		const slielem = locationInfoElem[0];
-		const locationImage = map.getElementsByClassName("location-image");
-		const slimage = locationImage[0];
-		const spansElem = slielem.getElementsByTagName("span");
-		for (let item of spansElem) {
-			// console.log(item.innerText);
-			if (item.innerText === "Πληρωμή λογαριασμών" && slimage.dataset.storeType === 'opap') {
-				const newSpanElement = document.createElement("span");
-				// newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
-				// newSpanElement.innerHTML = 'Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού';
-				newSpanElement.innerHTML =
-					"Φόρτιση pamestoixima.gr – opaponline.gr – stoiximan.gr";
-				slielem.appendChild(newSpanElement);
-				newSpanElement.classList.add("label", "rounded");
-				// newSpanElement.style.backgroundColor = "#0273A2";
-			}
-		}
-	}, 250);
-}
+// disabled, keep for archiving purpose
+// function addExtraSpanOnWindow() {
+// 	setTimeout(() => {
+// 		const map = document.getElementById("map-markers");
+// 		const locationInfoElem = map.getElementsByClassName("location-info");
+// 		const slielem = locationInfoElem[0];
+// 		const locationImage = map.getElementsByClassName("location-image");
+// 		const slimage = locationImage[0];
+// 		const spansElem = slielem.getElementsByTagName("span");
+// 		for (let item of spansElem) {
+// 			// console.log(item.innerText);
+// 			if (item.innerText === "Πληρωμή λογαριασμών" && slimage.dataset.storeType === 'opap') {
+// 				const newSpanElement = document.createElement("span");
+// 				// newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+// 				// newSpanElement.innerHTML = 'Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού';
+// 				newSpanElement.innerHTML =
+// 					"Φόρτιση pamestoixima.gr – opaponline.gr – stoiximan.gr";
+// 				slielem.appendChild(newSpanElement);
+// 				newSpanElement.classList.add("label", "rounded");
+// 				// newSpanElement.style.backgroundColor = "#0273A2";
+// 			}
+// 		}
+// 	}, 250);
+// }
 
 // List
 
