@@ -116,8 +116,8 @@
 
 		const categories = options.categories
 			? options.categories.map(function (c) {
-					return parseInt(c, 10);
-			  })
+				return parseInt(c, 10);
+			})
 			: [];
 		if (categories.length === 0) {
 			$(".filters")
@@ -380,14 +380,14 @@
 
 		element.on("update-markers-data", function (event, fitBounds) {
 			/* COMMENTED BY STASOUV
-      if (!map_form_update && map_loaded ) {
-        return;
-      }
-      map_form_update = false
-      var categories, options, province, searchterm;
-      categories = [];
-      searchterm = search.find('input').val();
-      */
+	  if (!map_form_update && map_loaded ) {
+		return;
+	  }
+	  map_form_update = false
+	  var categories, options, province, searchterm;
+	  categories = [];
+	  searchterm = search.find('input').val();
+	  */
 
 			/* vv added by stasou vv */
 			// if (!map_form_update && map_loaded ) {
@@ -430,19 +430,19 @@
 				};
 
 				/* COMMENTED BY STASOUV
-        $('.map-container').addClass('map-loading')
-        return $.get(localize.locations_url, options).done(function(data) {
-          localize.locations_data = data;
-          $('.map-container').removeClass('map-loading')
-          if (data && data.length > 0) {
-            $('.map-container').removeClass('map-no-locations')
-            return element.trigger('update-markers', fitBounds);
-          } else if (data && data.length === 0) {
-            $('.map-container').addClass('map-no-locations')
-          }
-          return;
-        });
-        */
+		$('.map-container').addClass('map-loading')
+		return $.get(localize.locations_url, options).done(function(data) {
+		  localize.locations_data = data;
+		  $('.map-container').removeClass('map-loading')
+		  if (data && data.length > 0) {
+			$('.map-container').removeClass('map-no-locations')
+			return element.trigger('update-markers', fitBounds);
+		  } else if (data && data.length === 0) {
+			$('.map-container').addClass('map-no-locations')
+		  }
+		  return;
+		});
+		*/
 
 				/* vv added by stasou vv */
 				if (!window.noLocations) {
@@ -481,8 +481,8 @@
 		});
 		return $(document).on("geolocated", function (event) {
 			/* COMMENTED BY STASOUV
-      return element.trigger('update-markers-data', true);
-      */
+	  return element.trigger('update-markers-data', true);
+	  */
 			/* vv added by stasou vv */
 			localize.locations_data = [];
 			return element.trigger("update-markers-data", fitbounds);
@@ -580,27 +580,27 @@
 			);
 		};
 		/* COMMENTED BY STASOUV
-    geoSuccess = function(position) {
-      var user_coords;
-      user_coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      return geocodeLatLng(user_coords);
-    };
-    geoError = function() {
-      var user_coords;
-      user_coords = new google.maps.LatLng(geolocation.latitude, geolocation.longitude);
-      return geocodeLatLng(user_coords);
-    };
-    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
-    var bound_restrictions = localize.zoom_out_of_greece !== "allow" ? {
-      latLngBounds: {
-        north: 46 + 5 ,
-        south: 29 - 5,
-        west: 12 - 5,
-        east: 36 + 5
-      },
-      strictBounds: true
-    } : {};
-    */
+	geoSuccess = function(position) {
+	  var user_coords;
+	  user_coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	  return geocodeLatLng(user_coords);
+	};
+	geoError = function() {
+	  var user_coords;
+	  user_coords = new google.maps.LatLng(geolocation.latitude, geolocation.longitude);
+	  return geocodeLatLng(user_coords);
+	};
+	navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+	var bound_restrictions = localize.zoom_out_of_greece !== "allow" ? {
+	  latLngBounds: {
+		north: 46 + 5 ,
+		south: 29 - 5,
+		west: 12 - 5,
+		east: 36 + 5
+	  },
+	  strictBounds: true
+	} : {};
+	*/
 		// vv mods by stasouv
 		geoSuccess = function (position) {
 			// console.log('geoSuccess')
@@ -632,15 +632,15 @@
 		var bound_restrictions =
 			localize.zoom_out_of_greece !== "allow"
 				? {
-						latLngBounds: {
-							// was 5, is 8
-							north: 46 + 8,
-							south: 29 - 8,
-							west: 12 - 8,
-							east: 36 + 8,
-						},
-						strictBounds: true,
-				  }
+					latLngBounds: {
+						// was 5, is 8
+						north: 46 + 8,
+						south: 29 - 8,
+						west: 12 - 8,
+						east: 36 + 8,
+					},
+					strictBounds: true,
+				}
 				: {};
 		// ^^ mods by stasouv
 
@@ -823,17 +823,17 @@
 					bounds: JSON.stringify(place.geometry.viewport),
 				};
 				/* COMMENTED BY STASOUV
-        return $.get(localize.locations_url, options).done(function(data) {
-          localize.locations_data = data;
-          $('.map-container').removeClass('map-loading')
-          if (data && data.length > 0) {
-            $('.map-container').removeClass('map-no-locations')
-          } else if (data && data.length === 0) {
-            $('.map-container').addClass('map-no-locations')
-          }
-          return element.trigger('update-markers');
-        });
-        */
+		return $.get(localize.locations_url, options).done(function(data) {
+		  localize.locations_data = data;
+		  $('.map-container').removeClass('map-loading')
+		  if (data && data.length > 0) {
+			$('.map-container').removeClass('map-no-locations')
+		  } else if (data && data.length === 0) {
+			$('.map-container').addClass('map-no-locations')
+		  }
+		  return element.trigger('update-markers');
+		});
+		*/
 				// vv mods by stasouv
 				// return $.get(localize.locations_url, options).done(function(data) {
 				// localize.locations_data = data;
@@ -1021,13 +1021,13 @@
 			return markers.trigger("update-markers-data", false);
 		});
 		/* COMMENTED BY STASOUV
-    filters.on('change', 'select', function(event) {
-      search.find('input').val('');
-      window.newbounds = undefined
-      map_form_update = true;
-      return markers.trigger('update-markers-data', true);
-    });
-    */
+	filters.on('change', 'select', function(event) {
+	  search.find('input').val('');
+	  window.newbounds = undefined
+	  map_form_update = true;
+	  return markers.trigger('update-markers-data', true);
+	});
+	*/
 		search.on("submit", function (event) {
 			event.preventDefault();
 			return markers.trigger("update-markers-data", true);
@@ -1191,67 +1191,67 @@
 // List
 
 const mapLocationsElement = document.getElementById("map-locations");
-const locationItems =
-	mapLocationsElement.getElementsByClassName("location-item");
-for (let locationItem of locationItems) {
-	const locationInfoElem =
-		locationItem.getElementsByClassName("location-info");
-	const slielem = locationInfoElem[0];
-	const locationInfoSpans = locationItem.getElementsByTagName("span");
-	for (let locationSpan of locationInfoSpans) {
-		if (locationSpan.innerText === "Πληρωμή λογαριασμών") {
-			const newSpanElement = document.createElement("span");
-			// newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
-			newSpanElement.innerHTML =
-				"Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού";
-			slielem.appendChild(newSpanElement);
-			newSpanElement.classList.add('label","rounded');
-			newSpanElement.classList.remove('label","rounded');
-			newSpanElement.classList.add("label", "rounded");
-			// newSpanElement.style.backgroundColor = "#0273A2";
-		}
-	}
-}
+// const locationItems =
+// 	mapLocationsElement.getElementsByClassName("location-item");
+// for (let locationItem of locationItems) {
+// 	const locationInfoElem =
+// 		locationItem.getElementsByClassName("location-info");
+// 	const slielem = locationInfoElem[0];
+// 	const locationInfoSpans = locationItem.getElementsByTagName("span");
+// 	for (let locationSpan of locationInfoSpans) {
+// 		if (locationSpan.innerText === "Πληρωμή λογαριασμών") {
+// 			const newSpanElement = document.createElement("span");
+// 			// newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+// 			newSpanElement.innerHTML =
+// 				"Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού";
+// 			slielem.appendChild(newSpanElement);
+// 			newSpanElement.classList.add('label","rounded');
+// 			newSpanElement.classList.remove('label","rounded');
+// 			newSpanElement.classList.add("label", "rounded");
+// 			// newSpanElement.style.backgroundColor = "#0273A2";
+// 		}
+// 	}
+// }
 
 // fixed
-const lcselector = document.getElementsByClassName("locations-count-selector");
-const lcsELEment = lcselector[0];
-const observer = new MutationObserver(function (mutations) {
-	mutations.forEach(function (mutationRecord) {
-		const mapLocationsElement = document.getElementById("map-locations");
-		const locationItems =
-			mapLocationsElement.getElementsByClassName("location-item");
-		for (let locationItem of locationItems) {
-			const locationInfoElem =
-				locationItem.getElementsByClassName("location-info");
-			const slielem = locationInfoElem[0];
-			const locationInfoSpans = locationItem.getElementsByTagName("span");
-			for (let locationSpan of locationInfoSpans) {
-				// if (locationSpan.innerText === 'Πληρωμή στα online παιχνίδια ΟΠΑΠ') {
-				if (
-					locationSpan.innerText ===
-					"Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού"
-				) {
-					return;
-				}
-			}
-			for (let locationSpan of locationInfoSpans) {
-				if (locationSpan.innerText === "Πληρωμή λογαριασμών") {
-					const newSpanElement = document.createElement("span");
-					// newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
-					newSpanElement.innerHTML =
-						"Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού";
-					slielem.appendChild(newSpanElement);
-					newSpanElement.classList.add('label","rounded');
-					newSpanElement.classList.remove('label","rounded');
-					newSpanElement.classList.add("label", "rounded");
-					// newSpanElement.style.backgroundColor = "#0273A2";
-				}
-			}
-		}
-	});
-});
-observer.observe(lcsELEment, { attributes: true, attributeFilter: ["style"] });
+// const lcselector = document.getElementsByClassName("locations-count-selector");
+// const lcsELEment = lcselector[0];
+// const observer = new MutationObserver(function (mutations) {
+// 	mutations.forEach(function (mutationRecord) {
+// 		const mapLocationsElement = document.getElementById("map-locations");
+// 		const locationItems =
+// 			mapLocationsElement.getElementsByClassName("location-item");
+// 		for (let locationItem of locationItems) {
+// 			const locationInfoElem =
+// 				locationItem.getElementsByClassName("location-info");
+// 			const slielem = locationInfoElem[0];
+// 			const locationInfoSpans = locationItem.getElementsByTagName("span");
+// 			for (let locationSpan of locationInfoSpans) {
+// 				// if (locationSpan.innerText === 'Πληρωμή στα online παιχνίδια ΟΠΑΠ') {
+// 				if (
+// 					locationSpan.innerText ===
+// 					"Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού"
+// 				) {
+// 					return;
+// 				}
+// 			}
+// 			for (let locationSpan of locationInfoSpans) {
+// 				if (locationSpan.innerText === "Πληρωμή λογαριασμών") {
+// 					const newSpanElement = document.createElement("span");
+// 					// newSpanElement.innerHTML = 'Πληρωμή στα online παιχνίδια ΟΠΑΠ';
+// 					newSpanElement.innerHTML =
+// 						"Φόρτιση (Top-up) Ηλεκτρονικού Παικτικού Λογαριασμού";
+// 					slielem.appendChild(newSpanElement);
+// 					newSpanElement.classList.add('label","rounded');
+// 					newSpanElement.classList.remove('label","rounded');
+// 					newSpanElement.classList.add("label", "rounded");
+// 					// newSpanElement.style.backgroundColor = "#0273A2";
+// 				}
+// 			}
+// 		}
+// 	});
+// });
+// observer.observe(lcsELEment, { attributes: true, attributeFilter: ["style"] });
 
 const windowHrefMap = window.location.href;
 if (windowHrefMap.includes("1008")) {

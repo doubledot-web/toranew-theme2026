@@ -49,17 +49,19 @@ $locations = $tora_b2c->locations['args']; ?>
 									<?php endif; endforeach; ?>
                                     <!-- extra -->
 
-                                    <div class="filter-item col-m-12 col-t-6 col-d-6 t-1008" >
-											<div class="switch tiny">
-												<input class="switch-input" id="switch-1008" value="<?php esc_attr_e( '8' ) ?>"
-                                                       type="checkbox" <?php esc_attr_e( $category['checked'] ) ?> name="categories[]">
-												<label class="switch-paddle rounded" for="switch-<?php esc_attr_e( '1008') ?>">
-													<span class="show-for-sr"> Πληρωμή στα οnline παιχνίδια ΟΠΑΠ </span>
-												</label>
-											</div>
-											<!-- <span class="filter"> Πληρωμή στα online παιχνίδια ΟΠΑΠ </span> -->
-											<span class="filter"> Φόρτιση (Top-up)<br> Ηλεκτρονικού Παικτικού Λογαριασμού </span>
-									</div>
+									<?php if (1==2) : // remove extra filter ?>
+										<div class="filter-item col-m-12 col-t-6 col-d-6 t-1008" >
+												<div class="switch tiny">
+													<input class="switch-input" id="switch-1008" value="<?php esc_attr_e( '8' ) ?>"
+														type="checkbox" <?php esc_attr_e( $category['checked'] ) ?> name="categories[]">
+													<label class="switch-paddle rounded" for="switch-<?php esc_attr_e( '1008') ?>">
+														<span class="show-for-sr"> Πληρωμή στα οnline παιχνίδια ΟΠΑΠ </span>
+													</label>
+												</div>
+												<!-- <span class="filter"> Πληρωμή στα online παιχνίδια ΟΠΑΠ </span> -->
+												<span class="filter"> Φόρτιση (Top-up)<br> Ηλεκτρονικού Παικτικού Λογαριασμού </span>
+										</div>
+									<?php endif; ?>
 
 								</div>
 							</div>
