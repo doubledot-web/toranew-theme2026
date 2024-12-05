@@ -455,9 +455,7 @@
 				// localize.locations_data = data;
 				// $('.map-container').removeClass('map-loading')
 				// if (data && data.length > 0) {
-				if (
-					localize.locations_data
-				) {
+				if (localize.locations_data) {
 					$(".map-container").removeClass("map-no-locations");
 					// if ( ! window.noLocations ) {
 					return element.trigger("update-markers", fitBounds);
@@ -1208,7 +1206,7 @@ for (let locationItem of locationItems) {
 			newSpanElement.classList.add('label","rounded');
 			newSpanElement.classList.remove('label","rounded');
 			newSpanElement.classList.add("label", "rounded");
-			newSpanElement.style.backgroundColor = "#0273A2";
+			// newSpanElement.style.backgroundColor = "#0273A2";
 		}
 	}
 }
@@ -1245,7 +1243,7 @@ const observer = new MutationObserver(function (mutations) {
 					newSpanElement.classList.add('label","rounded');
 					newSpanElement.classList.remove('label","rounded');
 					newSpanElement.classList.add("label", "rounded");
-					newSpanElement.style.backgroundColor = "#0273A2";
+					// newSpanElement.style.backgroundColor = "#0273A2";
 				}
 			}
 		}
