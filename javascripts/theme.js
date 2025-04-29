@@ -70,9 +70,10 @@
 	const filter_locations = function (options) {
 		var return_locations, bounds;
 
-		const is_opap_store = document.getElementById("is_opap_store").checked;
+		const is_opap_store =
+			document.getElementById("is_opap_store")?.checked || false;
 		const is_retail_store =
-			document.getElementById("is_retail_store").checked;
+			document.getElementById("is_retail_store")?.checked || false;
 		const filter_on_store_type = logicalXOR(is_opap_store, is_retail_store);
 
 		var local_locations;
@@ -116,8 +117,8 @@
 
 		const categories = options.categories
 			? options.categories.map(function (c) {
-				return parseInt(c, 10);
-			})
+					return parseInt(c, 10);
+			  })
 			: [];
 		if (categories.length === 0) {
 			$(".filters")
@@ -632,15 +633,15 @@
 		var bound_restrictions =
 			localize.zoom_out_of_greece !== "allow"
 				? {
-					latLngBounds: {
-						// was 5, is 8
-						north: 46 + 8,
-						south: 29 - 8,
-						west: 12 - 8,
-						east: 36 + 8,
-					},
-					strictBounds: true,
-				}
+						latLngBounds: {
+							// was 5, is 8
+							north: 46 + 8,
+							south: 29 - 8,
+							west: 12 - 8,
+							east: 36 + 8,
+						},
+						strictBounds: true,
+				  }
 				: {};
 		// ^^ mods by stasouv
 
