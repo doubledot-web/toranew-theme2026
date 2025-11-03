@@ -22,6 +22,13 @@ jQuery(document).ready(function ($) {
 		openedSymbol: '<i class="fa fa-chevron-down" aria-hidden="true"></i>',
 		appendTo: "#header",
 	});
+
+	$("#menu-mobile-menu-english").slicknav({
+		label: "",
+		closedSymbol: '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
+		openedSymbol: '<i class="fa fa-chevron-down" aria-hidden="true"></i>',
+		appendTo: "#header",
+	});
 	// END SLICKNAV
 
 	// ACTIVATE COUNTER EFFECT ON SCROLL TO ELEMENT
