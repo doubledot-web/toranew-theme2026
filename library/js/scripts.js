@@ -436,6 +436,10 @@ jQuery(document).ready(function ($) {
 		validateForm("#feedbackForm");
 	}
 
+	if ($("#newForm").length > 0) {
+		validateForm("#newForm");
+	}
+
 	// function removeFormMsgClasses() {
 	// 	setTimeout(function () {
 	// 		$(".wpcf7-form").removeClass("sent");
