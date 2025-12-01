@@ -720,8 +720,6 @@ function dd_filter_flamingo_messages_by_form( $query ) {
 		return;
 	}
 
-	// error_log( gmdate( 'Y-m-d h:i:sa', strtotime( 'NOW' ) ) . ' - **** DEBUG MODE ****' . PHP_EOL . json_encode( $_GET, JSON_UNESCAPED_UNICODE ) . PHP_EOL . PHP_EOL, 3, ERROR_LOG_PATH );
-
 	if ( ! isset( $_GET['page'] ) || 'flamingo_inbound' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		return;
 	}
@@ -753,13 +751,16 @@ function dd_redirect_limited_flamingo_viewer_after_login( $redirect_to, $request
 		return $redirect_to;
 	}
 
+	// error_log( gmdate( 'Y-m-d h:i:sa', strtotime( 'NOW' ) ) . ' - **** DEBUG MODE ****' . PHP_EOL . json_encode( $redirect_to, JSON_UNESCAPED_UNICODE ) . PHP_EOL . PHP_EOL, 3, ERROR_LOG_PATH );
+
 	if ( in_array( 'limited_flamingo_viewer', (array) $user->roles, true ) ) {
-		return admin_url( '/' );
+		wp_safe_redirect( admin_url() );
+		exit;
 	}
 
 	return $redirect_to;
 }
-add_filter( 'login_redirect', 'dd_redirect_limited_flamingo_viewer_after_login', 10, 3 );
+add_filter( 'login_redirect', 'dd_redirect_limited_flamingo_viewer_after_login', 999, 3 );
 
 
 function dd_block_security_settings_page() {
@@ -773,11 +774,18 @@ function dd_block_security_settings_page() {
 
 	// If the user tries to access the XML-RPC Security page, redirect them to the dashboard
 	if ( 'Security Settings' === $current_page ) {
-		wp_safe_redirect( admin_url( '/' ) );
+		wp_safe_redirect( admin_url() );
 		exit;
 	}
 }
 add_action( 'admin_init', 'dd_block_security_settings_page' );
+
+function dd_remove_edit_profile_from_admin_bar( $wp_admin_bar ) {
+	$wp_admin_bar->remove_node( 'edit-profile' );
+	$wp_admin_bar->remove_node( 'user-info' );
+	$wp_admin_bar->remove_node( 'my-account' );
+}
+add_action( 'admin_bar_menu', 'dd_remove_edit_profile_from_admin_bar', 999 );
 
 // DEBUG INFO DISPLAY
 // add_action( 'admin_notices', function() {
