@@ -611,5 +611,193 @@ function populate_services_options( $n, $options, $args ) {
 add_filter( 'wpcf7_form_tag_data_option', 'populate_services_options', 10, 3 );
 
 
-
 add_filter( 'wpcf7_autop_or_not', '__return_false' );
+
+
+// function remove_limited_flamingo_role() {
+//     remove_role('limited_flamingo_viewer');
+//     delete_option('limited_flamingo_role_created'); // Αν χρησιμοποίησες option
+// }
+// add_action('init', 'remove_limited_flamingo_role');
+
+
+
+function dd_register_limited_flamingo_role() {
+	$role = get_role( 'limited_flamingo_viewer' );
+
+	if ( ! $role ) {
+		$role = add_role(
+			'limited_flamingo_viewer',
+			'Limited Form Viewer',
+			array(
+				'read'      => true,
+				'edit_users'=> true,
+				'read'                             => true,
+				'flamingo_manage_inbound_messages' => true,
+				'flamingo_edit_contact'            => false,
+				'flamingo_edit_contacts'           => false,
+				'flamingo_delete_contact'          => false,
+				'flamingo_edit_inbound_message'    => true,
+				'flamingo_edit_inbound_messages'   => true,
+				'flamingo_delete_inbound_message'  => true,
+				'flamingo_delete_inbound_messages' => true,
+				'flamingo_spam_inbound_message'    => true,
+				'flamingo_unspam_inbound_message'  => true,
+				'flamingo_edit_outbound_message'   => true,
+				'flamingo_delete_outbound_message' => true,
+			)
+		);
+	}
+
+	if ( $role && ! $role->has_cap( 'edit_users' ) ) {
+		$role->add_cap( 'edit_users' );
+	}
+}
+add_action( 'init', 'dd_register_limited_flamingo_role' );
+
+
+function dd_restrict_user_management_for_limited_viewer( $caps, $cap, $user_id, $args ) {
+	$user = get_user_by( 'id', $user_id );
+
+	if ( ! $user ) {
+		return $caps;
+	}
+
+	if ( ! in_array( 'limited_flamingo_viewer', (array) $user->roles, true ) ) {
+		return $caps;
+	}
+
+	$blocked_caps = array(
+		'edit_user',
+		'promote_user',
+		'delete_user',
+		'remove_user',
+		'list_users',
+	);
+
+	if ( in_array( $cap, $blocked_caps, true ) ) {
+		return array( 'do_not_allow' );
+	}
+
+	return $caps;
+}
+add_filter( 'map_meta_cap', 'dd_restrict_user_management_for_limited_viewer', 10, 4 );
+
+
+function dd_limit_admin_menu_for_limited_flamingo_viewer() {
+	$user = wp_get_current_user();
+
+	if ( ! $user || ! in_array( 'limited_flamingo_viewer', (array) $user->roles, true ) ) {
+		return;
+	}
+
+	if ( in_array( 'administrator', (array) $user->roles, true ) ) {
+		return;
+	}
+
+	remove_menu_page( 'index.php' ); // Dashboard
+	remove_menu_page( 'edit.php' ); // Posts
+	remove_menu_page( 'upload.php' ); // Media
+	remove_menu_page( 'edit.php?post_type=page' ); // Pages
+	remove_menu_page( 'edit-comments.php' ); // Comments
+	remove_menu_page( 'themes.php' ); // Appearance
+	remove_menu_page( 'plugins.php' ); // Plugins
+	remove_menu_page( 'users.php' ); // Users
+	remove_menu_page( 'tools.php' ); // Tools
+	remove_menu_page( 'options-general.php' ); // Settings
+	remove_menu_page( 'profile.php' ); // Profile
+	remove_menu_page( 'wpcf7' ); // Contact Form 7.
+
+	remove_menu_page( 'Security Settings' );
+
+	remove_submenu_page( 'flamingo', 'flamingo' );
+}
+add_action( 'admin_menu', 'dd_limit_admin_menu_for_limited_flamingo_viewer', 999 );
+
+
+function dd_filter_flamingo_messages_by_form( $query ) {
+	if ( ! is_admin() ) {
+		return;
+	}
+
+	// error_log( gmdate( 'Y-m-d h:i:sa', strtotime( 'NOW' ) ) . ' - **** DEBUG MODE ****' . PHP_EOL . json_encode( $_GET, JSON_UNESCAPED_UNICODE ) . PHP_EOL . PHP_EOL, 3, ERROR_LOG_PATH );
+
+	if ( ! isset( $_GET['page'] ) || 'flamingo_inbound' !== $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return;
+	}
+
+	$user = wp_get_current_user();
+
+	if ( ! $user || ! in_array( 'limited_flamingo_viewer', (array) $user->roles, true ) ) {
+		return;
+	}
+
+	$allowed_form = 'New Form';
+
+	$query->set(
+		'meta_query',
+		array(
+			array(
+				'key'     => '_subject',
+				'value'   => $allowed_form,
+				'compare' => '=',
+			),
+		)
+	);
+}
+add_action( 'pre_get_posts', 'dd_filter_flamingo_messages_by_form' );
+
+
+function dd_redirect_limited_flamingo_viewer_after_login( $redirect_to, $request, $user ) {
+	if ( ! $user instanceof WP_User ) {
+		return $redirect_to;
+	}
+
+	if ( in_array( 'limited_flamingo_viewer', (array) $user->roles, true ) ) {
+		return admin_url( '/' );
+	}
+
+	return $redirect_to;
+}
+add_filter( 'login_redirect', 'dd_redirect_limited_flamingo_viewer_after_login', 10, 3 );
+
+
+function dd_block_security_settings_page() {
+
+	$user = wp_get_current_user();
+	if ( ! $user || ! in_array( 'limited_flamingo_viewer', (array) $user->roles, true ) ) {
+		return;
+	}
+
+	$current_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+	// If the user tries to access the XML-RPC Security page, redirect them to the dashboard
+	if ( 'Security Settings' === $current_page ) {
+		wp_safe_redirect( admin_url( '/' ) );
+		exit;
+	}
+}
+add_action( 'admin_init', 'dd_block_security_settings_page' );
+
+// DEBUG INFO DISPLAY
+// add_action( 'admin_notices', function() {
+// 	$user = wp_get_current_user();
+// 	if ( in_array( 'limited_flamingo_viewer', (array) $user->roles, true ) ) {
+// 		echo '<div style="background: yellow; padding: 20px; margin: 20px;">';
+// 		echo '<strong>DEBUG INFO:</strong><br>';
+// 		echo 'User ID: ' . $user->ID . '<br>';
+// 		echo 'Roles: ' . implode( ', ', $user->roles ) . '<br>';
+// 		echo 'Has flamingo_edit_inbound_messages: ' . ( $user->has_cap( 'flamingo_edit_inbound_messages' ) ? 'YES' : 'NO' ) . '<br>';
+// 		echo 'Has read: ' . ( $user->has_cap( 'read' ) ? 'YES' : 'NO' ) . '<br>';
+// 		echo 'Has edit_posts: ' . ( $user->has_cap( 'edit_posts' ) ? 'YES' : 'NO' ) . '<br>';
+// 		echo '</div>';
+// 	}
+
+// 	global $menu;
+// 	echo '<div style="background: yellow; padding: 20px; margin: 20px;">';
+//     foreach ( $menu as $item ) {
+//         echo json_encode( $item ) . '<br>';
+//     }
+// 	echo '</div>';
+// });
+
