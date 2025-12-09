@@ -54,7 +54,7 @@ $general_settings = get_field( 'general_settings', 'option' ); ?>
 						endif; ?>
 					</div>
 
-					<?php if ( $general_settings['secondary_logo'] ) : ?>
+					<?php /* if ( $general_settings['secondary_logo'] ) : ?>
 						<div class="secondary-logo flex align-items-center justify-content-end col-6">
 							<div class="m-hide">
 								<?php if ( $general_settings['secondary_logo']['link'] ) : ?>
@@ -66,7 +66,7 @@ $general_settings = get_field( 'general_settings', 'option' ); ?>
 								<?php endif; ?>
 							</div>
 						</div>
-					<?php endif; ?>
+					<?php endif; */ ?>
 
 				</div>
 
