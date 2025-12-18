@@ -436,8 +436,8 @@ jQuery(document).ready(function ($) {
 		validateForm("#feedbackForm");
 	}
 
-	if ($("#newForm").length > 0) {
-		validateForm("#newForm");
+	if ($("#uploadsForm").length > 0) {
+		validateForm("#uploadsForm");
 	}
 
 	// function removeFormMsgClasses() {

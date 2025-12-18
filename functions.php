@@ -730,7 +730,7 @@ function dd_filter_flamingo_messages_by_form( $query ) {
 		return;
 	}
 
-	$allowed_form = 'New Form';
+	$allowed_form = 'Uploads Form';
 
 	$query->set(
 		'meta_query',
