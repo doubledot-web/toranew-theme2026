@@ -787,6 +787,47 @@ function dd_remove_edit_profile_from_admin_bar( $wp_admin_bar ) {
 }
 add_action( 'admin_bar_menu', 'dd_remove_edit_profile_from_admin_bar', 999 );
 
+
+function tora_cf7_attach_all_uploaded_files( $components ) {
+
+	$submission = WPCF7_Submission::get_instance();
+
+	if ( ! $submission ) {
+		return $components;
+	}
+
+	$uploaded_files = $submission->uploaded_files();
+	$attachments    = array();
+
+	foreach ( $uploaded_files as $files ) {
+
+		if ( is_array( $files ) ) {
+
+			foreach ( $files as $file ) {
+
+				if ( is_string( $file ) && file_exists( $file ) ) {
+					$attachments[] = $file;
+				}
+			}
+		} elseif ( is_string( $files ) && file_exists( $files ) ) {
+			$attachments[] = $files;
+		}
+	}
+
+	if ( ! empty( $attachments ) ) {
+		$components['attachments'] = array_unique(
+			array_merge(
+				(array) $components['attachments'],
+				$attachments
+			)
+		);
+	}
+
+	return $components;
+}
+
+add_filter( 'wpcf7_mail_components', 'tora_cf7_attach_all_uploaded_files' );
+
 // DEBUG INFO DISPLAY
 // add_action( 'admin_notices', function() {
 // 	$user = wp_get_current_user();
