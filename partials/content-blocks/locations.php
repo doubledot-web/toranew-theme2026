@@ -95,7 +95,7 @@ $locations = $tora_b2c->locations['args']; ?>
 			</div>
 
 			<div id="map-loader">
-				<h2>Εύρεση σημείων</h2>
+				<h2><?php _e( 'Εύρεση σημείων', 'tora_ddot' ); ?></h2>
 				<img src="<?php echo esc_url( $locations['map_loader'] ); ?>">
 			</div>
 
