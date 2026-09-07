@@ -11,7 +11,13 @@
 	<meta name="theme-color" content="#fff">
 
 	<?php wp_head(); ?>
+	<?php
+	$environment_host = strtolower( (string) wp_parse_url( home_url(), PHP_URL_HOST ) );
+	$is_live_environment = in_array( $environment_host, array( 'tora.gr', 'www.tora.gr' ), true );
+	$is_uat_environment  = 'uat.tora.gr' === $environment_host;
+	?>
 
+	<?php if ( $is_live_environment ) : ?>
 	<!-- Google Tag Manager - tora.gr -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -19,6 +25,13 @@
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','GTM-PJ85B42');</script>
 	<!-- End Google Tag Manager -->
+	<?php endif; ?>
+
+	<?php if ( $is_uat_environment ) : ?>
+	<!-- Clarity.microsoft - tora.gr -->
+	<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","wja2bkgoeo");</script>
+	<!-- End Clarity.microsoft -->
+	<?php endif; ?>
 </head>
 
 <?php
@@ -26,10 +39,12 @@ $general_settings = get_field( 'general_settings', 'option' ); ?>
 
 <body <?php body_class(); ?> itemscope itemtype="http://schema.org/WebPage">
 
+	<?php if ( $is_live_environment ) : ?>
 	<!-- Google Tag Manager (noscript) - tora.gr -->
 	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJ85B42"
 	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<!-- End Google Tag Manager (noscript) -->
+	<?php endif; ?>
 
 	<div id="container"> <?php // closes in footer.php ?>
 
