@@ -24,8 +24,18 @@ $locations = $tora_b2c->locations['args']; ?>
 
 									<?php
 									$location_categories = get_field( 'location_categories' );
+
+									// fall back to the default-language page's picked categories if this translated page has none set (WPML doesn't carry ACF taxonomy field values over to translations)
+									if ( empty( $location_categories ) && has_filter( 'wpml_object_id' ) ) {
+										$default_lang = apply_filters( 'wpml_default_language', null );
+										$original_id  = apply_filters( 'wpml_object_id', get_the_ID(), get_post_type(), true, $default_lang );
+										if ( $original_id && $original_id != get_the_ID() ) {
+											$location_categories = get_field( 'location_categories', $original_id );
+										}
+									}
+
 									$categories = [];
-									foreach ( $location_categories as $category ) :
+									foreach ( (array) $location_categories as $category ) :
 										$categories[] = $category;
 									endforeach;
 									?>

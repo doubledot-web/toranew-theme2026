@@ -155,9 +155,37 @@ class Components
 		// if ( ! page_has_template( 'locations' ) ) { return; }
 
 		$categ_data = location_categories_data();
+
+		// TEMP FIX (map/switches empty on translated pages): WPML filters get_terms() to the current
+		// language via its own 'get_terms' hook (not covered by suppress_filters), so untranslated
+		// location-category terms vanish entirely instead of falling back. Temporarily switch to the
+		// default language via WPML's official API, re-fetch, then switch back.
+		if ( empty( $categ_data ) && has_action( 'wpml_switch_language' ) ) {
+			$default_lang = apply_filters( 'wpml_default_language', null );
+			do_action( 'wpml_switch_language', $default_lang );
+
+			$original_terms = get_terms( array(
+				'taxonomy'   => 'location-category',
+				'hide_empty' => true,
+			) );
+
+			do_action( 'wpml_switch_language', null ); // restore the request's original language
+
+			$categ_data = array();
+			foreach ( $original_terms as $term ) {
+				$active = ! isset( $_GET['categories'] ) || in_array( $term->term_id, $_GET['categories'] );
+
+				$categ_data[] = array(
+					'id'      => $term->term_id,
+					'name'    => $term->name,
+					'checked' => $active ? 'checked="checked"' : false,
+				);
+			}
+		}
+
 		$categories = array();
 
-		if ( $categ_data = location_categories_data() ) {
+		if ( $categ_data ) {
 			foreach ( $categ_data as $category ) {
 				$enabled = get_theme_mod( 'show_map_filter_' . $category['id'], false );
 
@@ -166,6 +194,12 @@ class Components
 				if ( $enabled ) { $categories[] = $category; }
 			}
 		}
+
+		// TEMP DEBUG (locations map/switches missing on /en/) - remove once root cause is confirmed
+		do_debug( 'Components::locations() - REQUEST_URI=' . $_SERVER['REQUEST_URI']
+			. ' | categ_data_count=' . count( (array) $categ_data )
+			. ' | categories_count=' . count( $categories )
+			. ' | categ_data=' . print_r( $categ_data, true ) );
 
 		$args = array(
 			'actions' => 'main_content',
