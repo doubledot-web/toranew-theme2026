@@ -178,6 +178,9 @@ class Theme
 	public function localize_scripts() {
 		$options = get_option( 'locations_api_settings' );
 
+		// TEMP FIX (locations map empty on /en/): WPML prepends the language to home_url(), but /wp-json isn't registered under a language prefix - bypass it with the raw siteurl. Revisit with a proper WPML REST exclusion if this pattern spreads.
+		$locations_url_no_lang = untrailingslashit( get_option( 'siteurl' ) ) . '/wp-json/posts/locations';
+
 		$data = array(
 			'ajax_url'             => admin_url( 'admin-ajax.php' ),
 			'events_title'         => __( 'Events Today', TORA_B2C_TEXTDOMAIN ),
@@ -185,7 +188,8 @@ class Theme
 			'cluster_icon'         => get_stylesheet_directory_uri() .'/images/cluster.svg',
 			'events_url'           => get_rest_url( null, '/posts/events' ),
 			'event_categories_url' => get_rest_url( null, '/categories/events' ),
-			'locations_url'        => get_rest_url( null, '/posts/locations' ),
+			//'locations_url'        => get_rest_url( null, '/posts/locations' ),
+			'locations_url'        => $locations_url_no_lang,
 			'map_link_text'        => __( 'Get directions', TORA_B2C_TEXTDOMAIN ),
 			'map_tel_text'         => __( 'Tel', TORA_B2C_TEXTDOMAIN ),
 			'opap_store_icon'	   => get_stylesheet_directory_uri() .'/images/allwyn-store-poi-small2.png',
