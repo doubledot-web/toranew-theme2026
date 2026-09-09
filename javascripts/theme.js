@@ -939,11 +939,14 @@
 				infowindow.setContent(marker.html);
 				// This adds a manual bubble
 				// addExtraSpanOnWindow();
-				map.panTo(this.getPosition());
+				var markerPosition = this.getPosition();
+				map.panTo(markerPosition);
 				var current_zoom = map.getZoom();
 				if (current_zoom && current_zoom < 15) {
 					function fcz() {
 						map.setZoom(current_zoom);
+						// re-center each step, otherwise setZoom fights the still-animating panTo and the marker drifts off-center
+						map.panTo(markerPosition);
 						current_zoom++;
 						if (current_zoom < 15) {
 							setTimeout(fcz, 50);
